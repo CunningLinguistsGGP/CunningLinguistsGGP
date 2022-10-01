@@ -19,7 +19,9 @@ public class PlayerScript : MonoBehaviour
     //Mouse Look Variables
     [SerializeField] private float mouseSens = 100f;
     private float xRotation = 0f;
-
+    
+    public float currentHealth = 5;
+    
     // Start is called before the first frame update
     private void Start()
     {
