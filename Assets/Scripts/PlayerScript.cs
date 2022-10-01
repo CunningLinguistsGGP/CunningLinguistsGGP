@@ -6,7 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
     //Movement Variables
     private CharacterController controller;
-    private Camera camera;
+    private new Camera camera;
     private Vector3 velocity;
     private Transform groundCheck;
     private float groundDistance = 0.4f;
