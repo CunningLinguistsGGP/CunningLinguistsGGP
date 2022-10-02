@@ -9,19 +9,35 @@ public class Enemy : MonoBehaviour
     public float enemyCooldown;
     public float damage;
 
+    private float timer;
     private bool playerInRange;
-
+    
     private UnityEngine.AI.NavMeshAgent agent;
     private GameObject player;
+    private PlayerScript playerHealth;
     
     private void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<PlayerScript>();
     }
     
     private void Update()
     {
+        timer += Time.deltaTime;
+
+        if (timer >= enemyCooldown && playerInRange )
+        {
+            Attack();
+            Debug.Log(playerHealth.currentHealth);
+        }
+
+        if(playerHealth.currentHealth <= 0)
+        {
+            Debug.Log("Dead");
+        }
+        
         if (player != null)
         {
             agent.destination = player.transform.position;
@@ -36,27 +52,27 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if(other.gameObject == player)
         {
-            player.gameObject.GetComponent<PlayerScript>().currentHealth -= damage;
-            StartCoroutine(AttackCooldown());
-            Debug.Log(player.gameObject.GetComponent<PlayerScript>().currentHealth);
+            playerInRange = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if(other.gameObject == player)
         {
-            agent.isStopped = false;
-            Debug.Log("left");
+            playerInRange = false;
         }
     }
 
-    IEnumerator AttackCooldown()
+    private void Attack()
     {
-        playerInRange = false;
-        yield return new WaitForSeconds(enemyCooldown);
-        playerInRange = true;
+        timer = 0f;
+
+        if (playerHealth.currentHealth > 0)
+        {
+            playerHealth.currentHealth -= damage;
+        }
     }
 }
