@@ -11,13 +11,13 @@ public class PlayerScript : MonoBehaviour
     private Transform groundCheck;
     private float groundDistance = 0.4f;
     private LayerMask groundMask;
-    [SerializeField] private bool isGrounded;
+    private bool isGrounded;
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = -9.81f;
 
     //Mouse Look Variables
-    [SerializeField] private float mouseSens = 100f;
+    private float mouseSens = 1000f;
     private float xRotation = 0f;
     
     public float currentHealth = 5;
@@ -81,5 +81,15 @@ public class PlayerScript : MonoBehaviour
         groundCheck = gameObject.transform.Find("GroundCheck");
         camera = gameObject.GetComponentInChildren<Camera>();
         controller = gameObject.GetComponent<CharacterController>();
+    }
+
+    public float GetMouseSens()
+    {
+        return mouseSens;
+    }
+
+    public float SetMouseSens(float value)
+    {
+        return mouseSens = value;
     }
 }
