@@ -1458,11 +1458,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5612827705167186739, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
   m_PrefabInstance: {fileID: 7052395451990790913}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &601600751 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1751244257236272476, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
+--- !u!114 &601600753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
   m_PrefabInstance: {fileID: 7052395451990790913}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73427e5d7b7027f4e91b813a368c548c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &625722428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,6 +1594,7 @@ GameObject:
   - component: {fileID: 734864474}
   - component: {fileID: 734864473}
   - component: {fileID: 734864472}
+  - component: {fileID: 734864476}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1678,6 +1685,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &734864476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734864471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a414a6356fa2f47bf97465eadc061f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausePanel: {fileID: 1567753911}
 --- !u!4 &864314378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6492769760451420603, guid: 45d6bb8e7dda47a4d86802b2cb010974, type: 3}
@@ -2306,13 +2326,13 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601600751}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 601600753}
+        m_TargetAssemblyTypeName: PlayerScript, Assembly-CSharp
+        m_MethodName: SetMouseSens
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

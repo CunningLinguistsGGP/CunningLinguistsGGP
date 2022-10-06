@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     //Mouse Look Variables
     private float mouseSens = 1000f;
     private float xRotation = 0f;
-    
+
     public float currentHealth = 5;
     
     // Start is called before the first frame update
@@ -83,13 +84,8 @@ public class PlayerScript : MonoBehaviour
         controller = gameObject.GetComponent<CharacterController>();
     }
 
-    public float GetMouseSens()
+    public void SetMouseSens(float value)
     {
-        return mouseSens;
-    }
-
-    public float SetMouseSens(float value)
-    {
-        return mouseSens = value;
+        mouseSens = value;
     }
 }
