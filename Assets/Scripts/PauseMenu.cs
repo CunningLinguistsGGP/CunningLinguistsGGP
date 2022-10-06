@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pausePanel;
+    private Transform pausePanel;
     private bool isPaused;
+
+    private void Start()
+    {
+        GetComponentsInGameObject();
+    }
 
     // Update is called once per frame
     private void Update()
     {
         OpenPauseMenu();
+    }
+
+    private void GetComponentsInGameObject()
+    {
+        pausePanel = transform.Find("Options");
     }
 
     private void OpenPauseMenu()
@@ -21,13 +31,13 @@ public class PauseMenu : MonoBehaviour
 
             if(isPaused)
             {
-                pausePanel.SetActive(true);
+                pausePanel.gameObject.SetActive(true);
                 Time.timeScale = 0;
                 Cursor.lockState = CursorLockMode.None;
             }
             else
             {
-                pausePanel.SetActive(false);
+                pausePanel.gameObject.SetActive(false);
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
             }

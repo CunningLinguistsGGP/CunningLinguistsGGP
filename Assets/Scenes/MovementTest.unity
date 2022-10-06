@@ -1697,7 +1697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a414a6356fa2f47bf97465eadc061f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanel: {fileID: 1567753911}
 --- !u!4 &864314378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6492769760451420603, guid: 45d6bb8e7dda47a4d86802b2cb010974, type: 3}
@@ -2344,7 +2343,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13060
+  m_Name: pb_Mesh-1264
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2711,6 +2710,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 594294198}
     - target: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
+      propertyPath: dashDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
+      propertyPath: maxDashAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
       propertyPath: groundMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -2764,7 +2771,7 @@ PrefabInstance:
       objectReference: {fileID: 1881828515}
     - target: {fileID: 9159823136122370385, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
       propertyPath: m_VersionIndex
-      value: 110
+      value: 122
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
