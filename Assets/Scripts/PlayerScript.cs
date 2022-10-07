@@ -11,15 +11,23 @@ public class PlayerScript : MonoBehaviour
     private Transform groundCheck;
     private float groundDistance = 0.4f;
     private LayerMask groundMask;
-    [SerializeField] private bool isGrounded;
+    private bool isGrounded;
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = -9.81f;
 
     //Mouse Look Variables
-    [SerializeField] private float mouseSens = 100f;
+    private float mouseSens = 1000f;
     private float xRotation = 0f;
-    
+
+    //Dashing Variables
+    [SerializeField] private int dashAmount;
+    [SerializeField] private int maxDashAmount;
+    [SerializeField] private float dashDistance = 24f;
+    [SerializeField] private float currentDashCD = 1f;
+    [SerializeField] private float maxDashCD = 1f;
+    private Vector3 destination;
+
     public float currentHealth = 5;
     
     // Start is called before the first frame update
@@ -28,6 +36,8 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         GetComponentsInGameObject();
+
+        dashAmount = maxDashAmount;
     }
 
     // Update is called once per frame
@@ -35,6 +45,7 @@ public class PlayerScript : MonoBehaviour
     {
         MouseLook();
         Movement();
+        Dash();
     }
 
     private void MouseLook()
@@ -75,11 +86,42 @@ public class PlayerScript : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    private void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashAmount >= 1)
+        {
+            dashAmount -= 1;
+
+            destination = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
+
+            controller.Move(destination * dashDistance);
+        }
+
+        //Dash Recharge
+        if(dashAmount < maxDashAmount)
+        {
+            if(currentDashCD > 0)
+            {
+                currentDashCD -= Time.deltaTime;
+            }
+            else
+            {
+                dashAmount += 1;
+                currentDashCD = maxDashCD;
+            }
+        }
+    }
+
     private void GetComponentsInGameObject()
     {
         groundMask = LayerMask.GetMask("Ground");
         groundCheck = gameObject.transform.Find("GroundCheck");
         camera = gameObject.GetComponentInChildren<Camera>();
         controller = gameObject.GetComponent<CharacterController>();
+    }
+
+    public void SetMouseSens(float value)
+    {
+        mouseSens = value;
     }
 }
