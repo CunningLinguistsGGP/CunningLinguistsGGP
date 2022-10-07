@@ -24,8 +24,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int dashAmount;
     [SerializeField] private int maxDashAmount;
     [SerializeField] private float dashDistance = 24f;
-    [SerializeField] private float dashCD = 1f;
-    [SerializeField] private float CD = 1f;
+    [SerializeField] private float currentDashCD = 1f;
+    [SerializeField] private float maxDashCD = 1f;
     private Vector3 destination;
 
     public float currentHealth = 5;
@@ -84,7 +84,6 @@ public class PlayerScript : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
     }
 
     private void Dash()
@@ -101,14 +100,14 @@ public class PlayerScript : MonoBehaviour
         //Dash Recharge
         if(dashAmount < maxDashAmount)
         {
-            if(dashCD > 0)
+            if(currentDashCD > 0)
             {
-                dashCD -= Time.deltaTime;
+                currentDashCD -= Time.deltaTime;
             }
             else
             {
                 dashAmount += 1;
-                dashCD = CD;
+                currentDashCD = maxDashCD;
             }
         }
     }
