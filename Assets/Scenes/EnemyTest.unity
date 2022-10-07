@@ -2062,6 +2062,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 594294198}
     - target: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
+      propertyPath: maxDashAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
       propertyPath: groundMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
