@@ -2050,6 +2050,10 @@ PrefabInstance:
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
+      propertyPath: deathTimer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384942090387592298, guid: 3e964a293e8cbad47b781391b9d1b3e7, type: 3}
       propertyPath: isGrounded
       value: 1
       objectReference: {fileID: 0}

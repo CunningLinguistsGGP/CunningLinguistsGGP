@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 1442e0718d663364abe41f48e248bf91, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e4a176289f4d54e439953427262355a7, type: 2}
 --- !u!43 &166376246
 Mesh:
   m_ObjectHideFlags: 0
@@ -34570,12 +34570,12 @@ GameObject:
   - component: {fileID: 323092005}
   - component: {fileID: 323092004}
   - component: {fileID: 323092003}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PolyShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &323092003
 MeshCollider:
@@ -34714,7 +34714,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-54838
+  m_Name: pb_Mesh24402
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35061,12 +35061,12 @@ GameObject:
   - component: {fileID: 705196900}
   - component: {fileID: 705196899}
   - component: {fileID: 705196898}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stairs (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &705196898
 MeshCollider:
@@ -42858,7 +42858,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-29900
+  m_Name: pb_Mesh24350
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -43188,12 +43188,12 @@ GameObject:
   - component: {fileID: 849367617}
   - component: {fileID: 849367616}
   - component: {fileID: 849367615}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &849367615
 MeshCollider:
@@ -50985,7 +50985,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61410
+  m_Name: pb_Mesh24366
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -51157,12 +51157,12 @@ GameObject:
   - component: {fileID: 1018524223}
   - component: {fileID: 1018524222}
   - component: {fileID: 1018524221}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PolyShape (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1018524221
 MeshCollider:
@@ -52043,7 +52043,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-64952
+  m_Name: pb_Mesh24322
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -52247,12 +52247,12 @@ GameObject:
   - component: {fileID: 1270556056}
   - component: {fileID: 1270556055}
   - component: {fileID: 1270556054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PolyShape (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1270556054
 MeshCollider:
@@ -54867,12 +54867,12 @@ GameObject:
   - component: {fileID: 1346988007}
   - component: {fileID: 1346988006}
   - component: {fileID: 1346988005}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PolyShape (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1346988005
 MeshCollider:
@@ -55385,7 +55385,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7790
+  m_Name: pb_Mesh24290
   serializedVersion: 10
   m_SubMeshes: []
   m_Shapes:
@@ -55924,7 +55924,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-8722
+  m_Name: pb_Mesh24388
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

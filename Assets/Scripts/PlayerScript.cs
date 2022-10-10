@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
     //Movement Variables
     private CharacterController controller;
+    private PlayerScript playerScript;
     private new Camera camera;
     private Vector3 velocity;
     private Transform groundCheck;
@@ -28,7 +32,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float maxDashCD = 1f;
     private Vector3 destination;
 
-    public float currentHealth = 5;
+    // Player health + death
+    public float currentHealth = 5f;
+    public float deathTimer = 2f;
+    public TextMeshProUGUI gameOver;
+    public Image crossHair;
     
     // Start is called before the first frame update
     private void Start()
@@ -46,6 +54,7 @@ public class PlayerScript : MonoBehaviour
         MouseLook();
         Movement();
         Dash();
+        Dead();
     }
 
     private void MouseLook()
@@ -118,10 +127,29 @@ public class PlayerScript : MonoBehaviour
         groundCheck = gameObject.transform.Find("GroundCheck");
         camera = gameObject.GetComponentInChildren<Camera>();
         controller = gameObject.GetComponent<CharacterController>();
+        playerScript = gameObject.GetComponent<PlayerScript>();
     }
 
     public void SetMouseSens(float value)
     {
         mouseSens = value;
+    }
+
+    private void Dead()
+    {
+        if(currentHealth <= 0)
+        {
+            crossHair.enabled = false;
+            gameOver.enabled = true;
+            controller.enabled = false;
+            playerScript.enabled = false;
+            StartCoroutine(DeathDelay());
+        }
+    }
+ 
+    IEnumerator DeathDelay()
+    {
+        yield return new WaitForSeconds(deathTimer);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
