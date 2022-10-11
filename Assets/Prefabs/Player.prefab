@@ -52,8 +52,8 @@ MonoBehaviour:
   jumpHeight: 5
   gravity: -9.81
   dashAmount: 0
-  maxDashAmount: 0
-  dashDistance: 24
+  maxDashAmount: 2
+  dashDistance: 5
   currentDashCD: 1
   maxDashCD: 1
   currentHealth: 5
