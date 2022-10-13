@@ -56,7 +56,7 @@ MonoBehaviour:
   dashDistance: 5
   currentDashCD: 1
   maxDashCD: 1
-  currentHealth: 5
+  currentHealth: 30
   deathTimer: 2
   gameOver: {fileID: 0}
   crossHair: {fileID: 0}
