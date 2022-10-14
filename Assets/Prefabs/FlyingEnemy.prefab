@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3254629591206926541}
   - component: {fileID: 3254629591206926540}
   - component: {fileID: 3254629591206926531}
+  - component: {fileID: -2347162209747766165}
   m_Layer: 0
   m_Name: FlyingEnemy
   m_TagString: Untagged
@@ -213,7 +214,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 8
+  m_VersionIndex: 17
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -315,7 +316,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 7
   m_Center: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!114 &3254629591206926531
 MonoBehaviour:
@@ -332,3 +333,16 @@ MonoBehaviour:
   radius: 3
   enemyCooldown: 3
   damage: 3
+--- !u!114 &-2347162209747766165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254629591206926530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c681e6fa8eaed6f44a2ea93df7b27f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100

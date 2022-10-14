@@ -26,8 +26,8 @@ public class PlayerScript : MonoBehaviour
 
     //Dashing Variables
     [SerializeField] private int dashAmount;
-    [SerializeField] private int maxDashAmount;
-    [SerializeField] private float dashDistance = 24f;
+    [SerializeField] private int maxDashAmount = 2;
+    [SerializeField] private float dashDistance = 5f;
     [SerializeField] private float currentDashCD = 1f;
     [SerializeField] private float maxDashCD = 1f;
     private Vector3 destination;
@@ -86,7 +86,7 @@ public class PlayerScript : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -97,7 +97,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashAmount >= 1)
+        if (Input.GetButtonDown("Dash") && dashAmount >= 1)
         {
             dashAmount -= 1;
 

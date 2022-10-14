@@ -25,7 +25,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OpenPauseMenu()
     {
-        if(Input.GetKeyDown(KeyCode.O))
+        if(Input.GetButtonDown("Pause"))
         {
             isPaused = !isPaused;
 
