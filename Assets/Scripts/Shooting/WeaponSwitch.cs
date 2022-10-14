@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour
 {
-    [Serializedfield] private 
+    [SerializeField] private GameObject[] gameObjects;
+    private int currentActive = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            if (i == currentActive)
+                gameObjects[i].SetActive(true);
+            else
+                gameObjects[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -23,6 +30,19 @@ public class WeaponSwitch : MonoBehaviour
 
     void Switch()
     {
-
+        if(Input.GetAxis("WeaponSwitch")>0)
+        {
+            gameObjects[currentActive].SetActive(false);
+            currentActive++;
+            currentActive%=gameObjects.Length;
+            gameObjects[currentActive].SetActive(true);
+        }
+        else if(Input.GetAxis("WeaponSwitch") < 0)
+        {
+            gameObjects[currentActive].SetActive(false);
+            currentActive--;
+            currentActive %= gameObjects.Length;
+            gameObjects[currentActive].SetActive(true);
+        }
     }
 }

@@ -313,14 +313,14 @@ InputManager:
     m_Name: WeaponSwitch
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: e
-    positiveButton: q
+    negativeButton: q
+    positiveButton: e
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
-    snap: 0
+    snap: 1
     invert: 0
     type: 0
     axis: 0
