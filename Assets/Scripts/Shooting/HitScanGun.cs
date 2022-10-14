@@ -8,7 +8,8 @@ public class HitScanGun : MonoBehaviour
     [SerializeField] private float range = 100.0f;
     [SerializeField] private float shots = 1;
     [SerializeField] private float armorPen = 0.0f;
-    [SerializeField] private float coneAngle = 3.0f;
+    [SerializeField] private  float coneAngle = 3.0f;
+    private float shotDeviation = 0.0f;
 
     [SerializeField] private Camera aimCam;
     [SerializeField] private float shootCooldown = 1.0f;
@@ -20,6 +21,7 @@ public class HitScanGun : MonoBehaviour
     void Start()
     {
         audioShot = GetComponent<AudioSource>();
+        shotDeviation = Mathf.Tan(coneAngle);
     }
 
     // Update is called once per frame
@@ -33,13 +35,18 @@ public class HitScanGun : MonoBehaviour
 
     void Shoot()
     {
+        Vector3 forward = aimCam.transform.forward;
+        Vector3 up = aimCam.transform.up;
+        Vector3 right = aimCam.transform.right;
+        Vector3 rayDir = forward;
+
         RaycastHit hit;
         if(lastShotTime+shootCooldown<Time.time)
         {
             audioShot.Play();
             if (shots == 1)
             {
-                if (Physics.Raycast(aimCam.transform.position, aimCam.transform.forward, out hit, range))
+                if (Physics.Raycast(aimCam.transform.position, rayDir, out hit, range))
                 {
                     Target target = hit.transform.GetComponent<Target>();
                     if (target != null)
@@ -52,7 +59,8 @@ public class HitScanGun : MonoBehaviour
             {
                 for (int i = 0; i < shots; i++)
                 {
-                    if (Physics.Raycast(aimCam.transform.position, aimCam.transform.forward, out hit, range))
+                    rayDir = Vector3.Normalize(forward+shotDeviation * (Random.Range(-1.0f, 1.0f) * right + Random.Range(-1.0f, 1.0f) * up));
+                    if (Physics.Raycast(aimCam.transform.position, rayDir, out hit, range))
                     {
                         Target target = hit.transform.GetComponent<Target>();
                         if (target != null)
