@@ -32,7 +32,7 @@ public class HitScanGun : MonoBehaviour
             Shoot();
         }
     }
-
+    
     void Shoot()
     {
         Vector3 forward = aimCam.transform.forward;
