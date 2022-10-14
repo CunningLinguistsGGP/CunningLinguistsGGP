@@ -8,7 +8,9 @@ public class HitScanGun : MonoBehaviour
     [SerializeField] private float range = 100.0f;
     [SerializeField] private float shots = 1;
     [SerializeField] private float armorPen = 0.0f;
-    [SerializeField] private  float coneAngle = 3.0f;
+    [SerializeField] private float coneAngle = 3.0f;
+    [SerializeField] private GameObject mzzlFlash;
+    private ParticleSystem flash;
     private float shotDeviation = 0.0f;
 
     [SerializeField] private Camera aimCam;
@@ -20,6 +22,7 @@ public class HitScanGun : MonoBehaviour
     private float lastShotTime = 0.0f;
     void Start()
     {
+        flash = mzzlFlash.GetComponent<ParticleSystem>();
         audioShot = GetComponent<AudioSource>();
         shotDeviation = Mathf.Tan(coneAngle);
     }
@@ -43,6 +46,8 @@ public class HitScanGun : MonoBehaviour
         RaycastHit hit;
         if(lastShotTime+shootCooldown<Time.time)
         {
+            flash.Stop();
+            flash.Play();
             audioShot.Play();
             if (shots == 1)
             {
