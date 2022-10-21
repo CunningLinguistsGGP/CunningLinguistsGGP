@@ -1423,9 +1423,9 @@ MonoBehaviour:
   damage: 3
   range: 100
   shots: 7
-  armorPen: 0
   coneAngle: 3
   mzzlFlash: {fileID: 6145584013900378617}
+  hitPrefab: {fileID: 4478694189454593795, guid: 81c2f88deab2fea4dae978cce0d1cb5d, type: 3}
   aimCam: {fileID: 0}
   shootCooldown: 1
   audioShot: {fileID: 0}
