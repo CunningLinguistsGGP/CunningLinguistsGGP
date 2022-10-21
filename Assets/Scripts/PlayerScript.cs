@@ -12,13 +12,13 @@ public class PlayerScript : MonoBehaviour
     private PlayerScript playerScript;
     private new Camera camera;
     private Vector3 velocity;
-    private Transform groundCheck;
-    private float groundDistance = 0.4f;
-    private LayerMask groundMask;
-    private bool isGrounded;
     [SerializeField] private float speed = 10f;
+
+    //Jump Variables
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private bool canDoubleJump;
+    private bool doubleJumpEnabled;
 
     //Mouse Look Variables
     private float mouseSens = 1000f;
@@ -27,13 +27,15 @@ public class PlayerScript : MonoBehaviour
     //Dashing Variables
     [SerializeField] private int dashAmount;
     [SerializeField] private int maxDashAmount = 2;
-    [SerializeField] private float dashDistance = 5f;
     [SerializeField] private float currentDashCD = 1f;
     [SerializeField] private float maxDashCD = 1f;
+    [SerializeField] private float dashTime = 0.25f;
+    [SerializeField] private float dashSpeed = 20f;
     private Vector3 destination;
 
     // Player health + death
-    public float currentHealth = 5f;
+    public float currentHealth;
+    public float maxHealth = 30f;
     public float deathTimer = 2f;
     public TextMeshProUGUI gameOver;
     public Image crossHair;
@@ -45,6 +47,7 @@ public class PlayerScript : MonoBehaviour
 
         GetComponentsInGameObject();
 
+        currentHealth = maxHealth;
         dashAmount = maxDashAmount;
     }
 
@@ -53,6 +56,7 @@ public class PlayerScript : MonoBehaviour
     {
         MouseLook();
         Movement();
+        Jump();
         Dash();
         Dead();
     }
@@ -77,22 +81,44 @@ public class PlayerScript : MonoBehaviour
         Vector3 move = transform.right * xMovement + transform.forward * zMovement;
 
         controller.Move(move * Time.deltaTime * speed);
+    }
 
-        //Jumping
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y <= 0)
+    private void Jump()
+    {
+        if (controller.isGrounded && velocity.y <= 0)
         {
             velocity.y = -2f;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        if(controller.isGrounded)
+        {
+            if(doubleJumpEnabled)
+            {
+                canDoubleJump = true;
+            }
+
+            if (Input.GetButtonDown("Jump") && controller.isGrounded)
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+        }
+
+        else
+        {
+            if (Input.GetButtonDown("Jump") && canDoubleJump)
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                canDoubleJump = false;
+            }
+        }
+
+        if ((controller.collisionFlags & CollisionFlags.Above) != 0)
+        {
+            velocity.y = 0;
+        }
     }
 
     private void Dash()
@@ -101,9 +127,7 @@ public class PlayerScript : MonoBehaviour
         {
             dashAmount -= 1;
 
-            destination = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
-
-            controller.Move(destination * dashDistance);
+            StartCoroutine(DashCoroutine());
         }
 
         //Dash Recharge
@@ -123,8 +147,6 @@ public class PlayerScript : MonoBehaviour
 
     private void GetComponentsInGameObject()
     {
-        groundMask = LayerMask.GetMask("Ground");
-        groundCheck = gameObject.transform.Find("GroundCheck");
         camera = gameObject.GetComponentInChildren<Camera>();
         controller = gameObject.GetComponent<CharacterController>();
         playerScript = gameObject.GetComponent<PlayerScript>();
@@ -146,10 +168,54 @@ public class PlayerScript : MonoBehaviour
             StartCoroutine(DeathDelay());
         }
     }
- 
+
+    private IEnumerator DashCoroutine()
+    {
+        float startTime = Time.time;
+
+        destination = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
+
+        while (Time.time < startTime + dashTime)
+        {
+            controller.Move(destination * dashSpeed * Time.deltaTime);
+
+            yield return null; 
+        }
+    }
+
     IEnumerator DeathDelay()
     {
         yield return new WaitForSeconds(deathTimer);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public float GetHealth()
+    {
+        return maxHealth;
+    }
+
+    public float SetHealth(float increase)
+    {
+        return maxHealth += increase;
+    }
+
+    public int SetDashAmount(int increase)
+    {
+        return maxDashAmount += increase;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public float SetSpeed(float increase)
+    {
+        return speed += increase;
+    }
+
+    public bool SetDoubleJump(bool value)
+    {
+        return canDoubleJump = value;
     }
 }
