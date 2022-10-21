@@ -41,8 +41,7 @@ public class WeaponSwitch : MonoBehaviour
         {
             gameObjects[currentActive].SetActive(false);
             currentActive--;
-            if (currentActive < 0)
-                currentActive = gameObjects.Length - 1;
+            currentActive %= gameObjects.Length;
             gameObjects[currentActive].SetActive(true);
         }
     }
