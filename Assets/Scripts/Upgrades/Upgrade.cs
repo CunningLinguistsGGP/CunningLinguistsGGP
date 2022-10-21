@@ -5,12 +5,11 @@ using UnityEngine;
 public class Upgrade : MonoBehaviour
 {
     private PlayerScript player;
-
+    private Renderer renderer;
     private GameObject cube;
 
     private float speed = 50f;
-    private int upgradeType;
-    private int upgradeCount = 4;
+    [SerializeField] private int upgradeType;
 
     // Start is called before the first frame update
     void Start()
@@ -19,16 +18,34 @@ public class Upgrade : MonoBehaviour
 
         GetComponentsInGameObject();
 
-        upgradeType = Random.Range(1, upgradeCount);
+        switch (upgradeType)
+        {
+            case 1:
+                renderer.material.SetColor("_Color", Color.yellow);
+                break;
+            case 2:
+                renderer.material.SetColor("_Color", Color.blue);
+                break;
+            case 3:
+                renderer.material.SetColor("_Color", Color.yellow);
+                break;
+            case 4:
+                renderer.material.SetColor("_Color", Color.red);
+                break;
+            default:
+                break;
+        }
 
-        Debug.Log(upgradeType);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        cube.transform.Rotate(Vector3.up * speed * Time.deltaTime);
-        cube.transform.Rotate(Vector3.right * speed * Time.deltaTime);
+        cube.transform.RotateAround(transform.position, Vector3.up, speed * Time.deltaTime);
+        cube.transform.RotateAround(transform.position, Vector3.right, speed * Time.deltaTime);
+
+
     }
 
     private void AddUpgrade()
@@ -59,6 +76,8 @@ public class Upgrade : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
 
         cube = transform.Find("Cube").gameObject;
+
+        renderer = cube.GetComponent<Renderer>();
     }
 
     private void OnTriggerEnter(Collider other)

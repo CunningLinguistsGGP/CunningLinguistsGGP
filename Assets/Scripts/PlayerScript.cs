@@ -17,7 +17,7 @@ public class PlayerScript : MonoBehaviour
     //Jump Variables
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private bool canDoubleJump;
+    private bool canDoubleJump;
     private bool doubleJumpEnabled;
 
     //Mouse Look Variables
