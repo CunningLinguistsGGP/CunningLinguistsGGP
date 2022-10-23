@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8894459380292083864}
   - component: {fileID: 1160592784249498065}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: SpawnCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 436
+  m_VersionIndex: 439
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1922
+  m_VersionIndex: 1925
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5682,7 +5682,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 6543
+  m_VersionIndex: 6546
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8120,7 +8120,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 5671
+  m_VersionIndex: 5674
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8231,7 +8231,7 @@ GameObject:
   - component: {fileID: 1799000778507813699}
   - component: {fileID: 5058248395155137997}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: SpawnCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8464,7 +8464,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 439
+  m_VersionIndex: 442
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8852,7 +8852,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4596
+  m_VersionIndex: 4599
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8978,17 +8978,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     _json: '{"declarations":{"collection":{"$content":[{"name":"ExposeComp","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.Component,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"RemoveDoor","value":{"$content":1,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"SpawnLocations","value":{"$content":[2],"$type":"System.Collections.Generic.List`1[[UnityEngine.Component,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"RemoveDoor","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"typeHandle":{"Identification":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"SpawnLocations","value":{"$content":[1],"$type":"System.Collections.Generic.List`1[[UnityEngine.Component,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"typeHandle":{"Identification":"System.Collections.Generic.List`1[[UnityEngine.Component,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"SpawnEnemies","value":{"$content":[3],"$type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"SpawnEnemies","value":{"$content":[2],"$type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"typeHandle":{"Identification":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 7008744695398362384}
-    - {fileID: 5643834918973130276}
     - {fileID: 1598533226755213281}
     - {fileID: 5652830841211039683, guid: ac26cf2cb6290674e950bac2b2788a31, type: 3}
 --- !u!114 &2094777166415656614
@@ -9074,15 +9075,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8361727890905592681, guid: 0531c05772cf69341bcb611408199801, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3340
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0531c05772cf69341bcb611408199801, type: 3}
 --- !u!4 &4356068389642219855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3652684728410142889, guid: 0531c05772cf69341bcb611408199801, type: 3}
-  m_PrefabInstance: {fileID: 1063742824799783398}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5643834918973130276 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4652712655362527170, guid: 0531c05772cf69341bcb611408199801, type: 3}
   m_PrefabInstance: {fileID: 1063742824799783398}
   m_PrefabAsset: {fileID: 0}
