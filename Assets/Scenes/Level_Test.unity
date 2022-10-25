@@ -388,6 +388,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dad88c7b30324cf39fda8003078c22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Levels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Player: {fileID: 0}
+  Level_SpwanPoint: {fileID: 0}
   Black_Fade: {fileID: 716035918}
   Fade_speed: 0
 --- !u!4 &672660794
