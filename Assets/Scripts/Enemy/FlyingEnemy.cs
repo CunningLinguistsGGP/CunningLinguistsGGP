@@ -2,9 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class FlyingEnemy : MonoBehaviour
 {
+    public Rigidbody projectile;
+    public float range = 50.0f;
+    public float bulletImpulse = 20.0f;
+
     public float radius;
     public float enemyCooldown;
     public float damage;
@@ -12,15 +17,22 @@ public class Enemy : MonoBehaviour
     private float timer;
     private bool playerInRange;
     
-    private UnityEngine.AI.NavMeshAgent agent;
+    private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-    
+
+    private new Transform camera;
+
     private void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
+
+        if (Camera.main is not null)
+        {
+            camera = Camera.main.transform;
+        }
     }
     
     private void Update()
@@ -29,7 +41,7 @@ public class Enemy : MonoBehaviour
 
         if (timer >= enemyCooldown && playerInRange )
         {
-            Attack();
+            Shoot();
             Debug.Log(playerHealth.currentHealth);
         }
 
@@ -42,6 +54,8 @@ public class Enemy : MonoBehaviour
         {
             agent.destination = player.transform.position;
         }
+
+        transform.LookAt(camera);
     }
 
     private void OnDrawGizmosSelected()
@@ -66,13 +80,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Attack()
+    private void Shoot()
     {
         timer = 0f;
 
         if (playerHealth.currentHealth > 0)
         {
+            Rigidbody bullet = (Rigidbody)Instantiate(projectile, transform.position + transform.forward, transform.rotation);
+            bullet.AddForce(transform.forward * bulletImpulse, ForceMode.Impulse);
             playerHealth.currentHealth -= damage;
+            Destroy(bullet.gameObject, 2);
         }
     }
 }
