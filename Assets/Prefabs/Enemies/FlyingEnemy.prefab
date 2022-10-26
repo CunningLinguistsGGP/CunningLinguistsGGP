@@ -347,6 +347,14 @@ MonoBehaviour:
   radius: 3
   enemyCooldown: 3
   damage: 3
+  projectile: {fileID: 6741992260875857544, guid: 050fff7329030de4594ae66b8dfd9d5a, type: 3}
+  infiniteAmmo: 1
+  shootCooldown: 1
+  shotSpeed: 10
+  targetRange: 50
+  projectileSpawn: {fileID: 7075273163302505951}
+  mzzlFlash: {fileID: 5401747083369929808}
+  audioShot: {fileID: 0}
 --- !u!1001 &2287648582102003113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -469,5 +477,15 @@ PrefabInstance:
 --- !u!4 &1746739965517442865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 541266474488595096, guid: 110233bcf85b78644b0cfb0fd216fc99, type: 3}
+  m_PrefabInstance: {fileID: 2287648582102003113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5401747083369929808 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6145584013900378617, guid: 110233bcf85b78644b0cfb0fd216fc99, type: 3}
+  m_PrefabInstance: {fileID: 2287648582102003113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7075273163302505951 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9047510887662723190, guid: 110233bcf85b78644b0cfb0fd216fc99, type: 3}
   m_PrefabInstance: {fileID: 2287648582102003113}
   m_PrefabAsset: {fileID: 0}
