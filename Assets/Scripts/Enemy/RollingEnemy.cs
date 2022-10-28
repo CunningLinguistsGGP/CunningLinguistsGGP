@@ -17,7 +17,8 @@ public class RollingEnemy : MonoBehaviour
     private GameObject player;
     private PlayerScript playerHealth;
     private Rigidbody rb;
-
+    private RaycastHit hit;
+    
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -30,15 +31,22 @@ public class RollingEnemy : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        if (timer >= enemyCooldown && playerInRange )
+        {
+            Attack();
+            Debug.Log(playerHealth.currentHealth);
+        }
+        
         if(playerHealth.currentHealth <= 0)
         {
             Debug.Log("Dead");
         }
         
-        if (player != null)
+        if(player != null)
         {
-            agent.destination = player.transform.position;
-            rb.AddForce(agent.destination * Time.fixedDeltaTime);
+            transform.Rotate(Vector3.right * Time.deltaTime * Vector3.Magnitude(agent.velocity) * 360f / (2f * Mathf.PI * 10));
+            rb.MovePosition(agent.nextPosition + agent.velocity * Time.fixedDeltaTime);
+            agent.SetDestination(player.transform.position);
         }
     }
 
@@ -48,23 +56,40 @@ public class RollingEnemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (timer >= enemyCooldown && playerInRange)
+        if(other.gameObject == player)
         {
-            Attack();
-            Debug.Log(playerHealth.currentHealth);
+            playerInRange = true;
         }
     }
 
-
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject == player)
+        {
+            playerInRange = false;
+        }
+    }
+    
     private void Attack()
     {
         timer = 0f;
 
         if (playerHealth.currentHealth > 0)
         {
+            //agent.updatePosition = false;
+            //rb.isKinematic = false;
+            StartCoroutine(ChargeAttack());
             playerHealth.currentHealth -= damage;
         }
     }
+
+    IEnumerator ChargeAttack()
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(enemyCooldown);
+        agent.isStopped = false;
+    }
+    
 }
