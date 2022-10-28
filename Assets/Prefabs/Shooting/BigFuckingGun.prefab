@@ -2884,15 +2884,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 7915604516002414902, guid: 96d879218f594774693df10e899326bc, type: 3}
-  requiresReload: 0
-  infiniteAmmo: 1
-  shootCooldown: 1
+  requiresReload: 1
+  infiniteAmmo: 0
+  shootCooldown: 30
   shotSpeed: 10
-  shotDamage: 100
-  reloadTime: 2
+  reloadTime: 5
   targetRange: 50
-  launchDistFromBarrel: 0.5
-  magShots: 3
+  magShots: 1
   totalShots: 30
   projectileSpawn: {fileID: 4862088450219155798}
   mzzlFlash: {fileID: 0}
