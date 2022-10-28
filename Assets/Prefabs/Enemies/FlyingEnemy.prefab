@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c681e6fa8eaed6f44a2ea93df7b27f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 10
 --- !u!114 &5941060812779198529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   enemyCooldown: 3
-  damage: 3
   projectile: {fileID: 6741992260875857544, guid: 050fff7329030de4594ae66b8dfd9d5a, type: 3}
   shootCooldown: 1
   shotSpeed: 10

@@ -37,9 +37,13 @@ public class PlayerScript : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 30f;
     public float deathTimer = 2f;
+
+    // UI
+    public Slider slider;
+    public Image imageHealth;
     public TextMeshProUGUI gameOver;
     public Image crossHair;
-    
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -187,6 +191,17 @@ public class PlayerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(deathTimer);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void SetSliderMaxHealth(float health)
+    {
+        slider.maxValue = health;
+        slider.value = health;
+    }
+
+    public void SetSliderHealth(float health)
+    {
+        slider.value = health;
     }
 
     public float GetHealth()
