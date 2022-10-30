@@ -2886,12 +2886,10 @@ MonoBehaviour:
   projectile: {fileID: 7915604516002414902, guid: 96d879218f594774693df10e899326bc, type: 3}
   requiresReload: 0
   infiniteAmmo: 1
-  shootCooldown: 1
+  shootCooldown: 0.2
   shotSpeed: 10
-  shotDamage: 100
   reloadTime: 2
   targetRange: 50
-  launchDistFromBarrel: 0.5
   magShots: 3
   totalShots: 30
   projectileSpawn: {fileID: 4862088450219155798}
