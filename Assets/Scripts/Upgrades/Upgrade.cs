@@ -36,6 +36,9 @@ public class Upgrade : MonoBehaviour
             case 4:
                 obj.material.SetColor("_Color", Color.red);
                 break;
+            case 5:
+                obj.material.SetColor("_Color", Color.green);
+                break;
             default:
                 break;
         }

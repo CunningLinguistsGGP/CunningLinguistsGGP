@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpHeight: 5
+  jumpHeight: 2.5
   gravity: -9.81
   dashAmount: 0
   maxDashAmount: 2
