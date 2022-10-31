@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -69,13 +66,7 @@ public class FlyingEnemy : MonoBehaviour
 
         transform.LookAt(camera);
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-
+    
     void Shoot()
     {
         Vector3 rayDir = transform.position;
@@ -92,15 +83,16 @@ public class FlyingEnemy : MonoBehaviour
                 
                 if(mzzlFlash!=null)
                     mzzlFlash.Play();
+                
                 if(audioShot!=null)
                 {
                     audioShot.Play();
                     audioShot.SetScheduledEndTime(AudioSettings.dspTime + shootCooldown);
                 }
                 
-                GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, Quaternion.identity);
-                newProjectile.GetComponent<Rigidbody>().velocity = rayDir.normalized * shotSpeed;
-                //Destroy(newProjectile, 2.0f);
+                GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+                newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
+                Destroy(newProjectile, 2.0f);
             }
         }
         

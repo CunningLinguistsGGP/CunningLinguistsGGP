@@ -346,7 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   enemyCooldown: 3
-  damage: 3
   projectile: {fileID: 6741992260875857544, guid: 050fff7329030de4594ae66b8dfd9d5a, type: 3}
   shootCooldown: 1
   shotSpeed: 10
@@ -354,6 +353,37 @@ MonoBehaviour:
   projectileSpawn: {fileID: 7075273163302505951}
   mzzlFlash: {fileID: 5401747083369929808}
   audioShot: {fileID: 0}
+--- !u!1 &8781810162138124468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4660310459709692870}
+  m_Layer: 0
+  m_Name: Shoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4660310459709692870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781810162138124468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.053333282, z: 0.344}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1746739965517442865}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2287648582102003113
 PrefabInstance:
   m_ObjectHideFlags: 0
