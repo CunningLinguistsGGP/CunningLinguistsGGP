@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    public float radius;
     public float enemyCooldown;
 
     private float timer;
@@ -16,14 +15,11 @@ public class FlyingEnemy : MonoBehaviour
     private new Transform camera;
 
     [SerializeField] private GameObject projectile;
-    [SerializeField] private float shootCooldown = 1.0f, shotSpeed = 10.0f, targetRange = 50.0f;
+    [SerializeField] private float shotSpeed = 10.0f;
     [SerializeField] private Transform projectileSpawn;
     
     [SerializeField] private ParticleSystem mzzlFlash;
     [SerializeField] AudioSource audioShot;
-
-    private bool canShoot = true;
-    private float lastShotTime = 0.0f;
 
     private void Start()
     {
@@ -41,19 +37,12 @@ public class FlyingEnemy : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (lastShotTime + shootCooldown < Time.time)
-        {
-            canShoot = true;
-        }
-        else
-        {
-            canShoot = false;
-        }
-        if (canShoot)
+        if (timer >= enemyCooldown && playerInRange)
         {
             Shoot();
+            Debug.Log(playerHealth.currentHealth);
         }
-
+        
         if(playerHealth.currentHealth <= 0)
         {
             Debug.Log("Dead");
@@ -67,35 +56,40 @@ public class FlyingEnemy : MonoBehaviour
         transform.LookAt(camera);
     }
     
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == player)
+        {
+            playerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject == player)
+        {
+            playerInRange = false;
+        }
+    }
+    
     void Shoot()
     {
-        Vector3 rayDir = transform.position;
-
-        Ray ray = new Ray(transform.position, rayDir);
-        RaycastHit hit;
+        timer = 0f;
         
-        Vector3 targetPos = ray.GetPoint(targetRange);
-        if (Physics.Raycast(transform.position, rayDir, out hit))
+        if (playerHealth.currentHealth > 0)
         {
-            if (playerHealth.currentHealth > 0)
+            if(mzzlFlash!=null)
+                mzzlFlash.Play();
+                
+            if(audioShot!=null)
             {
-                targetPos = hit.point;
-                
-                if(mzzlFlash!=null)
-                    mzzlFlash.Play();
-                
-                if(audioShot!=null)
-                {
-                    audioShot.Play();
-                    audioShot.SetScheduledEndTime(AudioSettings.dspTime + shootCooldown);
-                }
-                
-                GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
-                newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
-                Destroy(newProjectile, 2.0f);
+                audioShot.Play();
+                audioShot.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);
             }
+                
+            GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+            newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
+            Destroy(newProjectile, 2.0f);
         }
-        
-        lastShotTime = Time.time;
     }
 }
