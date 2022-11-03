@@ -23,8 +23,6 @@ public class ProjectileGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastShotTime = -shootCooldown;
-        reloadStart = -reloadTime;
         if (requiresReload)
             shotsLeft = magShots;
         else
@@ -34,46 +32,25 @@ public class ProjectileGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastShotTime + shootCooldown < Time.time)
-            Debug.Log("shotCooldownOver");
-        if (reloadStart + reloadTime < Time.time)
-            Debug.Log("reloadOver");
-        if (totalShots > 0)
-            Debug.Log("enoughShots");
-        if ((lastShotTime + shootCooldown < Time.time) && (reloadStart+reloadTime<Time.time)&&(totalShots>0))
+        if (lastShotTime + shootCooldown < Time.time && reloadStart+reloadTime<Time.time&&totalShots>0)
         {
-            Debug.Log("setShootTrue");
             canShoot = true;
         }
         else
         {
-            Debug.Log("setShootfalse");
             canShoot = false;
         }
         if (Input.GetButtonDown("Fire1"))
         {
             if (canShoot)
             {
-                Debug.Log("shoot");
                 Shoot();
             }
             else if(reloadStart + reloadTime < Time.time)
-            {
-                Debug.Log("autoReload");
-                if(shotsLeft<magShots)
-                    Reload();
-            }
+                Reload();
         }
         if (Input.GetButton("Reload"))
-        {
-            Debug.Log("manualReload");
             Reload();
-        }
-        Debug.Log("reloadTiming: " + (reloadStart + reloadTime - Time.time));
-        //Debug.Log("magShots: " + magShots);
-        //Debug.Log("totalShots: " + totalShots);
-        //Debug.Log("shotsLeft: " + shotsLeft);
-        //Debug.Log("lastShotTiming: " + (lastShotTime + shootCooldown - Time.time));
     }
     void Shoot()
     {
@@ -125,11 +102,8 @@ public class ProjectileGun : MonoBehaviour
 
     void Reload()
     {
-        if(requiresReload)
-        {
-            canShoot = false;
-            shotsLeft = magShots;
-            reloadStart = Time.time;
-        }
+        canShoot = false;
+        shotsLeft = magShots;
+        reloadStart = Time.time;
     }
 }

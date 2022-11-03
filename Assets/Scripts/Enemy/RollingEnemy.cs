@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,11 +16,14 @@ public class RollingEnemy : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-
+    private Rigidbody rb;
+    private RaycastHit hit;
+    
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody>();
         playerHealth = player.GetComponent<PlayerScript>();
     }
     
@@ -39,8 +44,16 @@ public class RollingEnemy : MonoBehaviour
         
         if(player != null)
         {
+            transform.Rotate(Vector3.right * Time.deltaTime * Vector3.Magnitude(agent.velocity) * 360f / (2f * Mathf.PI * 10));
+            rb.MovePosition(agent.nextPosition + agent.velocity * Time.fixedDeltaTime);
             agent.SetDestination(player.transform.position);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,6 +78,8 @@ public class RollingEnemy : MonoBehaviour
 
         if (playerHealth.currentHealth > 0)
         {
+            //agent.updatePosition = false;
+            //rb.isKinematic = false;
             StartCoroutine(ChargeAttack());
             playerHealth.currentHealth -= damage;
         }
