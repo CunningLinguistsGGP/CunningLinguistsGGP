@@ -16,7 +16,7 @@ public class MeleeEnemy : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-    
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -74,6 +74,7 @@ public class MeleeEnemy : MonoBehaviour
         if (playerHealth.currentHealth > 0)
         {
             playerHealth.currentHealth -= damage;
+            playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 }
