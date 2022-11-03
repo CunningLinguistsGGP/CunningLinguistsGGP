@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7246836591840975001
 Transform:
   m_ObjectHideFlags: 0
@@ -909,7 +909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2466837114389661051
 Transform:
   m_ObjectHideFlags: 0
@@ -2777,7 +2777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4919596460882323520
 Transform:
   m_ObjectHideFlags: 0
@@ -3756,7 +3756,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7742989087074190625
 Transform:
   m_ObjectHideFlags: 0
@@ -4735,7 +4735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2524785348831141906
 Transform:
   m_ObjectHideFlags: 0
@@ -6603,7 +6603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6610208764096154718
 Transform:
   m_ObjectHideFlags: 0
@@ -8511,9 +8511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9d2d1462683214bb5bde9082e4c3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 0
-  endSpeed: 90
-  spinUpTime: 5
+  startSpeed: 10
+  endSpeed: 500
+  spinUpTime: 7.5
   frames:
   - {fileID: 7764122403520764508}
   - {fileID: 1114690033725852656}
@@ -8536,7 +8536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ddb382411a90d94787f546249378f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 50
   lifetime: 100
   explosionSize: 20
   explosionDamage: 500
