@@ -47,7 +47,7 @@ public class BFG : MonoBehaviour
                 //if(!projectile.activeSelf)
                 //    projectile.SetActive(true);
                 projectile = Instantiate(projectilePrefab, projectileSpawn);
-                //projectile.GetComponent<Rigidbody>().detectCollisions = false;
+                projectile.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if(charging)
             {
