@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -43,12 +40,6 @@ public class MeleeEnemy : MonoBehaviour
         {
             agent.destination = player.transform.position;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
     }
 
     private void OnTriggerEnter(Collider other)
