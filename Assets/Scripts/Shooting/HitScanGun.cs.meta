@@ -3,11 +3,7 @@ guid: f238b4b0f71643347b237592a26c6d65
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - mzzlFlash: {instanceID: 0}
-  - hitPrefab: {fileID: 4478694189454593795, guid: 81c2f88deab2fea4dae978cce0d1cb5d, type: 3}
-  - aimCam: {instanceID: 0}
-  - audioShot: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

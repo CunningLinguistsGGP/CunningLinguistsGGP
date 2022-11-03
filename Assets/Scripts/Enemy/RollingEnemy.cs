@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,13 +14,11 @@ public class RollingEnemy : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-    private Rigidbody rb;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
-        rb = GetComponent<Rigidbody>();
         playerHealth = player.GetComponent<PlayerScript>();
     }
     
@@ -30,41 +26,55 @@ public class RollingEnemy : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        if (timer >= enemyCooldown && playerInRange )
+        {
+            Attack();
+            Debug.Log(playerHealth.currentHealth);
+        }
+        
         if(playerHealth.currentHealth <= 0)
         {
             Debug.Log("Dead");
         }
         
-        if (player != null)
+        if(player != null)
         {
-            agent.destination = player.transform.position;
-            rb.AddForce(agent.destination * Time.fixedDeltaTime);
+            agent.SetDestination(player.transform.position);
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerEnter(Collider other)
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (timer >= enemyCooldown && playerInRange)
+        if(other.gameObject == player)
         {
-            Attack();
-            Debug.Log(playerHealth.currentHealth);
+            playerInRange = true;
         }
     }
 
-
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject == player)
+        {
+            playerInRange = false;
+        }
+    }
+    
     private void Attack()
     {
         timer = 0f;
 
         if (playerHealth.currentHealth > 0)
         {
+            StartCoroutine(ChargeAttack());
             playerHealth.currentHealth -= damage;
         }
     }
+
+    IEnumerator ChargeAttack()
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(enemyCooldown);
+        agent.isStopped = false;
+    }
+    
 }
