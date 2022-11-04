@@ -5,38 +5,43 @@ using UnityEngine;
 public class Upgrade : MonoBehaviour
 {
     private PlayerScript player;
-    private Renderer renderer;
+    private Renderer obj;
     private GameObject cube;
 
     private float speed = 50f;
     [SerializeField] private int upgradeType;
 
+    private AudioSource audioSource;
+    public AudioClip upgradeSpawn;
+    public AudioClip upgradeGet;
+
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
-
         GetComponentsInGameObject();
+
+        audioSource.PlayOneShot(upgradeSpawn);
 
         switch (upgradeType)
         {
             case 1:
-                renderer.material.SetColor("_Color", Color.yellow);
+                obj.material.SetColor("_Color", Color.yellow);
                 break;
             case 2:
-                renderer.material.SetColor("_Color", Color.blue);
+                obj.material.SetColor("_Color", Color.blue);
                 break;
             case 3:
-                renderer.material.SetColor("_Color", Color.yellow);
+                obj.material.SetColor("_Color", Color.yellow);
                 break;
             case 4:
-                renderer.material.SetColor("_Color", Color.red);
+                obj.material.SetColor("_Color", Color.red);
+                break;
+            case 5:
+                obj.material.SetColor("_Color", Color.green);
                 break;
             default:
                 break;
         }
-
-        
     }
 
     // Update is called once per frame
@@ -44,8 +49,6 @@ public class Upgrade : MonoBehaviour
     {
         cube.transform.RotateAround(transform.position, Vector3.up, speed * Time.deltaTime);
         cube.transform.RotateAround(transform.position, Vector3.right, speed * Time.deltaTime);
-
-
     }
 
     private void AddUpgrade()
@@ -77,12 +80,21 @@ public class Upgrade : MonoBehaviour
 
         cube = transform.Find("Cube").gameObject;
 
-        renderer = cube.GetComponent<Renderer>();
+        obj = cube.GetComponent<Renderer>();
+
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        StartCoroutine(literalTimeWaste());
+    }
+
+    IEnumerator literalTimeWaste()
+    {
+        audioSource.PlayOneShot(upgradeGet);
         AddUpgrade();
+        yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
     }
 }
