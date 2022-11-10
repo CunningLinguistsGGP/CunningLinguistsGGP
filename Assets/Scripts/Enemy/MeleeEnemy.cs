@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +16,7 @@ public class MeleeEnemy : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-    
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -42,6 +45,12 @@ public class MeleeEnemy : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == player)
@@ -65,6 +74,7 @@ public class MeleeEnemy : MonoBehaviour
         if (playerHealth.currentHealth > 0)
         {
             playerHealth.currentHealth -= damage;
+            playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 }

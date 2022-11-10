@@ -10,6 +10,7 @@ public class HitScanGun : MonoBehaviour
     //[SerializeField] private float armorPen = 0.0f;
     [SerializeField] private float coneAngle = 3.0f;
     [SerializeField] private ParticleSystem mzzlFlash;
+    [SerializeField] private GameObject hitPrefab;
     private float shotDeviation = 0.0f;
 
     [SerializeField] private Camera aimCam;
@@ -55,6 +56,7 @@ public class HitScanGun : MonoBehaviour
                     if (target != null)
                     {
                         target.TakeDamage(damage);
+                        Instantiate(hitPrefab,hit.point,Quaternion.identity);
                     }
                 }
             }
@@ -69,7 +71,10 @@ public class HitScanGun : MonoBehaviour
                         if (target != null)
                         {
                             target.TakeDamage(damage);
+
+                            Instantiate(hitPrefab, hit.point,Quaternion.identity);
                         }
+
                     }
                 }
             }

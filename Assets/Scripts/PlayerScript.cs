@@ -37,9 +37,19 @@ public class PlayerScript : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 30f;
     public float deathTimer = 2f;
+
+    // UI
+    public Slider slider;
+    public Image imageHealth;
     public TextMeshProUGUI gameOver;
     public Image crossHair;
-    
+
+    //Sound Stuff
+    private AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip dJumpSound;
+    public AudioClip dashSound;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -103,6 +113,7 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetButtonDown("Jump") && controller.isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                audioSource.PlayOneShot(jumpSound);
             }
         }
 
@@ -112,6 +123,7 @@ public class PlayerScript : MonoBehaviour
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 canDoubleJump = false;
+                audioSource.PlayOneShot(dJumpSound);
             }
         }
 
@@ -126,6 +138,8 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetButtonDown("Dash") && dashAmount >= 1)
         {
             dashAmount -= 1;
+
+            audioSource.PlayOneShot(dashSound);
 
             StartCoroutine(DashCoroutine());
         }
@@ -150,6 +164,7 @@ public class PlayerScript : MonoBehaviour
         camera = gameObject.GetComponentInChildren<Camera>();
         controller = gameObject.GetComponent<CharacterController>();
         playerScript = gameObject.GetComponent<PlayerScript>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public void SetMouseSens(float value)
@@ -189,6 +204,17 @@ public class PlayerScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void SetSliderMaxHealth(float health)
+    {
+        slider.maxValue = health;
+        slider.value = health;
+    }
+
+    public void SetSliderHealth(float health)
+    {
+        slider.value = health;
+    }
+
     public float GetHealth()
     {
         return maxHealth;
@@ -216,6 +242,6 @@ public class PlayerScript : MonoBehaviour
 
     public bool SetDoubleJump(bool value)
     {
-        return canDoubleJump = value;
+        return doubleJumpEnabled = value;
     }
 }
