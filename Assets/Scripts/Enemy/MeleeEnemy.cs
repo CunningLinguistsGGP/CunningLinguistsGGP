@@ -65,6 +65,7 @@ public class MeleeEnemy : MonoBehaviour
         if (playerHealth.currentHealth > 0)
         {
             playerHealth.currentHealth -= damage;
+            playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 }

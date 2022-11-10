@@ -67,6 +67,7 @@ public class PlayerScript : MonoBehaviour
         MouseLook();
         Movement();
         Jump();
+        SetSliderMaxHealth(maxHealth);
         Dash();
         Dead();
     }
@@ -207,7 +208,6 @@ public class PlayerScript : MonoBehaviour
     public void SetSliderMaxHealth(float health)
     {
         slider.maxValue = health;
-        slider.value = health;
     }
 
     public void SetSliderHealth(float health)
