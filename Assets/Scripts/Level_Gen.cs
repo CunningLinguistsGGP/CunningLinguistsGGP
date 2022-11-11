@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Level_Gen : MonoBehaviour
 {
     public static Level_Gen instance;
 
-    [SerializeField] GameObject[] Levels;
+    //[SerializeField] int[] Levels;
 
-    [SerializeField] GameObject Player;
+   // [SerializeField] GameObject Player;
 
-    List<int> level_selection;
+    [SerializeField]List<int> level_selection;
 
-    GameObject Previous_Level;
+   // GameObject Previous_Level;
+   // GameObject Present_Level;
 
-    GameObject Present_Level;
+    //[SerializeField]GameObject Level_SpwanPoint;
 
-    [SerializeField]GameObject Level_SpwanPoint;
-
-    GameObject Player_SpwanPoint;
+    //GameObject Player_SpwanPoint;
 
     [SerializeField]GameObject Black_Fade;
 
@@ -33,12 +33,14 @@ public class Level_Gen : MonoBehaviour
 
         Fade_speed = 1f; // Default. 1 second
 
-        level_selection = new List<int>();
+        //level_selection = new List<int>();
 
-        for(int i=0; i< Levels.Length; i++)
+       /* for(int i=0; i< Levels.Length; i++)
         {
             level_selection.Add(i);
-        }
+        }*/
+
+        DontDestroyOnLoad(this);
     }
 
 
@@ -46,26 +48,28 @@ public class Level_Gen : MonoBehaviour
     {
         StartCoroutine(start_fade(true));
 
-        if (Present_Level != null) { Previous_Level = Present_Level; Previous_Level.gameObject.SetActive(false); }
+        //if (Present_Level != null) { Previous_Level = Present_Level; Previous_Level.gameObject.SetActive(false); }
 
         random = Random.Range(0, level_selection.Count);
 
-        level_selection.Remove(level_selection[random]);
+        SceneManager.LoadScene(level_selection[random]);
 
-        Present_Level = Instantiate(Levels[level_selection[random]], Level_SpwanPoint.transform);
+        level_selection.RemoveAt(random);
 
-        Player_SpwanPoint = Present_Level.transform.Find("PlayerSpwanPoint").gameObject;
+        // Present_Level = Instantiate(Levels[level_selection[random]], Level_SpwanPoint.transform);
 
-        Player.transform.position = Player_SpwanPoint.transform.position;
+        // Player_SpwanPoint = Present_Level.transform.Find("PlayerSpwanPoint").gameObject;
+
+        //Player.transform.position = Player_SpwanPoint.transform.position;
 
 
 
-        StartCoroutine(start_fade(false));
+         StartCoroutine(start_fade(false));
     }
 
     public IEnumerator start_fade(bool status)
     {
-        for(var t = 0f; t< 1; t += Time.deltaTime / Fade_speed)
+        for (var t = 0f; t < 1; t += Time.deltaTime / Fade_speed)
         {
             var tempColor = Black_Fade.GetComponent<Image>().color;
 
@@ -84,13 +88,13 @@ public class Level_Gen : MonoBehaviour
                     break;
             }
 
-            
+
 
             yield return null;
         }
 
         Black_Fade.SetActive(status == true ? true : false);
 
-        // yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
     }
 }

@@ -8,8 +8,15 @@ public class level : MonoBehaviour
 
     public Transform spawner;
     public GameObject upgrade;
+    private Level_Gen levelgen;
+
 
     private bool spawned;
+
+    private void Start()
+    {
+        levelgen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,6 +26,8 @@ public class level : MonoBehaviour
         if (enemyAmount == 0 && spawned == false)
         {
             Spawn();
+            levelgen.Next_level();
+            //StartCoroutine(loadnextlevel());
         }
     }
 
@@ -26,5 +35,11 @@ public class level : MonoBehaviour
     {
         Instantiate(upgrade, spawner.transform.position, Quaternion.identity);
         spawned = true;
+    }
+
+    IEnumerator loadnextlevel()
+    {
+        yield return new WaitForSeconds(10);
+        levelgen.Next_level();
     }
 }
