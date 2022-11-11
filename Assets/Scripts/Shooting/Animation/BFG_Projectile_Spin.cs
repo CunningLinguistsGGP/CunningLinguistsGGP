@@ -6,7 +6,7 @@ public class BFG_Projectile_Spin : MonoBehaviour
 {
     [SerializeField] private float startSpeed = 0.0f, endSpeed = 90.0f,spinUpTime = 5.0f;
     [SerializeField] GameObject[] frames;
-
+    //Git commit fix
     private float currentSpeed;
     // Start is called before the first frame update
     void Start()

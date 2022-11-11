@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBulletDamage : MonoBehaviour
@@ -19,7 +16,7 @@ public class EnemyBulletDamage : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player"))
         {
             Attack();
             Destroy(gameObject);    
@@ -31,6 +28,7 @@ public class EnemyBulletDamage : MonoBehaviour
         if (playerHealth.currentHealth > 0)
         {
             playerHealth.currentHealth -= damage;
+            playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 }
