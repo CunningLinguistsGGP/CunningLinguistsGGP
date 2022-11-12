@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCooldown: 3
+  offMeshLinkSpeed: 3
   projectile: {fileID: 6741992260875857544, guid: 050fff7329030de4594ae66b8dfd9d5a, type: 3}
   shotSpeed: 50
   projectileSpawn: {fileID: 7075273163302505951}

@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fb9a6c72990ed44b9bb1cc47141d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
   enemyCooldown: 5
   damage: 5
+  offMeshLinkSpeed: 6
 --- !u!54 &585423714
 Rigidbody:
   m_ObjectHideFlags: 0
