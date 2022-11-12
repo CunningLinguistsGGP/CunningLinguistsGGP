@@ -78,6 +78,7 @@ public class RollingEnemy : MonoBehaviour
         {
             StartCoroutine(ChargeAttack());
             playerHealth.currentHealth -= damage;
+            playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 
