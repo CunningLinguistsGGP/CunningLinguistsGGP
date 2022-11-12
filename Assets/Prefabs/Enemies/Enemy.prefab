@@ -113,9 +113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e88998b3c2f94b41a8c328949c87830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
   enemyCooldown: 1
   damage: 1
+  offMeshLinkSpeed: 5
 --- !u!195 &1470083079
 NavMeshAgent:
   m_ObjectHideFlags: 0

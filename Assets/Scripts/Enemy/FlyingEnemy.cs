@@ -7,13 +7,14 @@ public class FlyingEnemy : MonoBehaviour
 
     private float timer;
     private bool playerInRange;
+    public float offMeshLinkSpeed;
     
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-
     private new Transform camera;
-
+    private float originalSpeed;
+    
     [SerializeField] private GameObject projectile;
     [SerializeField] private float shotSpeed = 10.0f;
     [SerializeField] private Transform projectileSpawn;
@@ -26,7 +27,8 @@ public class FlyingEnemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
-
+        originalSpeed = agent.speed;
+        
         if (Camera.main is not null)
         {
             camera = Camera.main.transform;
@@ -37,6 +39,15 @@ public class FlyingEnemy : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        if (agent.isOnOffMeshLink)
+        {
+            agent.speed = offMeshLinkSpeed;
+        }
+        else if (!agent.isOnOffMeshLink)
+        {
+            agent.speed = originalSpeed;
+        }
+        
         if (timer >= enemyCooldown && playerInRange)
         {
             Shoot();

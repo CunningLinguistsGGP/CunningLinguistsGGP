@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    public float radius;
     public float enemyCooldown;
     public float damage;
-
+    public float offMeshLinkSpeed;
+    
     private float timer;
     private bool playerInRange;
+    private float originalSpeed;
     
     private NavMeshAgent agent;
     private GameObject player;
@@ -19,12 +21,22 @@ public class MeleeEnemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
+        originalSpeed = agent.speed;
     }
     
     private void Update()
     {
         timer += Time.deltaTime;
 
+        if (agent.isOnOffMeshLink)
+        {
+            agent.speed = offMeshLinkSpeed;
+        }
+        else if (!agent.isOnOffMeshLink)
+        {
+            agent.speed = originalSpeed;
+        }
+        
         if (timer >= enemyCooldown && playerInRange )
         {
             Attack();
