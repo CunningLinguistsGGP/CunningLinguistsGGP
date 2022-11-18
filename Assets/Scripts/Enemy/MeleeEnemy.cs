@@ -3,28 +3,43 @@ using UnityEngine.AI;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    public float radius;
     public float enemyCooldown;
     public float damage;
-
+    public float offMeshLinkSpeed;
+    public new AudioSource audio;
+    public ParticleSystem hit;
+    
     private float timer;
     private bool playerInRange;
+    private float originalSpeed;
     
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
+    private MeshRenderer glow;
     
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        glow = GetComponent<MeshRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
+        originalSpeed = agent.speed;
     }
     
     private void Update()
     {
         timer += Time.deltaTime;
 
+        if (agent.isOnOffMeshLink)
+        {
+            agent.speed = offMeshLinkSpeed;
+        }
+        else if (!agent.isOnOffMeshLink)
+        {
+            agent.speed = originalSpeed;
+        }
+        
         if (timer >= enemyCooldown && playerInRange )
         {
             Attack();
@@ -46,6 +61,7 @@ public class MeleeEnemy : MonoBehaviour
     {
         if(other.gameObject == player)
         {
+            glow.material.EnableKeyword("_EMISSION");
             playerInRange = true;
         }
     }
@@ -54,6 +70,7 @@ public class MeleeEnemy : MonoBehaviour
     {
         if(other.gameObject == player)
         {
+            glow.material.DisableKeyword("_EMISSION");
             playerInRange = false;
         }
     }
@@ -64,6 +81,17 @@ public class MeleeEnemy : MonoBehaviour
 
         if (playerHealth.currentHealth > 0)
         {
+            if (hit != null)
+            {
+                hit.Play();
+            }
+            
+            if(audio != null)
+            {
+                audio.Play();
+                audio.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);
+            }
+            
             playerHealth.currentHealth -= damage;
             playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }

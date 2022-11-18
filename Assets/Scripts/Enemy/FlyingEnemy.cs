@@ -7,13 +7,15 @@ public class FlyingEnemy : MonoBehaviour
 
     private float timer;
     private bool playerInRange;
+    public float offMeshLinkSpeed;
     
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-
     private new Transform camera;
-
+    private float originalSpeed;
+    private MeshRenderer glow;
+    
     [SerializeField] private GameObject projectile;
     [SerializeField] private float shotSpeed = 10.0f;
     [SerializeField] private Transform projectileSpawn;
@@ -24,9 +26,11 @@ public class FlyingEnemy : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        glow = GetComponent<MeshRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
-
+        originalSpeed = agent.speed;
+        
         if (Camera.main is not null)
         {
             camera = Camera.main.transform;
@@ -37,6 +41,15 @@ public class FlyingEnemy : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        if (agent.isOnOffMeshLink)
+        {
+            agent.speed = offMeshLinkSpeed;
+        }
+        else if (!agent.isOnOffMeshLink)
+        {
+            agent.speed = originalSpeed;
+        }
+        
         if (timer >= enemyCooldown && playerInRange)
         {
             Shoot();
@@ -60,6 +73,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         if(other.gameObject == player)
         {
+            glow.material.EnableKeyword("_EMISSION");
             playerInRange = true;
         }
     }
@@ -68,6 +82,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         if(other.gameObject == player)
         {
+            glow.material.DisableKeyword("_EMISSION");
             playerInRange = false;
         }
     }
@@ -78,10 +93,12 @@ public class FlyingEnemy : MonoBehaviour
         
         if (playerHealth.currentHealth > 0)
         {
-            if(mzzlFlash!=null)
+            if (mzzlFlash != null)
+            {
                 mzzlFlash.Play();
-                
-            if(audioShot!=null)
+            }
+            
+            if(audioShot != null)
             {
                 audioShot.Play();
                 audioShot.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);

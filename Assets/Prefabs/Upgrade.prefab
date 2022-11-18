@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c163598e290c3f2409a705a98217afb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 0
+  upgradeType: 1
   upgradeSpawn: {fileID: 8300000, guid: ff70375ce808dd944ae122f14d71aad4, type: 3}
   upgradeGet: {fileID: 8300000, guid: 9df4d7ee3cf49c34cbcd660efaefcaa7, type: 3}
 --- !u!65 &1225256452386049815
