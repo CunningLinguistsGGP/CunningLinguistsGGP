@@ -10,7 +10,6 @@ public class level : MonoBehaviour
     public GameObject upgrade;
     private Level_Gen levelgen;
 
-
     private bool spawned;
 
     private void Start()
@@ -26,8 +25,8 @@ public class level : MonoBehaviour
         if (enemyAmount == 0 && spawned == false)
         {
             Spawn();
-            levelgen.Next_level();
-            //StartCoroutine(loadnextlevel());
+            //levelgen.Next_level();
+            StartCoroutine(loadnextlevel());
         }
     }
 
