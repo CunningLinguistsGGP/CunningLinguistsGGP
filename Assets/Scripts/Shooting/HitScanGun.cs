@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HitScanGun : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class HitScanGun : MonoBehaviour
 
     [SerializeField] AudioSource audioShot;
 
+    [SerializeField] private GameObject DamageTextPrefab;
 
     private float lastShotTime = 0.0f;
     void Start()
@@ -56,6 +58,7 @@ public class HitScanGun : MonoBehaviour
                     if (target != null)
                     {
                         target.TakeDamage(damage);
+                        ShowDamageText(hit.transform.position, hit.transform, damage);
                         Instantiate(hitPrefab,hit.point,Quaternion.identity);
                     }
                 }
@@ -80,5 +83,13 @@ public class HitScanGun : MonoBehaviour
             }
             lastShotTime = Time.time;
         }
+    }
+
+    private void ShowDamageText(Vector3 enemyPos, Transform enemy, float damage)
+    {
+        int randX = Random.Range(-1, 1);
+        Vector3 textPos = new Vector3(enemyPos.x + randX, enemyPos.y + 1, enemyPos.z);
+        DamageTextPrefab.GetComponent<TextMeshPro>().text = damage.ToString();
+        Instantiate(DamageTextPrefab, textPos, Camera.main.transform.rotation, enemy);
     }
 }

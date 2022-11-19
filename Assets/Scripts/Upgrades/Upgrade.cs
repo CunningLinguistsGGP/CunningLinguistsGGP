@@ -34,7 +34,7 @@ public class Upgrade : MonoBehaviour
                 obj.material.SetColor("_Color", Color.yellow);
                 break;
             case 4:
-                obj.material.SetColor("_Color", Color.red);
+                obj.material.SetColor("_Color", Color.green);
                 break;
             case 5:
                 obj.material.SetColor("_Color", Color.green);
@@ -68,6 +68,9 @@ public class Upgrade : MonoBehaviour
             case 4:
                 float healthValue = player.GetHealth() / 100 * 5;
                 player.SetHealth(healthValue);
+                break;
+            case 5:
+                //damage
                 break;
             default:
                 break;
