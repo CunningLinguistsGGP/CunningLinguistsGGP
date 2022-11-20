@@ -58,7 +58,7 @@ public class HitScanGun : MonoBehaviour
                     if (target != null)
                     {
                         target.TakeDamage(damage);
-                        ShowDamageText(hit.transform.position, hit.transform, damage);
+                        ShowDamageText(hit.transform, damage);
                         Instantiate(hitPrefab,hit.point,Quaternion.identity);
                     }
                 }
@@ -74,7 +74,7 @@ public class HitScanGun : MonoBehaviour
                         if (target != null)
                         {
                             target.TakeDamage(damage);
-
+                            ShowDamageText(hit.transform, damage);
                             Instantiate(hitPrefab, hit.point,Quaternion.identity);
                         }
 
@@ -85,10 +85,10 @@ public class HitScanGun : MonoBehaviour
         }
     }
 
-    private void ShowDamageText(Vector3 enemyPos, Transform enemy, float damage)
+    private void ShowDamageText(Transform enemy, float damage)
     {
         int randX = Random.Range(-1, 1);
-        Vector3 textPos = new Vector3(enemyPos.x + randX, enemyPos.y + 1, enemyPos.z);
+        Vector3 textPos = new Vector3(enemy.transform.position.x + randX, enemy.transform.position.y + 1, enemy.transform.position.z);
         DamageTextPrefab.GetComponent<TextMeshPro>().text = damage.ToString();
         Instantiate(DamageTextPrefab, textPos, Camera.main.transform.rotation, enemy);
     }
