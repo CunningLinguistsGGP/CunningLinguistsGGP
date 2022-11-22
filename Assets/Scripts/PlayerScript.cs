@@ -77,12 +77,12 @@ public class PlayerScript : MonoBehaviour
     {
         if(!grappling)
         {
-            MouseLook();
             Movement();
             Jump();
             Dash();
         }
 
+        MouseLook();
         SetSliderMaxHealth(maxHealth);
         Dead();
         Grapple();
