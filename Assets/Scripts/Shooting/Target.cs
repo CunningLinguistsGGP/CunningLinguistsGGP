@@ -11,7 +11,7 @@ public class Target : MonoBehaviour
     [SerializeField] private GameObject DamageTextPrefab;
 
     //Grappling
-    private bool doubleDamage;
+    [SerializeField] private bool doubleDamage;
 
     public void TakeDamage(float damage)
     {

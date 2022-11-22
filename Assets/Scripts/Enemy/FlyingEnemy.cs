@@ -26,6 +26,7 @@ public class FlyingEnemy : MonoBehaviour
     //Grapple
     private bool stunned;
     private float stunTime = 2f;
+    private Target enemy;
 
     private void Start()
     {
@@ -34,7 +35,8 @@ public class FlyingEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
         originalSpeed = agent.speed;
-        
+        enemy = GetComponent<Target>();
+
         if (Camera.main is not null)
         {
             camera = Camera.main.transform;
@@ -49,12 +51,15 @@ public class FlyingEnemy : MonoBehaviour
         {
             agent.isStopped = true;
 
+            enemy.SetDoubleDamage(true);
+
             stunTime -= Time.deltaTime;
 
             if (stunTime <= 0f)
             {
                 stunned = false;
                 agent.isStopped = false;
+                enemy.SetDoubleDamage(false);
                 stunTime = 2f;
             }
         }
