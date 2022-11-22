@@ -35,6 +35,8 @@ public class FlyingEnemy : MonoBehaviour
         {
             camera = Camera.main.transform;
         }
+
+        agent.radius = Random.Range(1f, 3f);
     }
     
     private void Update()
@@ -89,7 +91,7 @@ public class FlyingEnemy : MonoBehaviour
     
     void Shoot()
     {
-        timer = 0f;
+        timer = Random.Range(0f, 1.5f);
         
         if (playerHealth.currentHealth > 0)
         {

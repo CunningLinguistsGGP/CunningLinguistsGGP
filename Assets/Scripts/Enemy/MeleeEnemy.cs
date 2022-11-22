@@ -25,6 +25,8 @@ public class MeleeEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
         originalSpeed = agent.speed;
+        
+        agent.radius = Random.Range(1f, 3f);
     }
     
     private void Update()
