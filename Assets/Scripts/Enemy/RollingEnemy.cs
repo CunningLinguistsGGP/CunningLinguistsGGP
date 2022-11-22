@@ -18,7 +18,11 @@ public class RollingEnemy : MonoBehaviour
     private GameObject player;
     private PlayerScript playerHealth;
     private MeshRenderer glow;
-    
+
+    //Grapple
+    private bool stunned;
+    private float stunTime = 2f;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -32,29 +36,46 @@ public class RollingEnemy : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (agent.isOnOffMeshLink)
+        if (stunned)
         {
-            agent.speed = offMeshLinkSpeed;
+            agent.isStopped = true;
+
+            stunTime -= Time.deltaTime;
+
+            if (stunTime <= 0f)
+            {
+                stunned = false;
+                agent.isStopped = false;
+                stunTime = 2f;
+            }
         }
-        else if (!agent.isOnOffMeshLink)
+
+        else
         {
-            agent.speed = originalSpeed;
-        }
-        
-        if (timer >= enemyCooldown && playerInRange )
-        {
-            Attack();
-            Debug.Log(playerHealth.currentHealth);
-        }
-        
-        if(playerHealth.currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-        }
-        
-        if(player != null)
-        {
-            agent.SetDestination(player.transform.position);
+            if (agent.isOnOffMeshLink)
+            {
+                agent.speed = offMeshLinkSpeed;
+            }
+            else if (!agent.isOnOffMeshLink)
+            {
+                agent.speed = originalSpeed;
+            }
+
+            if (timer >= enemyCooldown && playerInRange)
+            {
+                Attack();
+                Debug.Log(playerHealth.currentHealth);
+            }
+
+            if (playerHealth.currentHealth <= 0)
+            {
+                Debug.Log("Dead");
+            }
+
+            if (player != null)
+            {
+                agent.SetDestination(player.transform.position);
+            }
         }
     }
 
@@ -105,5 +126,8 @@ public class RollingEnemy : MonoBehaviour
         yield return new WaitForSeconds(enemyCooldown);
         agent.isStopped = false;
     }
-    
+    public bool SetStunned(bool stun)
+    {
+        return stunned = stun;
+    }
 }

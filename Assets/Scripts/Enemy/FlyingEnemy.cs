@@ -23,6 +23,10 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private ParticleSystem mzzlFlash;
     [SerializeField] AudioSource audioShot;
 
+    //Grapple
+    private bool stunned;
+    private float stunTime = 2f;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -41,32 +45,49 @@ public class FlyingEnemy : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (agent.isOnOffMeshLink)
+        if (stunned)
         {
-            agent.speed = offMeshLinkSpeed;
-        }
-        else if (!agent.isOnOffMeshLink)
-        {
-            agent.speed = originalSpeed;
-        }
-        
-        if (timer >= enemyCooldown && playerInRange)
-        {
-            Shoot();
-            Debug.Log(playerHealth.currentHealth);
-        }
-        
-        if(playerHealth.currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-        }
-        
-        if (player != null)
-        {
-            agent.destination = player.transform.position;
+            agent.isStopped = true;
+
+            stunTime -= Time.deltaTime;
+
+            if (stunTime <= 0f)
+            {
+                stunned = false;
+                agent.isStopped = false;
+                stunTime = 2f;
+            }
         }
 
-        transform.LookAt(camera);
+        else
+        {
+            if (agent.isOnOffMeshLink)
+            {
+                agent.speed = offMeshLinkSpeed;
+            }
+            else if (!agent.isOnOffMeshLink)
+            {
+                agent.speed = originalSpeed;
+            }
+
+            if (timer >= enemyCooldown && playerInRange)
+            {
+                Shoot();
+                Debug.Log(playerHealth.currentHealth);
+            }
+
+            if (playerHealth.currentHealth <= 0)
+            {
+                Debug.Log("Dead");
+            }
+
+            if (player != null)
+            {
+                agent.destination = player.transform.position;
+            }
+
+            transform.LookAt(camera);
+        }
     }
     
     private void OnTriggerEnter(Collider other)
@@ -108,5 +129,10 @@ public class FlyingEnemy : MonoBehaviour
             newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
             Destroy(newProjectile, 2.0f);
         }
+    }
+
+    public bool SetStunned(bool stun)
+    {
+        return stunned = stun;
     }
 }

@@ -80,6 +80,10 @@ public class level : MonoBehaviour
     {
         levelgen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
         upgradeSpawner = GameObject.Find("UpgradeSpawner").gameObject;
+        foreach(GameObject spawn in GameObject.FindGameObjectsWithTag("SpawnPoint"))
+        {
+            spawnPoints.Add(spawn);
+        }
     }
 
     IEnumerator loadnextlevel()

@@ -50,6 +50,9 @@ public class PlayerScript : MonoBehaviour
     public AudioClip dJumpSound;
     public AudioClip dashSound;
 
+    //Grapple
+    private bool grappling;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -64,12 +67,17 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        MouseLook();
-        Movement();
-        Jump();
+        if(!grappling)
+        {
+            MouseLook();
+            Movement();
+            Jump();
+            Dash();
+        }
+
         SetSliderMaxHealth(maxHealth);
-        Dash();
         Dead();
+        Grapple();
     }
 
     private void MouseLook()
@@ -157,6 +165,49 @@ public class PlayerScript : MonoBehaviour
                 dashAmount += 1;
                 currentDashCD = maxDashCD;
             }
+        }
+    }
+
+    private void Grapple()
+    {
+        Vector3 forward = camera.transform.forward;
+        Vector3 rayDir = forward;
+        RaycastHit hit;
+        float range = 100f;
+
+        if (Input.GetButton("Grapple"))
+        {
+            if (Physics.Raycast(camera.transform.position, rayDir, out hit, range))
+            {
+                MeleeEnemy melee = hit.transform.GetComponent<MeleeEnemy>();
+                FlyingEnemy flying = hit.transform.GetComponent<FlyingEnemy>();
+                RollingEnemy rolling = hit.transform.GetComponent<RollingEnemy>();
+
+                float grappleSpeed = 2f;
+
+                if (melee != null)
+                {
+                    grappling = true;
+                    melee.SetStunned(true);
+                    transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                }
+                else if(flying != null)
+                {
+                    grappling = true;
+                    flying.SetStunned(true);
+                    transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    grappling = true;
+                    rolling.SetStunned(true);
+                    transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                }
+            }
+        }
+        else
+        {
+            grappling = false;
         }
     }
 
