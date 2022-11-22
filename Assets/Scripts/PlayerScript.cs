@@ -36,6 +36,7 @@ public class PlayerScript : MonoBehaviour
     // Player health + death
     public float currentHealth;
     public float maxHealth = 30f;
+    private float baseMaxHealth = 30;
     public float deathTimer = 2f;
 
     // UI
@@ -52,6 +53,13 @@ public class PlayerScript : MonoBehaviour
 
     //Grapple
     private bool grappling;
+    private LineRenderer grapple;
+
+    //Upgrade %Values
+    private float healthPercent;
+    private float damagePercent;
+    private float critChance;
+    private float critDamage;
 
     // Start is called before the first frame update
     private void Start()
@@ -185,6 +193,10 @@ public class PlayerScript : MonoBehaviour
 
                 float grappleSpeed = 2f;
 
+                grapple.enabled = true;
+                grapple.SetPosition(0, transform.position);
+                grapple.SetPosition(1, hit.transform.position);
+
                 if (melee != null)
                 {
                     grappling = true;
@@ -208,6 +220,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             grappling = false;
+            grapple.enabled = false;
         }
     }
 
@@ -217,6 +230,7 @@ public class PlayerScript : MonoBehaviour
         controller = gameObject.GetComponent<CharacterController>();
         playerScript = gameObject.GetComponent<PlayerScript>();
         audioSource = gameObject.GetComponent<AudioSource>();
+        grapple = gameObject.GetComponent<LineRenderer>();
     }
 
     public void SetMouseSens(float value)
@@ -294,5 +308,31 @@ public class PlayerScript : MonoBehaviour
     public bool SetDoubleJump(bool value)
     {
         return doubleJumpEnabled = value;
+    }
+
+    public float GetBaseMaxHP()
+    {
+        return baseMaxHealth;
+    }
+
+    public float SetHealthPercent(float increase)
+    {
+        return healthPercent += increase;
+    }
+
+    public float GetHealthPercent()
+    {
+        return healthPercent;
+    }
+
+    //public float SetDamagePercent(float increase)
+    //{
+    //    damagePercent += increase;
+    //    return 
+    //}
+
+    public float GetDamagePercent()
+    {
+        return damagePercent;
     }
 }

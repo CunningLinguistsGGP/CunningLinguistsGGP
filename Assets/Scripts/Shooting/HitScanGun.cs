@@ -5,6 +5,7 @@ using UnityEngine;
 public class HitScanGun : MonoBehaviour
 {
     [SerializeField] private float damage = 10.0f;
+    private float baseDamageValue = 10f;
     [SerializeField] private float range = 100.0f;
 
     [SerializeField] private float shots = 1;
@@ -22,8 +23,12 @@ public class HitScanGun : MonoBehaviour
 
     private float lastShotTime = 0.0f;
 
+    //Upgrade Stuff
+    private PlayerScript player;
+
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioShot = GetComponent<AudioSource>();
         shotDeviation = Mathf.Tan(coneAngle);
     }
@@ -82,5 +87,10 @@ public class HitScanGun : MonoBehaviour
             }
             lastShotTime = Time.time;
         }
+    }
+
+    public float UpdateGunDamage(float increase)
+    {
+        return damage += baseDamageValue / 100 * player.GetDamagePercent();
     }
 }
