@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -25,8 +26,8 @@ public class MeleeEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
         originalSpeed = agent.speed;
-        
-        agent.radius = Random.Range(1f, 3f);
+
+        agent.avoidancePriority = Random.Range(0, 99);
     }
     
     private void Update()
@@ -45,15 +46,9 @@ public class MeleeEnemy : MonoBehaviour
         if (timer >= enemyCooldown && playerInRange )
         {
             Attack();
-            Debug.Log(playerHealth.currentHealth);
-        }
-
-        if(playerHealth.currentHealth <= 0)
-        {
-            Debug.Log("Dead");
         }
         
-        if (player != null)
+        if (player != null && agent.enabled)
         {
             agent.destination = player.transform.position;
         }
@@ -93,9 +88,17 @@ public class MeleeEnemy : MonoBehaviour
                 audio.Play();
                 audio.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);
             }
-            
+
+            StartCoroutine(Stop(1.0f));
             playerHealth.currentHealth -= damage;
             playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
+    }
+    
+    IEnumerator Stop(float time)
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(time);
+        agent.isStopped = false;
     }
 }

@@ -35,8 +35,8 @@ public class FlyingEnemy : MonoBehaviour
         {
             camera = Camera.main.transform;
         }
-
-        agent.radius = Random.Range(1f, 3f);
+        
+        agent.avoidancePriority = Random.Range(0, 99);
     }
     
     private void Update()
@@ -55,14 +55,8 @@ public class FlyingEnemy : MonoBehaviour
         if (timer >= enemyCooldown && playerInRange)
         {
             Shoot();
-            Debug.Log(playerHealth.currentHealth);
         }
-        
-        if(playerHealth.currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-        }
-        
+
         if (player != null)
         {
             agent.destination = player.transform.position;
