@@ -18,7 +18,12 @@ public class RollingEnemy : MonoBehaviour
     private GameObject player;
     private PlayerScript playerHealth;
     private MeshRenderer glow;
-    
+
+    //Grapple
+    private bool stunned;
+    private float stunTime = 2f;
+    private Target enemy;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -26,31 +31,56 @@ public class RollingEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
         originalSpeed = agent.speed;
-        
-        agent.avoidancePriority = Random.Range(0, 99);
+        enemy = GetComponent<Target>();
     }
     
     private void Update()
     {
         timer += Time.deltaTime;
 
-        if (agent.isOnOffMeshLink)
+        if (stunned)
         {
-            agent.speed = offMeshLinkSpeed;
-        }
-        else if (!agent.isOnOffMeshLink)
-        {
-            agent.speed = originalSpeed;
-        }
-        
-        if (timer >= enemyCooldown && playerInRange )
-        {
-            Attack();
+            agent.isStopped = true;
+
+            enemy.SetDoubleDamage(true);
+
+            stunTime -= Time.deltaTime;
+
+            if (stunTime <= 0f)
+            {
+                stunned = false;
+                agent.isStopped = false;
+                enemy.SetDoubleDamage(false);
+                stunTime = 2f;
+            }
         }
 
-        if(player != null)
+        else
         {
-            agent.SetDestination(player.transform.position);
+            if (agent.isOnOffMeshLink)
+            {
+                agent.speed = offMeshLinkSpeed;
+            }
+            else if (!agent.isOnOffMeshLink)
+            {
+                agent.speed = originalSpeed;
+            }
+
+            if (timer >= enemyCooldown && playerInRange)
+            {
+                Attack();
+                Debug.Log(playerHealth.currentHealth);
+            }
+
+            if (playerHealth.currentHealth <= 0)
+            {
+                Debug.Log("Dead");
+            }
+
+            if (player != null)
+            {
+                agent.SetDestination(player.transform.position);
+            }
         }
     }
 
@@ -89,16 +119,20 @@ public class RollingEnemy : MonoBehaviour
                 audio.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);
             }
         
-            StartCoroutine(ChargeAttack(3.0f));
+            StartCoroutine(ChargeAttack());
             playerHealth.currentHealth -= damage;
             playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 
-    IEnumerator ChargeAttack(float time)
+    IEnumerator ChargeAttack()
     {
         agent.isStopped = true;
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(enemyCooldown);
         agent.isStopped = false;
+    }
+    public bool SetStunned(bool stun)
+    {
+        return stunned = stun;
     }
 }

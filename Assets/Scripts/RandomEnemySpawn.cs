@@ -5,16 +5,4 @@ using UnityEngine;
 public class RandomEnemySpawn : MonoBehaviour
 {
     public bool flyingEnemyOnly;
-
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

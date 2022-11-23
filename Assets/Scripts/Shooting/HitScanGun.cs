@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class HitScanGun : MonoBehaviour
 {
     [SerializeField] private float damage = 10.0f;
+    private float baseDamageValue = 10f;
     [SerializeField] private float range = 100.0f;
 
     [SerializeField] private float shots = 1;
@@ -21,12 +21,14 @@ public class HitScanGun : MonoBehaviour
 
     [SerializeField] AudioSource audioShot;
 
-    [SerializeField] private GameObject DamageTextPrefab;
-
     private float lastShotTime = 0.0f;
+
+    //Upgrade Stuff
+    private PlayerScript player;
 
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioShot = GetComponent<AudioSource>();
         shotDeviation = Mathf.Tan(coneAngle);
     }
@@ -62,8 +64,7 @@ public class HitScanGun : MonoBehaviour
                     Target target = hit.transform.GetComponent<Target>();
                     if (target != null)
                     {
-                        target.TakeDamage(damage);
-                        ShowDamageText(hit.transform, damage);
+                        target.TakeDamage(damage);  
                         Instantiate(hitPrefab,hit.point,Quaternion.identity);
                     }
                 }
@@ -79,10 +80,8 @@ public class HitScanGun : MonoBehaviour
                         if (target != null)
                         {
                             target.TakeDamage(damage);
-                            ShowDamageText(hit.transform, damage);
                             Instantiate(hitPrefab, hit.point,Quaternion.identity);
                         }
-
                     }
                 }
             }
@@ -90,11 +89,8 @@ public class HitScanGun : MonoBehaviour
         }
     }
 
-    private void ShowDamageText(Transform enemy, float damage)
+    public float UpdateGunDamage(float increase)
     {
-        int randX = Random.Range(-1, 1);
-        Vector3 textPos = new Vector3(enemy.transform.position.x + randX, enemy.transform.position.y + 1, enemy.transform.position.z);
-        DamageTextPrefab.GetComponent<TextMeshPro>().text = damage.ToString();
-        Instantiate(DamageTextPrefab, textPos, Camera.main.transform.rotation, enemy);
+        return damage += baseDamageValue / 100 * player.GetDamagePercent();
     }
 }
