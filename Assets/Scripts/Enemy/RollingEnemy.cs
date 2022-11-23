@@ -32,6 +32,8 @@ public class RollingEnemy : MonoBehaviour
         playerHealth = player.GetComponent<PlayerScript>();
         originalSpeed = agent.speed;
         enemy = GetComponent<Target>();
+        
+        agent.avoidancePriority = Random.Range(0, 99);
     }
     
     private void Update()
@@ -54,7 +56,6 @@ public class RollingEnemy : MonoBehaviour
                 stunTime = 2f;
             }
         }
-
         else
         {
             if (agent.isOnOffMeshLink)
@@ -69,12 +70,6 @@ public class RollingEnemy : MonoBehaviour
             if (timer >= enemyCooldown && playerInRange)
             {
                 Attack();
-                Debug.Log(playerHealth.currentHealth);
-            }
-
-            if (playerHealth.currentHealth <= 0)
-            {
-                Debug.Log("Dead");
             }
 
             if (player != null)
@@ -119,16 +114,16 @@ public class RollingEnemy : MonoBehaviour
                 audio.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);
             }
         
-            StartCoroutine(ChargeAttack());
+            StartCoroutine(ChargeAttack(3.0f));
             playerHealth.currentHealth -= damage;
             playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 
-    IEnumerator ChargeAttack()
+    IEnumerator ChargeAttack(float time)
     {
         agent.isStopped = true;
-        yield return new WaitForSeconds(enemyCooldown);
+        yield return new WaitForSeconds(time);
         agent.isStopped = false;
     }
     public bool SetStunned(bool stun)
