@@ -23,6 +23,8 @@ public class Upgrade : MonoBehaviour
 
         audioSource.PlayOneShot(upgradeSpawn);
 
+        upgradeType = 1;
+
         switch (upgradeType)
         {
             case 1:

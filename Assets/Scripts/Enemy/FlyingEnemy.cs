@@ -41,6 +41,8 @@ public class FlyingEnemy : MonoBehaviour
         {
             camera = Camera.main.transform;
         }
+        
+        agent.avoidancePriority = Random.Range(0, 99);
     }
     
     private void Update()
@@ -63,7 +65,6 @@ public class FlyingEnemy : MonoBehaviour
                 stunTime = 2f;
             }
         }
-
         else
         {
             if (agent.isOnOffMeshLink)
@@ -78,12 +79,6 @@ public class FlyingEnemy : MonoBehaviour
             if (timer >= enemyCooldown && playerInRange)
             {
                 Shoot();
-                Debug.Log(playerHealth.currentHealth);
-            }
-
-            if (playerHealth.currentHealth <= 0)
-            {
-                Debug.Log("Dead");
             }
 
             if (player != null)
@@ -115,7 +110,7 @@ public class FlyingEnemy : MonoBehaviour
     
     void Shoot()
     {
-        timer = 0f;
+        timer = Random.Range(0.0f, 2.0f);
         
         if (playerHealth.currentHealth > 0)
         {
