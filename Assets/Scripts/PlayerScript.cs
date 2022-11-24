@@ -183,9 +183,12 @@ public class PlayerScript : MonoBehaviour
         RaycastHit hit;
         float range = 100f;
 
+        int layerMask = 1 << 5;
+        layerMask = ~layerMask;
+        
         if (Input.GetButton("Grapple"))
         {
-            if (Physics.Raycast(camera.transform.position, rayDir, out hit, range))
+            if (Physics.Raycast(camera.transform.position, rayDir, out hit, range, layerMask, QueryTriggerInteraction.Ignore))
             {
                 MeleeEnemy melee = hit.transform.GetComponent<MeleeEnemy>();
                 FlyingEnemy flying = hit.transform.GetComponent<FlyingEnemy>();
