@@ -182,10 +182,12 @@ public class PlayerScript : MonoBehaviour
     {
         RaycastHit hit;
         float range = 100f;
+        int layerMask = 1 << 5;
+        layerMask = ~layerMask;
 
         if (Input.GetButton("Grapple"))
         {
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range, layerMask, QueryTriggerInteraction.Ignore))
             {
                 if (hit.transform.tag == "Enemy")
                 {
