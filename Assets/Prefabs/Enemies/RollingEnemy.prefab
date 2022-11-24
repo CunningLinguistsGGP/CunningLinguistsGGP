@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
+  DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
 --- !u!114 &3972412678275115851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +153,8 @@ MonoBehaviour:
   enemyCooldown: 5
   damage: 5
   offMeshLinkSpeed: 6
+  audio: {fileID: 0}
+  hit: {fileID: 0}
 --- !u!54 &585423714
 Rigidbody:
   m_ObjectHideFlags: 0

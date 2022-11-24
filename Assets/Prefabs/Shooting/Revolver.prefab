@@ -5703,6 +5703,7 @@ MonoBehaviour:
   aimCam: {fileID: 0}
   shootCooldown: 0.3
   audioShot: {fileID: 0}
+  DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
 --- !u!82 &7624559608510756174
 AudioSource:
   m_ObjectHideFlags: 0
