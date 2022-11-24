@@ -679,7 +679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017535651032907798}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.52, y: 0.69, z: -6.81}
+  m_LocalPosition: {x: -0.1, y: 0.69, z: -6.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4940,9 +4940,9 @@ MonoBehaviour:
     - {fileID: 6952975892624260179}
     - {fileID: 6554700442662734769}
     - {fileID: 518944743816347617}
-    - {fileID: 3972412678275115849, guid: 6ffd524cb9a9e7146a8646f9d4dee1d1, type: 3}
-    - {fileID: 5652830841211039683, guid: ce772e4fe7c3f2946b7d161b9a3c4848, type: 3}
-    - {fileID: 3972412678275115849, guid: 6ffd524cb9a9e7146a8646f9d4dee1d1, type: 3}
+    - {fileID: 3254629591206926530, guid: e319cc65c0aa2de4dbeba5640e531ab2, type: 3}
+    - {fileID: 3254629591206926530, guid: e319cc65c0aa2de4dbeba5640e531ab2, type: 3}
+    - {fileID: 3254629591206926530, guid: 7dee111997e0d4643818b90bd2ebf167, type: 3}
 --- !u!114 &4189328270487977343
 MonoBehaviour:
   m_ObjectHideFlags: 0
