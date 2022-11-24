@@ -54,6 +54,8 @@ public class PlayerScript : MonoBehaviour
     //Grapple
     private bool grappling;
     private LineRenderer grapple;
+    [SerializeField] private float currentGrappleCD = 0.0f;
+    [SerializeField] private float maxGrappleCD = 6.0f;
 
     //Upgrade %Values
     private float healthPercent;
@@ -178,48 +180,47 @@ public class PlayerScript : MonoBehaviour
 
     private void Grapple()
     {
-        Vector3 forward = camera.transform.forward;
-        Vector3 rayDir = forward;
         RaycastHit hit;
         float range = 100f;
 
-        int layerMask = 1 << 5;
-        layerMask = ~layerMask;
-        
         if (Input.GetButton("Grapple"))
         {
-            if (Physics.Raycast(camera.transform.position, rayDir, out hit, range, layerMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range))
             {
-                MeleeEnemy melee = hit.transform.GetComponent<MeleeEnemy>();
-                FlyingEnemy flying = hit.transform.GetComponent<FlyingEnemy>();
-                RollingEnemy rolling = hit.transform.GetComponent<RollingEnemy>();
-
-                float grappleSpeed = 2f;
-
-                grapple.enabled = true;
-                grapple.SetPosition(0, transform.position);
-                grapple.SetPosition(1, hit.transform.position);
-
-                if (melee != null)
+                if (hit.transform.tag == "Enemy")
                 {
-                    grappling = true;
-                    melee.SetStunned(true);
-                    transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
-                }
-                else if(flying != null)
-                {
-                    grappling = true;
-                    flying.SetStunned(true);
-                    transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
-                }
-                else
-                {
-                    grappling = true;
-                    rolling.SetStunned(true);
-                    transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                    MeleeEnemy melee = hit.transform.GetComponent<MeleeEnemy>();
+                    FlyingEnemy flying = hit.transform.GetComponent<FlyingEnemy>();
+                    RollingEnemy rolling = hit.transform.GetComponent<RollingEnemy>();
+
+                    float grappleSpeed = 2f;
+
+                    grapple.enabled = true;
+                    grapple.SetPosition(0, transform.position);
+                    grapple.SetPosition(1, hit.transform.position);
+
+                    if (melee != null)
+                    {
+                        grappling = true;
+                        melee.SetStunned(true);
+                        transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                    }
+                    else if (flying != null)
+                    {
+                        grappling = true;
+                        flying.SetStunned(true);
+                        transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        grappling = true;
+                        rolling.SetStunned(true);
+                        transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                    }
                 }
             }
         }
+                
         else
         {
             grappling = false;
