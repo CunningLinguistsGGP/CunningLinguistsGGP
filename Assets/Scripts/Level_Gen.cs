@@ -10,7 +10,9 @@ public class Level_Gen : MonoBehaviour
 
     //[SerializeField] int[] Levels;
 
-   // [SerializeField] GameObject Player;
+    // [SerializeField] GameObject Player;
+
+    [SerializeField] ScoreSystem scoreSystem;
 
     [SerializeField]List<int> level_selection;
 
@@ -55,6 +57,8 @@ public class Level_Gen : MonoBehaviour
         SceneManager.LoadScene(level_selection[random]);
 
         level_selection.RemoveAt(random);
+
+        scoreSystem.Set_ScoreValues(150, 40, 2);
 
         // Present_Level = Instantiate(Levels[level_selection[random]], Level_SpwanPoint.transform);
 

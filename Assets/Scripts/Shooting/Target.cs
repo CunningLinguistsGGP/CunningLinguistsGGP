@@ -13,6 +13,16 @@ public class Target : MonoBehaviour
     //Grappling
     [SerializeField] private bool doubleDamage;
 
+    //Score
+    public ScoreSystem s_s;
+
+    public int enemy_type;
+
+    void Start()
+    {
+        s_s = GameObject.Find("Level_Gen").GetComponent<ScoreSystem>();
+    }
+
     public void TakeDamage(float damage)
     {
         if (doubleDamage)
@@ -24,6 +34,7 @@ public class Target : MonoBehaviour
             health -= damage;
             if (health <= 0)
             {
+
                 Die();
             }
         }
@@ -36,6 +47,7 @@ public class Target : MonoBehaviour
 
             if (health <= 0)
             {
+
                 Die();
             }
         }
@@ -56,6 +68,8 @@ public class Target : MonoBehaviour
 
     void Die()
     {
+        s_s.ScoreSet(enemy_type);
+
         Destroy(gameObject);
     }
 }
