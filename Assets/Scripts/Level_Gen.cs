@@ -29,6 +29,9 @@ public class Level_Gen : MonoBehaviour
 
     int random;
 
+    //Difficulty Setting
+    [SerializeField] private int difficultySetting;
+
     private void Start()
     {
         instance = this;
@@ -100,5 +103,15 @@ public class Level_Gen : MonoBehaviour
         Black_Fade.SetActive(status == true ? true : false);
 
         yield return new WaitForSeconds(1);
+    }
+
+    public int GetDifficulty()
+    {
+        return difficultySetting;
+    }
+
+    public int SetDifficulty(int diffculty)
+    {
+        return difficultySetting = diffculty;
     }
 }

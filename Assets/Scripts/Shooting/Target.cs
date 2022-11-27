@@ -12,15 +12,37 @@ public class Target : MonoBehaviour
 
     //Grappling
     [SerializeField] private bool doubleDamage;
+    private bool dead = false;
 
     //Score
     public ScoreSystem s_s;
 
     public int enemy_type;
 
+    //Difficulty Settings
+    private Level_Gen levelGen;
+    [SerializeField] private float easyHealth = 10;
+    [SerializeField] private float mediumHealth = 30;
+    [SerializeField] private float hardHealth = 50;
+
     void Start()
     {
-        s_s = GameObject.Find("Level_Gen").GetComponent<ScoreSystem>();
+        //s_s = GameObject.Find("Level_Gen").GetComponent<ScoreSystem>();
+
+        levelGen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+
+        if (levelGen.GetDifficulty() == 1)
+        {
+            health = easyHealth;
+        }
+        else if (levelGen.GetDifficulty() == 2)
+        {
+            health = mediumHealth;
+        }
+        else
+        {
+            health = hardHealth;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -34,8 +56,9 @@ public class Target : MonoBehaviour
             health -= damage;
             if (health <= 0)
             {
-
-                Die();
+                dead = true;
+                StartCoroutine(Dies());
+                //Die();
             }
         }
 
@@ -47,8 +70,9 @@ public class Target : MonoBehaviour
 
             if (health <= 0)
             {
-
-                Die();
+                dead = true;
+                StartCoroutine(Dies());
+                //Die();
             }
         }
     }
@@ -68,8 +92,19 @@ public class Target : MonoBehaviour
 
     void Die()
     {
-        s_s.ScoreSet(enemy_type);
+        //s_s.ScoreSet(enemy_type);
 
+        Destroy(gameObject);
+    }
+
+    public bool GetIsDead()
+    {
+        return dead;
+    }
+
+    IEnumerator Dies()
+    {
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 }

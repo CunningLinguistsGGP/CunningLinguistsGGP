@@ -121,6 +121,9 @@ MonoBehaviour:
   offMeshLinkSpeed: 5
   audio: {fileID: 1288580305}
   hit: {fileID: 229961966}
+  easyDamage: 1
+  mediumDamage: 3
+  hardDamage: 5
 --- !u!195 &1470083079
 NavMeshAgent:
   m_ObjectHideFlags: 0

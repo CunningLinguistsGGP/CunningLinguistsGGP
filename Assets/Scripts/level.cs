@@ -15,8 +15,11 @@ public class level : MonoBehaviour
     //Random Enemy Spawning
     public List<GameObject> enemyTypes;
     private int enemyTypeToSpawn;
-    public List<GameObject> spawnPoints = new List<GameObject>();
+    private List<GameObject> spawnPoints = new List<GameObject>();
     public int maxEnemies = 5;
+
+    //Difficulty Settings
+    private int diffultyLevel;
 
     private void Start()
     {
@@ -57,9 +60,40 @@ public class level : MonoBehaviour
     {
         if (enemyAmount > 0 && currentEnemyAmount < maxEnemies)
         {
+            if(currentEnemyAmount < enemyAmount - spawnPoints.Count)
+            {
+                for (int i = 0; i < spawnPoints.Count; i++)
+                {
+                    if (spawnPoints[i].GetComponent<RandomEnemySpawn>().flyingEnemyOnly)
+                    {
+                        enemyTypeToSpawn = enemyTypes.Count - 1;
+                    }
+                    else
+                    {
+                        enemyTypeToSpawn = Random.Range(0, enemyTypes.Count - 1);
+                    }
+
+                    Instantiate(enemyTypes[enemyTypeToSpawn].gameObject, spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
+                    enemyAmount -= 1;
+                }
+            }
+
+            else
+            {
+                RandSpawnEnemies();
+            }
+        }
+    }
+
+    private void RandSpawnEnemies()
+    {
+        if (enemyAmount > 0 && currentEnemyAmount < maxEnemies)
+        {
             for (int i = 0; i < spawnPoints.Count; i++)
             {
-                if(spawnPoints[i].GetComponent<RandomEnemySpawn>().flyingEnemyOnly)
+                int randSpawn = Random.Range(0, spawnPoints.Count);
+
+                if (spawnPoints[i].GetComponent<RandomEnemySpawn>().flyingEnemyOnly)
                 {
                     enemyTypeToSpawn = enemyTypes.Count - 1;
                 }
@@ -67,18 +101,19 @@ public class level : MonoBehaviour
                 {
                     enemyTypeToSpawn = Random.Range(0, enemyTypes.Count - 1);
                 }
-                for (int j = 0; j < maxEnemies - currentEnemyAmount; j++)
+
+                if (i == randSpawn)
                 {
                     Instantiate(enemyTypes[enemyTypeToSpawn].gameObject, spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
                     enemyAmount -= 1;
                 }
             }
         }
-    }
+    }    
 
     private void GetComponentsOfGameObject()
     {
-        levelgen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+        //levelgen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
         upgradeSpawner = GameObject.Find("UpgradeSpawner").gameObject;
         foreach(GameObject spawn in GameObject.FindGameObjectsWithTag("SpawnPoint"))
         {
@@ -90,5 +125,10 @@ public class level : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         levelgen.Next_level();
+    }
+
+    public int SetDifficulty(int difficulty)
+    {
+        return diffultyLevel = difficulty;
     }
 }

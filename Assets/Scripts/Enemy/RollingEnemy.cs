@@ -24,8 +24,29 @@ public class RollingEnemy : MonoBehaviour
     private float stunTime = 2f;
     private Target enemy;
 
+    //Difficulty Settings
+    private Level_Gen levelGen;
+    [SerializeField] private float easyDamage = 1;
+    [SerializeField] private float mediumDamage = 5;
+    [SerializeField] private float hardDamage = 10;
+
     private void Start()
     {
+        levelGen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+
+        if (levelGen.GetDifficulty() == 1)
+        {
+            damage = easyDamage;
+        }
+        else if (levelGen.GetDifficulty() == 2)
+        {
+            damage = mediumDamage;
+        }
+        else
+        {
+            damage = hardDamage;
+        }
+
         agent = GetComponent<NavMeshAgent>();
         glow = GetComponent<MeshRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
