@@ -36,6 +36,7 @@ public class PlayerScript : MonoBehaviour
     // Player health + death
     public float currentHealth;
     public float maxHealth = 30f;
+    private float baseMaxHealth = 30;
     public float deathTimer = 2f;
 
     // UI
@@ -49,6 +50,19 @@ public class PlayerScript : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip dJumpSound;
     public AudioClip dashSound;
+
+    //Grapple
+    private bool grappling;
+    private LineRenderer grapple;
+    [SerializeField] private float currentGrappleCD = 0.0f;
+    [SerializeField] private float maxGrappleCD = 6.0f;
+    [SerializeField] private float grappleTime = 1f;
+
+    //Upgrade %Values
+    private float healthPercent;
+    private float damagePercent;
+    private float critChance;
+    private float critDamage;
 
     // Start is called before the first frame update
     private void Start()
@@ -64,12 +78,17 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(!grappling)
+        {
+            Movement();
+            Jump();
+            Dash();
+        }
+
         MouseLook();
-        Movement();
-        Jump();
         SetSliderMaxHealth(maxHealth);
-        Dash();
         Dead();
+        Grapple();
     }
 
     private void MouseLook()
@@ -160,12 +179,81 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private void Grapple()
+    {
+        RaycastHit hit;
+        float range = 100f;
+        int layerMask = 1 << 5;
+        layerMask = ~layerMask;
+
+        float grappleSpeed = 2f;
+        
+
+
+        if (grappling)
+        {
+            currentGrappleCD = maxGrappleCD;
+
+            grappleTime -= Time.deltaTime;
+        }
+        else
+        {
+            currentGrappleCD -= Time.deltaTime;
+            grappleTime = 1.5f;
+        }
+
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range, layerMask, QueryTriggerInteraction.Ignore))
+        {
+            if (hit.transform.gameObject.GetComponent<Target>().GetIsDead() != true)
+            {
+                if (hit.transform.tag == "Enemy")
+                {
+                    if (Input.GetButton("Grapple") && currentGrappleCD <= 0 || Input.GetButton("Grapple") && grappling == true)
+                    {
+                        MeleeEnemy melee = hit.transform.GetComponent<MeleeEnemy>();
+                        FlyingEnemy flying = hit.transform.GetComponent<FlyingEnemy>();
+                        RollingEnemy rolling = hit.transform.GetComponent<RollingEnemy>();
+
+                        grapple.enabled = true;
+                        grapple.SetPosition(0, transform.position);
+                        grapple.SetPosition(1, hit.transform.position);
+
+                        if (melee != null && grappleTime > 0)
+                        {
+                            grappling = true;
+                            melee.SetStunned(true);
+                            transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                        }
+                        else if (flying != null && grappleTime > 0)
+                        {
+                            grappling = true;
+                            flying.SetStunned(true);
+                            transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                        }
+                        else if (rolling != null && grappleTime > 0)
+                        {
+                            grappling = true;
+                            rolling.SetStunned(true);
+                            transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                        }
+                    } 
+                }
+            }
+        }        
+        else
+        {
+            grappling = false;
+            grapple.enabled = false;
+        } 
+    }
+
     private void GetComponentsInGameObject()
     {
         camera = gameObject.GetComponentInChildren<Camera>();
         controller = gameObject.GetComponent<CharacterController>();
         playerScript = gameObject.GetComponent<PlayerScript>();
         audioSource = gameObject.GetComponent<AudioSource>();
+        grapple = gameObject.GetComponent<LineRenderer>();
     }
 
     public void SetMouseSens(float value)
@@ -243,5 +331,31 @@ public class PlayerScript : MonoBehaviour
     public bool SetDoubleJump(bool value)
     {
         return doubleJumpEnabled = value;
+    }
+
+    public float GetBaseMaxHP()
+    {
+        return baseMaxHealth;
+    }
+
+    public float SetHealthPercent(float increase)
+    {
+        return healthPercent += increase;
+    }
+
+    public float GetHealthPercent()
+    {
+        return healthPercent;
+    }
+
+    //public float SetDamagePercent(float increase)
+    //{
+    //    damagePercent += increase;
+    //    return 
+    //}
+
+    public float GetDamagePercent()
+    {
+        return damagePercent;
     }
 }

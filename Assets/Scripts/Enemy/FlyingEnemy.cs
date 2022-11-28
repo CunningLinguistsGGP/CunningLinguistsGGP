@@ -23,6 +23,11 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private ParticleSystem mzzlFlash;
     [SerializeField] AudioSource audioShot;
 
+    //Grapple
+    private bool stunned;
+    private float stunTime = 2f;
+    private Target enemy;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -30,43 +35,59 @@ public class FlyingEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
         originalSpeed = agent.speed;
-        
+        enemy = GetComponent<Target>();
+
         if (Camera.main is not null)
         {
             camera = Camera.main.transform;
         }
+        
+        agent.avoidancePriority = Random.Range(0, 99);
     }
     
     private void Update()
     {
         timer += Time.deltaTime;
 
-        if (agent.isOnOffMeshLink)
+        if (stunned)
         {
-            agent.speed = offMeshLinkSpeed;
-        }
-        else if (!agent.isOnOffMeshLink)
-        {
-            agent.speed = originalSpeed;
-        }
-        
-        if (timer >= enemyCooldown && playerInRange)
-        {
-            Shoot();
-            Debug.Log(playerHealth.currentHealth);
-        }
-        
-        if(playerHealth.currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-        }
-        
-        if (player != null)
-        {
-            agent.destination = player.transform.position;
-        }
+            agent.isStopped = true;
 
-        transform.LookAt(camera);
+            enemy.SetDoubleDamage(true);
+
+            stunTime -= Time.deltaTime;
+
+            if (stunTime <= 0f)
+            {
+                stunned = false;
+                agent.isStopped = false;
+                enemy.SetDoubleDamage(false);
+                stunTime = 2f;
+            }
+        }
+        else
+        {
+            if (agent.isOnOffMeshLink)
+            {
+                agent.speed = offMeshLinkSpeed;
+            }
+            else if (!agent.isOnOffMeshLink)
+            {
+                agent.speed = originalSpeed;
+            }
+
+            if (timer >= enemyCooldown && playerInRange)
+            {
+                Shoot();
+            }
+
+            if (player != null)
+            {
+                agent.destination = player.transform.position;
+            }
+
+            transform.LookAt(camera);
+        }
     }
     
     private void OnTriggerEnter(Collider other)
@@ -89,7 +110,7 @@ public class FlyingEnemy : MonoBehaviour
     
     void Shoot()
     {
-        timer = 0f;
+        timer = Random.Range(0.0f, 2.0f);
         
         if (playerHealth.currentHealth > 0)
         {
@@ -108,5 +129,10 @@ public class FlyingEnemy : MonoBehaviour
             newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
             Destroy(newProjectile, 2.0f);
         }
+    }
+
+    public bool SetStunned(bool stun)
+    {
+        return stunned = stun;
     }
 }

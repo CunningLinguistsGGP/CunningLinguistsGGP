@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour
         {
             GameObject newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
         }
-        Collider[] targets = Physics.OverlapSphere(transform.position, explosionSize, targetLayer);
+        Collider[] targets = Physics.OverlapSphere(transform.position, explosionSize, targetLayer, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < targets.Length; i++)
         {
             Target target = targets[i].GetComponent<Target>();

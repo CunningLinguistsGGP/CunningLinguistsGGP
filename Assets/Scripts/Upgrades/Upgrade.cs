@@ -7,6 +7,7 @@ public class Upgrade : MonoBehaviour
     private PlayerScript player;
     private Renderer obj;
     private GameObject cube;
+    private HitScanGun gun;
 
     private float speed = 50f;
     [SerializeField] private int upgradeType;
@@ -22,6 +23,8 @@ public class Upgrade : MonoBehaviour
 
         audioSource.PlayOneShot(upgradeSpawn);
 
+        upgradeType = 1;
+
         switch (upgradeType)
         {
             case 1:
@@ -34,10 +37,10 @@ public class Upgrade : MonoBehaviour
                 obj.material.SetColor("_Color", Color.yellow);
                 break;
             case 4:
-                obj.material.SetColor("_Color", Color.red);
+                obj.material.SetColor("_Color", Color.green);
                 break;
             case 5:
-                obj.material.SetColor("_Color", Color.green);
+                obj.material.SetColor("_Color", Color.red);
                 break;
             default:
                 break;
@@ -59,15 +62,18 @@ public class Upgrade : MonoBehaviour
                 player.SetDoubleJump(true);
                 break;
             case 2:
-                float speedValue = player.GetSpeed() / 100 * 5;
-                player.SetSpeed(speedValue);
+                player.SetSpeed(speed + 5f);
                 break;
             case 3:
                 player.SetDashAmount(1);
                 break;
             case 4:
-                float healthValue = player.GetHealth() / 100 * 5;
+                player.SetHealthPercent(10);
+                float healthValue = player.GetBaseMaxHP() / 100 * player.GetHealthPercent();
                 player.SetHealth(healthValue);
+                break;
+            case 5:
+                //player.SetDamagePercent(10);
                 break;
             default:
                 break;
@@ -87,7 +93,10 @@ public class Upgrade : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(literalTimeWaste());
+        if(other.tag == "Player")
+        {
+            StartCoroutine(literalTimeWaste());
+        }
     }
 
     IEnumerator literalTimeWaste()

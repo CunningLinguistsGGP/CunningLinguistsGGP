@@ -18,43 +18,85 @@ public class RollingEnemy : MonoBehaviour
     private GameObject player;
     private PlayerScript playerHealth;
     private MeshRenderer glow;
-    
+
+    //Grapple
+    private bool stunned;
+    private float stunTime = 2f;
+    private Target enemy;
+
+    //Difficulty Settings
+    private Level_Gen levelGen;
+    [SerializeField] private float easyDamage = 1;
+    [SerializeField] private float mediumDamage = 5;
+    [SerializeField] private float hardDamage = 10;
+
     private void Start()
     {
+        levelGen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+
+        if (levelGen.GetDifficulty() == 1)
+        {
+            damage = easyDamage;
+        }
+        else if (levelGen.GetDifficulty() == 2)
+        {
+            damage = mediumDamage;
+        }
+        else
+        {
+            damage = hardDamage;
+        }
+
         agent = GetComponent<NavMeshAgent>();
         glow = GetComponent<MeshRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
         originalSpeed = agent.speed;
+        enemy = GetComponent<Target>();
+        
+        agent.avoidancePriority = Random.Range(0, 99);
     }
     
     private void Update()
     {
         timer += Time.deltaTime;
 
-        if (agent.isOnOffMeshLink)
+        if (stunned)
         {
-            agent.speed = offMeshLinkSpeed;
+            agent.isStopped = true;
+
+            enemy.SetDoubleDamage(true);
+
+            stunTime -= Time.deltaTime;
+
+            if (stunTime <= 0f)
+            {
+                stunned = false;
+                agent.isStopped = false;
+                enemy.SetDoubleDamage(false);
+                stunTime = 2f;
+            }
         }
-        else if (!agent.isOnOffMeshLink)
+        else
         {
-            agent.speed = originalSpeed;
-        }
-        
-        if (timer >= enemyCooldown && playerInRange )
-        {
-            Attack();
-            Debug.Log(playerHealth.currentHealth);
-        }
-        
-        if(playerHealth.currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-        }
-        
-        if(player != null)
-        {
-            agent.SetDestination(player.transform.position);
+            if (agent.isOnOffMeshLink)
+            {
+                agent.speed = offMeshLinkSpeed;
+            }
+            else if (!agent.isOnOffMeshLink)
+            {
+                agent.speed = originalSpeed;
+            }
+
+            if (timer >= enemyCooldown && playerInRange)
+            {
+                Attack();
+            }
+
+            if (player != null)
+            {
+                agent.SetDestination(player.transform.position);
+            }
         }
     }
 
@@ -93,17 +135,20 @@ public class RollingEnemy : MonoBehaviour
                 audio.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);
             }
         
-            StartCoroutine(ChargeAttack());
+            StartCoroutine(ChargeAttack(3.0f));
             playerHealth.currentHealth -= damage;
             playerHealth.SetSliderHealth(playerHealth.currentHealth);
         }
     }
 
-    IEnumerator ChargeAttack()
+    IEnumerator ChargeAttack(float time)
     {
         agent.isStopped = true;
-        yield return new WaitForSeconds(enemyCooldown);
+        yield return new WaitForSeconds(time);
         agent.isStopped = false;
     }
-    
+    public bool SetStunned(bool stun)
+    {
+        return stunned = stun;
+    }
 }
