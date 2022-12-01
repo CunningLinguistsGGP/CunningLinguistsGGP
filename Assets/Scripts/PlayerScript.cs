@@ -252,6 +252,10 @@ public class PlayerScript : MonoBehaviour
         playerScript = gameObject.GetComponent<PlayerScript>();
         audioSource = gameObject.GetComponent<AudioSource>();
         grapple = gameObject.GetComponent<LineRenderer>();
+        slider = GameObject.Find("Fill Border").GetComponent<Slider>();
+        imageHealth = slider.GetComponentInChildren<Image>();
+        crossHair = GameObject.Find("CrossHair").GetComponent<Image>();
+        gameOver = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
     }
 
     public void SetMouseSens(float value)

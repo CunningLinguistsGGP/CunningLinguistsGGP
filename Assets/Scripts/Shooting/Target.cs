@@ -27,7 +27,7 @@ public class Target : MonoBehaviour
 
     void Start()
     {
-        //s_s = GameObject.Find("Level_Gen").GetComponent<ScoreSystem>();
+        s_s = GameObject.Find("Level_Gen").GetComponent<ScoreSystem>();
 
         levelGen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
 
@@ -57,8 +57,8 @@ public class Target : MonoBehaviour
             if (health <= 0)
             {
                 dead = true;
-                StartCoroutine(Dies());
-                //Die();
+                //StartCoroutine(Dies());
+                Die();
             }
         }
 
@@ -71,8 +71,8 @@ public class Target : MonoBehaviour
             if (health <= 0)
             {
                 dead = true;
-                StartCoroutine(Dies());
-                //Die();
+                //StartCoroutine(Dies());
+                Die();
             }
         }
     }
@@ -92,7 +92,7 @@ public class Target : MonoBehaviour
 
     void Die()
     {
-        //s_s.ScoreSet(enemy_type);
+        s_s.ScoreSet(enemy_type);
 
         Destroy(gameObject);
     }
