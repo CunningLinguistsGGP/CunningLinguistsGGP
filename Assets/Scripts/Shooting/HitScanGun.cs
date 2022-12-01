@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HitScanGun : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class HitScanGun : MonoBehaviour
 
     [SerializeField] AudioSource audioShot;
 
+    Controls ctrl;
+
     private float lastShotTime = 0.0f;
 
     //Upgrade Stuff
@@ -31,6 +34,10 @@ public class HitScanGun : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioShot = GetComponent<AudioSource>();
         shotDeviation = Mathf.Tan(coneAngle);
+
+        ctrl = new Controls();
+        ctrl.Player.Enable();
+        ctrl.Player.Shoot.performed += fire;
     }
 
     // Update is called once per frame
@@ -41,8 +48,16 @@ public class HitScanGun : MonoBehaviour
             Shoot();
         }
     }
+
+    public void fire(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Shoot();
+        }
+    }
     
-    void Shoot()
+    public void Shoot()
     {
         Vector3 forward = aimCam.transform.forward;
         Vector3 up = aimCam.transform.up;

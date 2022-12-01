@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 2 Arenas/ToG Arena Test.unity
     guid: 902978d448c418543be96fa318d8309c
+  - enabled: 1
+    path: Assets/Scenes/TrueLordChunkManor/LordChunkManorLevels/LordChunkManorLevel1.unity
+    guid: 65cdeedc6321b084ba3d607ad4ccc957
   m_configObjects: {}
