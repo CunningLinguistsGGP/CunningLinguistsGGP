@@ -31,8 +31,6 @@ public class ShieldEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
         enemy = GetComponent<Target>();
-
-
     }
     
     private void Update()
@@ -57,7 +55,7 @@ public class ShieldEnemy : MonoBehaviour
         }
         else
         {
-            if (timer >= enemyCooldown && playerInRange)
+            if (timer >= Random.Range(enemyCooldown, enemyCooldown + 2.0f) && playerInRange)
             {
                 Shoot();
             }
@@ -84,7 +82,7 @@ public class ShieldEnemy : MonoBehaviour
     
     void Shoot()
     {
-        timer = Random.Range(0.0f, 2.0f);
+        timer = 0.0f;
         
         if (playerHealth.currentHealth > 0)
         {
