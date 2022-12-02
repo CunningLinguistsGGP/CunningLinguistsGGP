@@ -609,6 +609,8 @@ MonoBehaviour:
   health: 10
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
   doubleDamage: 0
+  s_s: {fileID: 0}
+  enemy_type: 0
 --- !u!1 &149740221143175556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,6 +1220,8 @@ MonoBehaviour:
   health: 10
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
   doubleDamage: 0
+  s_s: {fileID: 0}
+  enemy_type: 0
 --- !u!1 &149740221232708820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2523,6 +2527,8 @@ MonoBehaviour:
   health: 30
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
   doubleDamage: 0
+  s_s: {fileID: 0}
+  enemy_type: 3
 --- !u!114 &6937099849651209311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3259,6 +3265,8 @@ MonoBehaviour:
   health: 10
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
   doubleDamage: 0
+  s_s: {fileID: 0}
+  enemy_type: 0
 --- !u!1 &149740221532575140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3899,6 +3907,8 @@ MonoBehaviour:
   health: 10
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
   doubleDamage: 0
+  s_s: {fileID: 0}
+  enemy_type: 0
 --- !u!1001 &2008453076662067873
 PrefabInstance:
   m_ObjectHideFlags: 0

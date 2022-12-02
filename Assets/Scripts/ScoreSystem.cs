@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using UnityEngine;
+using TMPro;
 
 public class ScoreSystem : MonoBehaviour
 {
     ScoreSystem scoreSystem;
+
+    [SerializeField] GameObject scoreText;
+    [SerializeField] GameObject TimeText;
 
     [SerializeField] int score;
     [SerializeField] List<int> EnemmyKillValues;
@@ -22,7 +26,7 @@ public class ScoreSystem : MonoBehaviour
         scoreSystem = GetComponent<ScoreSystem>();
     }
 
-    void Set_ScoreValues(int maxTime,int minTime, int score_Multipler)
+    public void Set_ScoreValues(int maxTime,int minTime, int score_Multipler)
     {
         max_time = maxTime;
 
@@ -31,6 +35,9 @@ public class ScoreSystem : MonoBehaviour
         multipler = score_Multipler;
 
         timeremaining = true;
+
+        scoreText.GetComponent<TMP_Text>().text = "";
+        TimeText.GetComponent<TMP_Text>().text = "";
     }
 
     private void Update()
@@ -38,6 +45,14 @@ public class ScoreSystem : MonoBehaviour
         if (timeremaining)
         {
             max_time -= Time.deltaTime;
+
+            string temp;
+
+            TimeText.GetComponent<TMP_Text>().text = "Time Remaining: " + Mathf.RoundToInt(max_time).ToString();
+
+            temp = "Score : " + Score();
+
+            scoreText.GetComponent<TMP_Text>().text = temp;
 
             if(max_time == 0) timeremaining = false;
         }
@@ -52,6 +67,8 @@ public class ScoreSystem : MonoBehaviour
     {
         score = score + EnemmyKillValues[value];
 
+        print("Hello");
+        
         Score_Save();
     }
 

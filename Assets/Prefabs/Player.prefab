@@ -69,6 +69,8 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 936f33130523b3847b020d1919b3e830, type: 3}
   dJumpSound: {fileID: 8300000, guid: a75d9f2f29da7ce49b5f081b2dfce8d4, type: 3}
   dashSound: {fileID: 8300000, guid: 4cb0ef870d4b9e940bda75bb9b363e3e, type: 3}
+  currentGrappleCD: 0
+  maxGrappleCD: 6
 --- !u!143 &819171592586697875
 CharacterController:
   m_ObjectHideFlags: 0
