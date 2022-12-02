@@ -80,12 +80,12 @@ public class PlayerScript : MonoBehaviour
     {
         if(!grappling)
         {
+            MouseLook();
             Movement();
             Jump();
             Dash();
         }
-
-        MouseLook();
+        
         SetSliderMaxHealth(maxHealth);
         Dead();
         Grapple();
@@ -187,9 +187,7 @@ public class PlayerScript : MonoBehaviour
         layerMask = ~layerMask;
 
         float grappleSpeed = 2f;
-        
-
-
+  
         if (grappling)
         {
             currentGrappleCD = maxGrappleCD;
@@ -204,9 +202,9 @@ public class PlayerScript : MonoBehaviour
 
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range, layerMask, QueryTriggerInteraction.Ignore))
         {
-            if (hit.transform.gameObject.GetComponent<Target>().GetIsDead() != true)
+            if (hit.transform.tag == "Enemy")
             {
-                if (hit.transform.tag == "Enemy")
+                if (hit.transform.gameObject.GetComponent<Target>().GetIsDead() != true) 
                 {
                     if (Input.GetButton("Grapple") && currentGrappleCD <= 0 || Input.GetButton("Grapple") && grappling == true)
                     {
