@@ -79,13 +79,15 @@ public class BFG : MonoBehaviour
         projectile.GetComponent<Rigidbody>().detectCollisions = true;
         Vector3 forward = aimCam.transform.forward;
         Vector3 rayDir = forward;
-
+        int layerMask = 1 << 5;
+        layerMask = ~layerMask;
+        
         Ray ray = new Ray(aimCam.transform.position, rayDir);
         RaycastHit hit;
 
 
         Vector3 targetPos = ray.GetPoint(targetRange);
-        if (Physics.Raycast(aimCam.transform.position, rayDir, out hit))
+        if (Physics.Raycast(aimCam.transform.position, rayDir, out hit, 100000f, layerMask, QueryTriggerInteraction.Ignore))
         {
             Target target = hit.transform.GetComponent<Target>();
             if (target != null)

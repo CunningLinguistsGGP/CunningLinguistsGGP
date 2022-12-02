@@ -1,109 +1,138 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    public float radius;
     public float enemyCooldown;
 
     private float timer;
     private bool playerInRange;
+    public float offMeshLinkSpeed;
     
     private NavMeshAgent agent;
     private GameObject player;
     private PlayerScript playerHealth;
-
     private new Transform camera;
-
+    private float originalSpeed;
+    private MeshRenderer glow;
+    
     [SerializeField] private GameObject projectile;
-    [SerializeField] private float shootCooldown = 1.0f, shotSpeed = 10.0f, targetRange = 50.0f;
+    [SerializeField] private float shotSpeed = 10.0f;
     [SerializeField] private Transform projectileSpawn;
     
     [SerializeField] private ParticleSystem mzzlFlash;
     [SerializeField] AudioSource audioShot;
 
-    private bool canShoot = true;
-    private float lastShotTime = 0.0f;
+    //Grapple
+    private bool stunned;
+    private float stunTime = 2f;
+    private Target enemy;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        glow = GetComponent<MeshRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
+        originalSpeed = agent.speed;
+        enemy = GetComponent<Target>();
 
         if (Camera.main is not null)
         {
             camera = Camera.main.transform;
         }
+        
+        agent.avoidancePriority = Random.Range(0, 99);
     }
     
     private void Update()
     {
         timer += Time.deltaTime;
 
-        if (lastShotTime + shootCooldown < Time.time)
+        if (stunned)
         {
-            canShoot = true;
+            agent.isStopped = true;
+
+            enemy.SetDoubleDamage(true);
+
+            stunTime -= Time.deltaTime;
+
+            if (stunTime <= 0f)
+            {
+                stunned = false;
+                agent.isStopped = false;
+                enemy.SetDoubleDamage(false);
+                stunTime = 2f;
+            }
         }
         else
         {
-            canShoot = false;
-        }
-        if (canShoot)
-        {
-            Shoot();
-        }
+            if (agent.isOnOffMeshLink)
+            {
+                agent.speed = offMeshLinkSpeed;
+            }
+            else if (!agent.isOnOffMeshLink)
+            {
+                agent.speed = originalSpeed;
+            }
 
-        if(playerHealth.currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-        }
-        
-        if (player != null)
-        {
-            agent.destination = player.transform.position;
-        }
+            if (timer >= enemyCooldown && playerInRange)
+            {
+                Shoot();
+            }
 
-        transform.LookAt(camera);
+            if (player != null)
+            {
+                agent.destination = player.transform.position;
+            }
+
+            transform.LookAt(camera);
+        }
     }
-
-    private void OnDrawGizmosSelected()
+    
+    private void OnTriggerEnter(Collider other)
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        if(other.gameObject == player)
+        {
+            glow.material.EnableKeyword("_EMISSION");
+            playerInRange = true;
+        }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject == player)
+        {
+            glow.material.DisableKeyword("_EMISSION");
+            playerInRange = false;
+        }
+    }
+    
     void Shoot()
     {
-        Vector3 rayDir = transform.position;
-
-        Ray ray = new Ray(transform.position, rayDir);
-        RaycastHit hit;
+        timer = Random.Range(0.0f, 2.0f);
         
-        Vector3 targetPos = ray.GetPoint(targetRange);
-        if (Physics.Raycast(transform.position, rayDir, out hit))
+        if (playerHealth.currentHealth > 0)
         {
-            if (playerHealth.currentHealth > 0)
+            if (mzzlFlash != null)
             {
-                targetPos = hit.point;
-                
-                if(mzzlFlash!=null)
-                    mzzlFlash.Play();
-                if(audioShot!=null)
-                {
-                    audioShot.Play();
-                    audioShot.SetScheduledEndTime(AudioSettings.dspTime + shootCooldown);
-                }
-                
-                GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, Quaternion.identity);
-                newProjectile.GetComponent<Rigidbody>().velocity = rayDir.normalized * shotSpeed;
-                //Destroy(newProjectile, 2.0f);
+                mzzlFlash.Play();
             }
+            
+            if(audioShot != null)
+            {
+                audioShot.Play();
+                audioShot.SetScheduledEndTime(AudioSettings.dspTime + enemyCooldown);
+            }
+                
+            GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+            newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
+            Destroy(newProjectile, 2.0f);
         }
-        
-        lastShotTime = Time.time;
+    }
+
+    public bool SetStunned(bool stun)
+    {
+        return stunned = stun;
     }
 }

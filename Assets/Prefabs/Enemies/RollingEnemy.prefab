@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 585423715}
   m_Layer: 8
   m_Name: RollingEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
+  DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
+  doubleDamage: 0
+  s_s: {fileID: 0}
+  enemy_type: 1
 --- !u!114 &3972412678275115851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,9 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fb9a6c72990ed44b9bb1cc47141d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
   enemyCooldown: 5
   damage: 5
+  offMeshLinkSpeed: 6
+  audio: {fileID: 0}
+  hit: {fileID: 0}
 --- !u!54 &585423714
 Rigidbody:
   m_ObjectHideFlags: 0
