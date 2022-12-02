@@ -76,7 +76,7 @@ public class FlyingEnemy : MonoBehaviour
                 agent.speed = originalSpeed;
             }
 
-            if (timer >= enemyCooldown && playerInRange)
+            if (timer >= Random.Range(enemyCooldown, enemyCooldown + 2.0f) && playerInRange)
             {
                 Shoot();
             }
@@ -110,7 +110,7 @@ public class FlyingEnemy : MonoBehaviour
     
     void Shoot()
     {
-        timer = Random.Range(0.0f, 2.0f);
+        timer = 0.0f;
         
         if (playerHealth.currentHealth > 0)
         {
