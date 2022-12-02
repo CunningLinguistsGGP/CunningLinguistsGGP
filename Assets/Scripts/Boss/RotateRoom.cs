@@ -13,9 +13,23 @@ public class RotateRoom : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Quaternion rotationNeeded = Quaternion.identity;
         if (other.tag == "Player")
         {
-            room.transform.LookAt(room.transform.position - this.transform.position);
+
+            Transform pos = other.transform;
+
+            rotationNeeded.SetFromToRotation(Vector3.up, GameObject.Find("facing").transform.position - room.transform.position);
+
+            Vector3 axis;
+            float angle;
+            rotationNeeded.ToAngleAxis(out angle,out axis);
+
+            pos.Rotate(axis, angle);
+
+            room.transform.rotation *= rotationNeeded;
+
+            other.transform.position = pos.position;
         }
     }
 }
