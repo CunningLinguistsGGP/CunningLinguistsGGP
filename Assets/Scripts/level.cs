@@ -11,6 +11,7 @@ public class level : MonoBehaviour
     public GameObject upgrade;
     private Level_Gen levelgen;
     private bool spawned;
+    private bool transitioning = false;
 
     //Random Enemy Spawning
     public List<GameObject> enemyTypes;
@@ -31,8 +32,9 @@ public class level : MonoBehaviour
     {
         currentEnemyAmount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if (currentEnemyAmount == 0 && spawned == false)
+        if (currentEnemyAmount == 0 && !spawned && !transitioning)
         {
+            transitioning = true;
             Spawn();
             //levelgen.Next_level();
             StartCoroutine(loadnextlevel());
@@ -74,7 +76,7 @@ public class level : MonoBehaviour
                     }
 
                     Instantiate(enemyTypes[enemyTypeToSpawn].gameObject, spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
-                    enemyAmount -= 1;
+                    enemyAmount += 1;
                 }
             }
 
@@ -113,7 +115,7 @@ public class level : MonoBehaviour
 
     private void GetComponentsOfGameObject()
     {
-        //levelgen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+        levelgen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
         upgradeSpawner = GameObject.Find("UpgradeSpawner").gameObject;
         foreach(GameObject spawn in GameObject.FindGameObjectsWithTag("SpawnPoint"))
         {
