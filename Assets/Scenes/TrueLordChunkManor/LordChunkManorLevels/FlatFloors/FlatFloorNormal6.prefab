@@ -10816,6 +10816,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 149740221232708826, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
+      propertyPath: easyHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 149740221232708826, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
+      propertyPath: hardHealth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 149740221232708826, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
+      propertyPath: mediumHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 149740221466443753, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -11023,6 +11035,18 @@ PrefabInstance:
     - target: {fileID: 149740221232708825, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 149740221232708826, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
+      propertyPath: easyHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 149740221232708826, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
+      propertyPath: hardHealth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 149740221232708826, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
+      propertyPath: mediumHealth
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 149740221466443753, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
       propertyPath: m_Mesh
