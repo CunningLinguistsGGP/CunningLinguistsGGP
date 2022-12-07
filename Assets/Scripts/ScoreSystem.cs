@@ -67,8 +67,6 @@ public class ScoreSystem : MonoBehaviour
     {
         score = score + EnemmyKillValues[value];
 
-        print("Hello");
-        
         Score_Save();
     }
 

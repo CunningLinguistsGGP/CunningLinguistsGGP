@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class HitScanGun : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class HitScanGun : MonoBehaviour
     Controls ctrl;
 
     private float lastShotTime = 0.0f;
+
+    //Crit Stuff
+    private float critChance = 10f;
+    private float critDamageMultiplier = 2f;
 
     //Upgrade Stuff
     private PlayerScript player;
@@ -79,8 +84,23 @@ public class HitScanGun : MonoBehaviour
                     Target target = hit.transform.GetComponent<Target>();
                     if (target != null)
                     {
-                        target.TakeDamage(damage);  
-                        Instantiate(hitPrefab,hit.point,Quaternion.identity);
+                        float randValue = Random.Range(0, 100);
+
+                        if(randValue < critChance)
+                        {
+                            float temp = damage;
+                            temp *= critDamageMultiplier;
+                            target.TakeDamage(temp);
+                            hitPrefab.GetComponent<TextMeshPro>().color = Color.yellow;
+                            Instantiate(hitPrefab, hit.point, Quaternion.identity);
+                            temp = damage;
+                        }
+                        else
+                        {
+                            target.TakeDamage(damage);
+                            hitPrefab.GetComponent<TextMeshPro>().color = Color.white;
+                            Instantiate(hitPrefab, hit.point, Quaternion.identity);
+                        }  
                     }
                 }
             }
@@ -102,6 +122,21 @@ public class HitScanGun : MonoBehaviour
             }
             lastShotTime = Time.time;
         }
+    }
+
+    public float GetBaseDamage()
+    {
+        return baseDamageValue;
+    }
+
+    public float SetCritChance(float increase)
+    {
+        return critChance += increase;
+    }
+
+    public float SetCritDamage(float increase)
+    {
+        return critDamageMultiplier += increase;
     }
 
     public float UpdateGunDamage(float increase)
