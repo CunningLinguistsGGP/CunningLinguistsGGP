@@ -78,6 +78,8 @@ public class BFG : MonoBehaviour
     {
         projectile.transform.SetParent(projectile.transform.parent.parent.parent.parent);
         projectile.GetComponent<Rigidbody>().detectCollisions = true;
+        projectile.transform.parent = null;
+
         Vector3 forward = aimCam.transform.forward;
         Vector3 rayDir = forward;
         int layerMask = 1 << 5;
