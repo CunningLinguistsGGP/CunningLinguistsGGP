@@ -7,7 +7,7 @@ public class AimAssist : MonoBehaviour
     [SerializeField] private List<GameObject> aimBubbles;
     [SerializeField] private float bubbleRadius;
 
-    [SerializeField] private float aimAssistSpeed;
+    [SerializeField] private float aimAssistSpeed = 0.1f;
 
     [SerializeField] private Camera aimCam;
 
@@ -33,14 +33,12 @@ public class AimAssist : MonoBehaviour
         Ray ray = new Ray(aimCam.transform.position, rayDir);
         RaycastHit hit;
 
-        Debug.Log("here");
-
+        int layerMask = 1 << 9;
         Vector3 targetPos = ray.GetPoint(targetRange);
-        if (Physics.Raycast(ray, out hit, targetRange, LayerMask.NameToLayer("AimAssist"))) ;
+        if (Physics.Raycast(ray, out hit, targetRange, layerMask))
         {
-            Debug.Log("assisting");
-            //aimCam.transform.rotation = Quaternion.Slerp(aimCam.transform.rotation, Quaternion.LookRotation(hit.transform.position - aimCam.transform.position), aimAssistSpeed * Time.deltaTime);
-            aimCam.transform.rotation = Quaternion.identity;
+            aimCam.transform.rotation = Quaternion.Lerp(aimCam.transform.rotation, Quaternion.LookRotation(hit.transform.position - aimCam.transform.position), aimAssistSpeed);
+
         }
 
     }
