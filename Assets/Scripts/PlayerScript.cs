@@ -63,7 +63,7 @@ public class PlayerScript : MonoBehaviour
     private float damagePercent;
     private float critChance;
     private float critDamage;
-    
+
     // Start is called before the first frame update
     private void Start()
     {
