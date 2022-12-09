@@ -11,7 +11,7 @@ public class Target : MonoBehaviour
     [SerializeField] private GameObject DamageTextPrefab;
 
     //Grappling
-    [SerializeField] private bool doubleDamage;
+    private bool doubleDamage;
     private bool dead = false;
 
     //Score
@@ -25,11 +25,17 @@ public class Target : MonoBehaviour
     [SerializeField] private float mediumHealth = 30;
     [SerializeField] private float hardHealth = 50;
 
+    private HitScanGun revolver;
+    private HitScanGun shotgun;
+
     void Start()
     {
         s_s = GameObject.Find("Level_Gen").GetComponent<ScoreSystem>();
 
         levelGen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+
+        revolver = Camera.main.gameObject.transform.Find("Revolver").GetComponent<HitScanGun>();
+        shotgun = Camera.main.gameObject.transform.Find("Shotgun").GetComponent<HitScanGun>();
 
         if (levelGen.GetDifficulty() == 1)
         {
@@ -47,9 +53,9 @@ public class Target : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (doubleDamage)
+        if (doubleDamage || revolver.GetCrit() == true || shotgun.GetCrit())
         {
-            damage = damage * 2;
+            damage = damage * revolver.GetCritDamageMultiplier();
 
             ShowDamageText(transform.position, damage);
 
@@ -79,6 +85,15 @@ public class Target : MonoBehaviour
 
     private void ShowDamageText(Vector3 enemy, float damage)
     {
+        if(doubleDamage || revolver.GetCrit() == true || shotgun.GetCrit())
+        {
+            GetDamageText().color = Color.yellow;
+        }
+        else
+        {
+            GetDamageText().color = Color.white;
+        }
+
         int randX = Random.Range(-1, 1);
         Vector3 textPos = new Vector3(enemy.x + randX, enemy.y + 1, enemy.z);
         DamageTextPrefab.GetComponent<TextMeshPro>().text = damage.ToString();
@@ -106,5 +121,10 @@ public class Target : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
+    }
+
+    public TextMeshPro GetDamageText()
+    {
+        return DamageTextPrefab.GetComponent<TextMeshPro>();
     }
 }

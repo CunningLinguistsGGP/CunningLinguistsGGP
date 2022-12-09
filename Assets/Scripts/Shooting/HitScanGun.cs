@@ -30,6 +30,7 @@ public class HitScanGun : MonoBehaviour
     //Crit Stuff
     private float critChance = 10f;
     private float critDamageMultiplier = 2f;
+    private bool crit = false;
 
     //Upgrade Stuff
     private PlayerScript player;
@@ -88,17 +89,14 @@ public class HitScanGun : MonoBehaviour
 
                         if(randValue < critChance)
                         {
-                            float temp = damage;
-                            temp *= critDamageMultiplier;
-                            target.TakeDamage(temp);
-                            hitPrefab.GetComponent<TextMeshPro>().color = Color.yellow;
+                            crit = true;
+                            target.TakeDamage(damage);
                             Instantiate(hitPrefab, hit.point, Quaternion.identity);
-                            temp = damage;
+                            crit = false;
                         }
                         else
                         {
-                            target.TakeDamage(damage);
-                            hitPrefab.GetComponent<TextMeshPro>().color = Color.white;
+                            target.TakeDamage(damage);   
                             Instantiate(hitPrefab, hit.point, Quaternion.identity);
                         }  
                     }
@@ -114,8 +112,20 @@ public class HitScanGun : MonoBehaviour
                         Target target = hit.transform.GetComponent<Target>();
                         if (target != null)
                         {
-                            target.TakeDamage(damage);
-                            Instantiate(hitPrefab, hit.point,Quaternion.identity);
+                            float randValue = Random.Range(0, 100);
+
+                            if (randValue < critChance)
+                            {
+                                crit = true;
+                                target.TakeDamage(damage);
+                                Instantiate(hitPrefab, hit.point, Quaternion.identity);
+                                crit = false;
+                            }
+                            else
+                            {
+                                target.TakeDamage(damage);
+                                Instantiate(hitPrefab, hit.point, Quaternion.identity);
+                            }
                         }
                     }
                 }
@@ -134,7 +144,7 @@ public class HitScanGun : MonoBehaviour
         return critChance += increase;
     }
 
-    public float SetCritDamage(float increase)
+    public float SetCritMultiplier(float increase)
     {
         return critDamageMultiplier += increase;
     }
@@ -142,5 +152,15 @@ public class HitScanGun : MonoBehaviour
     public float UpdateGunDamage(float increase)
     {
         return damage += baseDamageValue / 100 * player.GetDamagePercent();
+    }
+
+    public bool GetCrit()
+    {
+        return crit;
+    }
+
+    public float GetCritDamageMultiplier()
+    {
+        return critDamageMultiplier;
     }
 }
