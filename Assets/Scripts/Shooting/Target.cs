@@ -6,6 +6,8 @@ using TMPro;
 public class Target : MonoBehaviour
 {
     [SerializeField] private float health = 50.0f;
+    [SerializeField] private bool isBoss = false;
+    [SerializeField] private bool isBossShield = false;
 
     //Floating Damage Numbers
     [SerializeField] private GameObject DamageTextPrefab;
@@ -13,6 +15,9 @@ public class Target : MonoBehaviour
     //Grappling
     [SerializeField] private bool doubleDamage;
     private bool dead = false;
+
+    //Boss
+    [SerializeField] private Boss bossScript;
 
     //Score
     public ScoreSystem s_s;
@@ -24,6 +29,8 @@ public class Target : MonoBehaviour
     [SerializeField] private float easyHealth = 10;
     [SerializeField] private float mediumHealth = 30;
     [SerializeField] private float hardHealth = 50;
+
+    private float startHealth = 0.0f;
 
     void Start()
     {
@@ -43,6 +50,7 @@ public class Target : MonoBehaviour
         {
             health = hardHealth;
         }
+        startHealth = health;
     }
 
     public void TakeDamage(float damage)
@@ -60,6 +68,11 @@ public class Target : MonoBehaviour
                 //StartCoroutine(Dies());
                 Die();
             }
+            else if(isBoss)
+            {
+                bossScript.healthRatio = health / startHealth;
+            }
+
         }
 
         else
@@ -73,6 +86,10 @@ public class Target : MonoBehaviour
                 dead = true;
                 //StartCoroutine(Dies());
                 Die();
+            }
+            else if (isBoss)
+            {
+                bossScript.healthRatio = health / startHealth;
             }
         }
     }
@@ -92,9 +109,16 @@ public class Target : MonoBehaviour
 
     void Die()
     {
-        s_s.ScoreSet(enemy_type);
+        if(isBossShield)
+        {
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
+            s_s.ScoreSet(enemy_type);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 
     public bool GetIsDead()
