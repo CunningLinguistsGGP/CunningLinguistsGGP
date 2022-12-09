@@ -15,14 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 3/Level 3 R1.unity
     guid: c33ac495a545879418c44e5524469682
   - enabled: 1
+    path: Assets/Scenes/TrueLordChunkManor/Arenas/3x2Arena_Yellow1.unity
+    guid: 5b2755a5c84ee6d42aa2238874c0e40d
+  - enabled: 1
     path: Assets/Scenes/Level 2 Arenas/ToG Arena Test.unity
     guid: 902978d448c418543be96fa318d8309c
   - enabled: 1
     path: Assets/Scenes/TrueLordChunkManor/Arenas/3x2Arena_Blue1.unity
     guid: fffdb37da0b19c04cbdd8223b430068c
-  - enabled: 1
-    path: Assets/Scenes/TrueLordChunkManor/Arenas/3x2Arena_Yellow1.unity
-    guid: 5b2755a5c84ee6d42aa2238874c0e40d
   - enabled: 1
     path: Assets/Scenes/TrueLordChunkManor/Arenas/3x2Arena_Red1.unity
     guid: 5eedfd1d412139e4babf183d878d1319
