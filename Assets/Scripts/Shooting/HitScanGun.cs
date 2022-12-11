@@ -151,7 +151,7 @@ public class HitScanGun : MonoBehaviour
 
     public float UpdateGunDamage(float increase)
     {
-        return damage += baseDamageValue / 100 * player.GetDamagePercent();
+        return damage = baseDamageValue + baseDamageValue / 100 * player.GetDamagePercent();
     }
 
     public bool GetCrit()

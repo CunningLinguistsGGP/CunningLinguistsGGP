@@ -76,6 +76,7 @@ public class Upgrade : MonoBehaviour
                         upgradeText.GetComponent<TextMeshProUGUI>().text = "10% damage increase";
                         float damageValue = revolver.GetBaseDamage() / 100 * player.GetDamagePercent();
                         revolver.UpdateGunDamage(damageValue);
+                        shotgun.UpdateGunDamage(damageValue);
                         StartCoroutine(UpgradeText());
                         break;
                     case 2:

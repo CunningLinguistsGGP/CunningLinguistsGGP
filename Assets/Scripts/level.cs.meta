@@ -3,7 +3,11 @@ guid: 829d4fa44dc996a4ea587364af6cd5db
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - upgradeSpawner: {instanceID: 0}
+  - upgrade: {instanceID: 0}
+  - flying: {fileID: 3254629591206926530, guid: e319cc65c0aa2de4dbeba5640e531ab2, type: 3}
+  - shield: {fileID: 149740221232708820, guid: 354628acb97c2924a82b6dfa76147183, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
