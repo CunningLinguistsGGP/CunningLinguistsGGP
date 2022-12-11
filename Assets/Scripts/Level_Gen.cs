@@ -68,9 +68,7 @@ public class Level_Gen : MonoBehaviour
         // Player_SpwanPoint = Present_Level.transform.Find("PlayerSpwanPoint").gameObject;
 
         //Player.transform.position = Player_SpwanPoint.transform.position;
-
-
-
+        
          StartCoroutine(start_fade(false));
     }
 

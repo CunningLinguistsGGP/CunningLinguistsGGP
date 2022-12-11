@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 
 public class HitScanGun : MonoBehaviour
@@ -10,7 +9,7 @@ public class HitScanGun : MonoBehaviour
     private float baseDamageValue = 10f;
     [SerializeField] private float range = 100.0f;
 
-    [SerializeField] private float shots = 1;
+    [SerializeField] private int shots = 1;
 
     //[SerializeField] private float armorPen = 0.0f;
     [SerializeField] private float coneAngle = 3.0f;
@@ -22,9 +21,7 @@ public class HitScanGun : MonoBehaviour
     [SerializeField] private float shootCooldown = 1.0f;
 
     [SerializeField] AudioSource audioShot;
-
-    Controls ctrl;
-
+    
     private float lastShotTime = 0.0f;
 
     //Crit Stuff
@@ -40,24 +37,12 @@ public class HitScanGun : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioShot = GetComponent<AudioSource>();
         shotDeviation = Mathf.Tan(coneAngle);
-
-        ctrl = new Controls();
-        ctrl.Player.Enable();
-        ctrl.Player.Shoot.performed += fire;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
-    }
-
-    public void fire(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        if(Input.GetButtonDown("Fire1") || (Input.GetAxis("Fire1") != 0))
         {
             Shoot();
         }

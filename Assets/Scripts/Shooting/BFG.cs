@@ -38,7 +38,7 @@ public class BFG : MonoBehaviour
             //Debug.Log("setShootfalse");
             canShoot = false;
         }
-        if(Input.GetButton("Fire1"))
+        if(Input.GetButton("Fire1") || (Input.GetAxis("Fire1") != 0))
         {
             if(canShoot&&!charging)
             {
@@ -61,14 +61,17 @@ public class BFG : MonoBehaviour
                 Shoot();
             }
         }
-        if(Input.GetButtonUp("Fire1"))
+        if(Input.GetButtonUp("Fire1") || (Input.GetAxis("Fire1") != 1))
         {
-            Debug.Log("up");
+            //Debug.Log("up");
             if(!currentProjectileFired)
             {
-                Debug.Log("here");
+                //Debug.Log("here");
                 audioShot.Stop();
-                projectile.SetActive(false);
+                if (projectile != null)
+                {
+                    projectile.SetActive(false);
+                }
             }
             charging = false;
             chargedForTime = 0.0f;
