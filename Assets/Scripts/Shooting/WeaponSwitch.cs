@@ -17,6 +17,11 @@ public class WeaponSwitch : MonoBehaviour
             else
                 gameObjects[i].SetActive(false);
         }
+        
+        gameObjects[1].SetActive(true);
+        gameObjects[0].SetActive(false);
+        gameObjects[1].SetActive(false);
+        gameObjects[0].SetActive(true);
     }
 
     // Update is called once per frame
