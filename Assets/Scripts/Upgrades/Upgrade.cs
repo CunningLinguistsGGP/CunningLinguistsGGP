@@ -8,7 +8,8 @@ public class Upgrade : MonoBehaviour
     private PlayerScript player;
     private Renderer obj;
     private GameObject cube;
-    private HitScanGun gun;
+    private HitScanGun revolver;
+    private HitScanGun shotgun;
 
     private float speed = 50f;
     private int upgradeType;
@@ -18,6 +19,7 @@ public class Upgrade : MonoBehaviour
     public AudioClip upgradeSpawn;
     public AudioClip upgradeGet;
 
+    private bool hasBeenRunOver = false;
     private GameObject canvas;
     [SerializeField]private GameObject upgradeText;
 
@@ -72,17 +74,19 @@ public class Upgrade : MonoBehaviour
                     case 1:
                         player.SetDamagePercent(10);
                         upgradeText.GetComponent<TextMeshProUGUI>().text = "10% damage increase";
-                        float damageValue = gun.GetBaseDamage() / 100 * player.GetDamagePercent();
-                        gun.UpdateGunDamage(damageValue);
+                        float damageValue = revolver.GetBaseDamage() / 100 * player.GetDamagePercent();
+                        revolver.UpdateGunDamage(damageValue);
                         StartCoroutine(UpgradeText());
                         break;
                     case 2:
-                        gun.SetCritChance(1);
+                        revolver.SetCritChance(1);
+                        shotgun.SetCritChance(1);
                         upgradeText.GetComponent<TextMeshProUGUI>().text = "1% crit chance increase";
                         StartCoroutine(UpgradeText());
                         break;
                     case 3:
-                        gun.SetCritDamage(0.05f);
+                        revolver.SetCritMultiplier(0.05f);
+                        shotgun.SetCritMultiplier(0.05f);
                         upgradeText.GetComponent<TextMeshProUGUI>().text = "5% crit damage increase";
                         StartCoroutine(UpgradeText());
                         break;
@@ -184,13 +188,17 @@ public class Upgrade : MonoBehaviour
         audioSource = gameObject.GetComponent<AudioSource>();
         canvas = GameObject.Find("Canvas");
         upgradeText = canvas.transform.Find("Upgrade Text").gameObject;
-        gun = GetComponent<HitScanGun>();
+        revolver = Camera.main.gameObject.transform.Find("Revolver").GetComponent<HitScanGun>();
+        shotgun = Camera.main.gameObject.transform.Find("Shotgun").GetComponent<HitScanGun>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+
+        if(other.tag == "Player" && !hasBeenRunOver)
         {
+            hasBeenRunOver = true;
+            obj.material.SetColor("_Color", Color.white);
             StartCoroutine(literalTimeWaste());
         }
     }
@@ -199,16 +207,14 @@ public class Upgrade : MonoBehaviour
     {
         audioSource.PlayOneShot(upgradeGet);
         AddUpgrade();
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1.01f);
         Destroy(gameObject);
     }
 
     IEnumerator UpgradeText()
     {
         upgradeText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(1);
-
+        yield return new WaitForSeconds(1f);
         upgradeText.gameObject.SetActive(false);
     }
 }

@@ -6,13 +6,18 @@ using TMPro;
 public class Target : MonoBehaviour
 {
     [SerializeField] private float health = 50.0f;
+    [SerializeField] private bool isBoss = false;
+    [SerializeField] private bool isBossShield = false;
 
     //Floating Damage Numbers
     [SerializeField] private GameObject DamageTextPrefab;
 
     //Grappling
-    [SerializeField] private bool doubleDamage;
+    private bool doubleDamage;
     private bool dead = false;
+
+    //Boss
+    [SerializeField] private Boss bossScript;
 
     //Score
     public ScoreSystem s_s;
@@ -25,11 +30,18 @@ public class Target : MonoBehaviour
     [SerializeField] private float mediumHealth = 30;
     [SerializeField] private float hardHealth = 50;
 
+    private HitScanGun revolver;
+    private HitScanGun shotgun;
+    private float startHealth = 0.0f;
+
     void Start()
     {
         s_s = GameObject.Find("Level_Gen").GetComponent<ScoreSystem>();
 
         levelGen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
+
+        revolver = Camera.main.gameObject.transform.Find("Revolver").GetComponent<HitScanGun>();
+        shotgun = Camera.main.gameObject.transform.Find("Shotgun").GetComponent<HitScanGun>();
 
         if (levelGen.GetDifficulty() == 1)
         {
@@ -43,13 +55,14 @@ public class Target : MonoBehaviour
         {
             health = hardHealth;
         }
+        startHealth = health;
     }
 
     public void TakeDamage(float damage)
     {
-        if (doubleDamage)
+        if (doubleDamage || revolver.GetCrit() == true || shotgun.GetCrit())
         {
-            damage = damage * 2;
+            damage = damage * revolver.GetCritDamageMultiplier();
 
             ShowDamageText(transform.position, damage);
 
@@ -60,6 +73,11 @@ public class Target : MonoBehaviour
                 //StartCoroutine(Dies());
                 Die();
             }
+            else if(isBoss)
+            {
+                bossScript.healthRatio = health / startHealth;
+            }
+
         }
 
         else
@@ -74,11 +92,24 @@ public class Target : MonoBehaviour
                 //StartCoroutine(Dies());
                 Die();
             }
+            else if (isBoss)
+            {
+                bossScript.healthRatio = health / startHealth;
+            }
         }
     }
 
     private void ShowDamageText(Vector3 enemy, float damage)
     {
+        if(doubleDamage || revolver.GetCrit() == true || shotgun.GetCrit())
+        {
+            GetDamageText().color = Color.yellow;
+        }
+        else
+        {
+            GetDamageText().color = Color.white;
+        }
+
         int randX = Random.Range(-1, 1);
         Vector3 textPos = new Vector3(enemy.x + randX, enemy.y + 1, enemy.z);
         DamageTextPrefab.GetComponent<TextMeshPro>().text = damage.ToString();
@@ -92,9 +123,16 @@ public class Target : MonoBehaviour
 
     void Die()
     {
-        s_s.ScoreSet(enemy_type);
+        if(isBossShield)
+        {
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
+            s_s.ScoreSet(enemy_type);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 
     public bool GetIsDead()
@@ -106,5 +144,10 @@ public class Target : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
+    }
+
+    public TextMeshPro GetDamageText()
+    {
+        return DamageTextPrefab.GetComponent<TextMeshPro>();
     }
 }
