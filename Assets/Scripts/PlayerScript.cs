@@ -17,8 +17,7 @@ public class PlayerScript : MonoBehaviour
     //Jump Variables
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = -9.81f;
-    private bool canDoubleJump;
-    private bool doubleJumpEnabled;
+    private bool canDoubleJump = false;
 
     //Mouse Look Variables
     private float mouseSens = 1000f;
@@ -52,17 +51,18 @@ public class PlayerScript : MonoBehaviour
     public AudioClip dashSound;
 
     //Grapple
-    private bool grappling;
+    private bool grappling = false;
     private LineRenderer grapple;
     [SerializeField] private float currentGrappleCD = 0.0f;
     [SerializeField] private float maxGrappleCD = 6.0f;
     [SerializeField] private float grappleTime = 1f;
 
-    //Upgrade %Values
+    //Upgrade Values
     private float healthPercent;
     private float damagePercent;
-    private float critChance;
-    private float critDamage;
+    private bool canGrapple = false;
+    private bool doubleJumpEnabled = false;
+    
 
     // Start is called before the first frame update
     private void Start()
@@ -200,41 +200,44 @@ public class PlayerScript : MonoBehaviour
             grappleTime = 1.5f;
         }
 
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range, layerMask, QueryTriggerInteraction.Ignore))
+        if(canGrapple)
         {
-            if (hit.transform.tag == "Enemy")
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range, layerMask, QueryTriggerInteraction.Ignore))
             {
-                if (hit.transform.gameObject.GetComponent<Target>().GetIsDead() != true) 
+                if (hit.transform.tag == "Enemy")
                 {
-                    if (Input.GetButton("Grapple") && currentGrappleCD <= 0 || Input.GetButton("Grapple") && grappling == true)
+                    if (hit.transform.gameObject.GetComponent<Target>().GetIsDead() != true)
                     {
-                        MeleeEnemy melee = hit.transform.GetComponent<MeleeEnemy>();
-                        FlyingEnemy flying = hit.transform.GetComponent<FlyingEnemy>();
-                        RollingEnemy rolling = hit.transform.GetComponent<RollingEnemy>();
+                        if (Input.GetButton("Grapple") && currentGrappleCD <= 0 || Input.GetButton("Grapple") && grappling == true)
+                        {
+                            MeleeEnemy melee = hit.transform.GetComponent<MeleeEnemy>();
+                            FlyingEnemy flying = hit.transform.GetComponent<FlyingEnemy>();
+                            RollingEnemy rolling = hit.transform.GetComponent<RollingEnemy>();
 
-                        grapple.enabled = true;
-                        grapple.SetPosition(0, transform.position);
-                        grapple.SetPosition(1, hit.transform.position);
+                            grapple.enabled = true;
+                            grapple.SetPosition(0, transform.position);
+                            grapple.SetPosition(1, hit.transform.position);
 
-                        if (melee != null && grappleTime > 0)
-                        {
-                            grappling = true;
-                            melee.SetStunned(true);
-                            transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                            if (melee != null && grappleTime > 0)
+                            {
+                                grappling = true;
+                                melee.SetStunned(true);
+                                transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                            }
+                            else if (flying != null && grappleTime > 0)
+                            {
+                                grappling = true;
+                                flying.SetStunned(true);
+                                transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                            }
+                            else if (rolling != null && grappleTime > 0)
+                            {
+                                grappling = true;
+                                rolling.SetStunned(true);
+                                transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
+                            }
                         }
-                        else if (flying != null && grappleTime > 0)
-                        {
-                            grappling = true;
-                            flying.SetStunned(true);
-                            transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
-                        }
-                        else if (rolling != null && grappleTime > 0)
-                        {
-                            grappling = true;
-                            rolling.SetStunned(true);
-                            transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
-                        }
-                    } 
+                    }
                 }
             }
         }        
@@ -330,6 +333,10 @@ public class PlayerScript : MonoBehaviour
         return speed += increase;
     }
 
+    public bool GetDoubleJump()
+    {
+        return doubleJumpEnabled;
+    }
     public bool SetDoubleJump(bool value)
     {
         return doubleJumpEnabled = value;
@@ -359,5 +366,20 @@ public class PlayerScript : MonoBehaviour
     public float GetDamagePercent()
     {
         return damagePercent;
+    }
+
+    public float SetDamagePercent(float increase)
+    {
+        return damagePercent += increase;
+    }
+
+    public bool GetGrapple()
+    {
+        return canGrapple;
+    }
+
+    public bool SetGrapple(bool value)
+    {
+        return canGrapple = value;
     }
 }

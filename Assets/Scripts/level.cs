@@ -37,7 +37,7 @@ public class level : MonoBehaviour
             transitioning = true;
             Spawn();
             //levelgen.Next_level();
-            StartCoroutine(loadnextlevel());
+           // StartCoroutine(loadnextlevel());
         }
         else
         {

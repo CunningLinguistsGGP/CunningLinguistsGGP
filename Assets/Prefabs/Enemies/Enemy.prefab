@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c681e6fa8eaed6f44a2ea93df7b27f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 50
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
   doubleDamage: 0
   s_s: {fileID: 0}
