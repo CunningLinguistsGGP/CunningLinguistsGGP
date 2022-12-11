@@ -6,7 +6,7 @@ public class level : MonoBehaviour
 {
     //Level Progress 
     //enemyAmount = how many enemies will spawn per level, currentEnemyAmount = how many currently in the level, maxEnemies = how many can be spawned at once
-    private int enemyAmount = 10;
+    public int enemyAmount = 10;
     private int currentEnemyAmount;
     private GameObject upgradeSpawner;
     public GameObject upgrade;
@@ -33,7 +33,7 @@ public class level : MonoBehaviour
     {
         currentEnemyAmount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if (enemyAmount == 0 && !spawned && !transitioning)
+        if (enemyAmount <= 0 && currentEnemyAmount <= 0 && !spawned && !transitioning)
         {
             transitioning = true;
             Spawn();
