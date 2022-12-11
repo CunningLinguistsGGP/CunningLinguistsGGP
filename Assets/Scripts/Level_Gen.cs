@@ -30,7 +30,7 @@ public class Level_Gen : MonoBehaviour
     int random;
 
     //Difficulty Setting
-    [SerializeField] private int difficultySetting;
+    private int difficultySetting = 1;
 
     private void Start()
     {

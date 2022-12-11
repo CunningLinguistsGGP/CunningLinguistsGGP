@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class level : MonoBehaviour
 {
-    //Level Progress
-    [SerializeField] private int enemyAmount = 10;
+    //Level Progress 
+    //enemyAmount = how many enemies will spawn per level, currentEnemyAmount = how many currently in the level, maxEnemies = how many can be spawned at once
+    private int enemyAmount = 10;
     private int currentEnemyAmount;
-    [SerializeField]private GameObject upgradeSpawner;
+    private GameObject upgradeSpawner;
     public GameObject upgrade;
     private Level_Gen levelgen;
     private bool spawned;
@@ -18,9 +19,9 @@ public class level : MonoBehaviour
     private int enemyTypeToSpawn;
     private List<GameObject> spawnPoints = new List<GameObject>();
     public int maxEnemies = 5;
-
-    //Difficulty Settings
-    private int diffultyLevel;
+    public GameObject flying;
+    public GameObject shield;
+    private bool enemySpawned = false;
 
     private void Start()
     {
@@ -32,7 +33,7 @@ public class level : MonoBehaviour
     {
         currentEnemyAmount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if (currentEnemyAmount == 0 && !spawned && !transitioning)
+        if (enemyAmount == 0 && !spawned && !transitioning)
         {
             transitioning = true;
             Spawn();
@@ -62,21 +63,27 @@ public class level : MonoBehaviour
     {
         if (enemyAmount > 0 && currentEnemyAmount < maxEnemies)
         {
-            if(currentEnemyAmount < enemyAmount - spawnPoints.Count)
+            if(currentEnemyAmount < maxEnemies - spawnPoints.Count)
             {
                 for (int i = 0; i < spawnPoints.Count; i++)
                 {
                     if (spawnPoints[i].GetComponent<RandomEnemySpawn>().flyingEnemyOnly)
                     {
-                        enemyTypeToSpawn = enemyTypes.Count - 1;
+                        enemyTypeToSpawn = enemyTypes.IndexOf(flying);
+                    }
+                    else if(spawnPoints[i].GetComponent<RandomEnemySpawn>().shieldEnemyOnly && !enemySpawned)
+                    {
+                        enemySpawned = true;
+                        enemyTypeToSpawn = enemyTypes.IndexOf(shield);
                     }
                     else
                     {
-                        enemyTypeToSpawn = Random.Range(0, enemyTypes.Count - 1);
+                        enemyTypeToSpawn = Random.Range(0, enemyTypes.Count - 2);
                     }
 
                     Instantiate(enemyTypes[enemyTypeToSpawn].gameObject, spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
-                    enemyAmount += 1;
+                    currentEnemyAmount += 1;
+                    enemyAmount -= 1;
                 }
             }
 
@@ -93,20 +100,25 @@ public class level : MonoBehaviour
         {
             for (int i = 0; i < spawnPoints.Count; i++)
             {
-                int randSpawn = Random.Range(0, spawnPoints.Count);
+                int randSpawn = Random.Range(0, spawnPoints.Count - 1);
 
                 if (spawnPoints[i].GetComponent<RandomEnemySpawn>().flyingEnemyOnly)
                 {
-                    enemyTypeToSpawn = enemyTypes.Count - 1;
+                    enemyTypeToSpawn = enemyTypes.IndexOf(flying);
+                }
+                else if (spawnPoints[i].GetComponent<RandomEnemySpawn>().shieldEnemyOnly)
+                {
+                    enemyTypeToSpawn = enemyTypes.IndexOf(shield);
                 }
                 else
                 {
-                    enemyTypeToSpawn = Random.Range(0, enemyTypes.Count - 1);
+                    enemyTypeToSpawn = Random.Range(0, enemyTypes.Count - 2);
                 }
 
                 if (i == randSpawn)
                 {
                     Instantiate(enemyTypes[enemyTypeToSpawn].gameObject, spawnPoints[i].transform.position, spawnPoints[i].transform.rotation);
+                    currentEnemyAmount += 1;
                     enemyAmount -= 1;
                 }
             }
@@ -127,10 +139,5 @@ public class level : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         levelgen.Next_level();
-    }
-
-    public int SetDifficulty(int difficulty)
-    {
-        return diffultyLevel = difficulty;
     }
 }

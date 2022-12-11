@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Enemy
   - SpawnPoint
-  - AimAssist
-  - CheckPoint
   layers:
   - Default
   - TransparentFX
@@ -18,7 +16,7 @@ TagManager:
   - Ground
   - Target
   - Enemy
-  - AimAssist
+  - 
   - 
   - 
   - 
