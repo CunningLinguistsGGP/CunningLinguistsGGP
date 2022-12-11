@@ -407,10 +407,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreSystem: {fileID: 26054806553247397}
-  level_selection: 010000000200000003000000
+  level_selection: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
   Black_Fade: {fileID: 26054805155260928}
   Fade_speed: 0
-  difficultySetting: 0
 --- !u!114 &26054806553247397
 MonoBehaviour:
   m_ObjectHideFlags: 0

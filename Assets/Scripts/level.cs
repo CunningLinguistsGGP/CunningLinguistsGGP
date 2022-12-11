@@ -33,7 +33,7 @@ public class level : MonoBehaviour
     {
         currentEnemyAmount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if (currentEnemyAmount == 0 && !spawned && !transitioning)
+        if (enemyAmount == 0 && !spawned && !transitioning)
         {
             transitioning = true;
             Spawn();
