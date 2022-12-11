@@ -357,12 +357,6 @@ public class PlayerScript : MonoBehaviour
         return healthPercent;
     }
 
-    //public float SetDamagePercent(float increase)
-    //{
-    //    damagePercent += increase;
-    //    return 
-    //}
-
     public float GetDamagePercent()
     {
         return damagePercent;
