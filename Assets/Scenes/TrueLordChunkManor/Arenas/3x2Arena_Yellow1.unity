@@ -24697,6 +24697,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4376211264972975289, guid: 522d40a59d8e8d444833e65c91eeb6b5, type: 3}
+      propertyPath: maxEnemies
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 522d40a59d8e8d444833e65c91eeb6b5, type: 3}
 --- !u!1 &799780629
