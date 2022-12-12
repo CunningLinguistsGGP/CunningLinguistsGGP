@@ -106,6 +106,7 @@ public class Boss : MonoBehaviour
                 ShootDumb();
                 break;
             case 1:
+                ShootPredict();
                 break;
             case 2:
                 break;
@@ -116,8 +117,6 @@ public class Boss : MonoBehaviour
 
     void ShootPredict()
     {
-
-
         if (playerHealth.currentHealth > 0)
         {
             if (mzzlFlash != null)
@@ -134,7 +133,6 @@ public class Boss : MonoBehaviour
 
     void ShootDumb()
     {
-
         if (playerHealth.currentHealth > 0)
         {
             if (mzzlFlash != null)
