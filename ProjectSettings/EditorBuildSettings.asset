@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrueLordChunkManor/Arenas/3x2Arena_Blue1.unity
     guid: fffdb37da0b19c04cbdd8223b430068c
+  - enabled: 1
+    path: Assets/3x2Arena_Orange.unity
+    guid: 624fa0aa6ae2b7b4ea9de21a7f087540
   m_configObjects: {}
