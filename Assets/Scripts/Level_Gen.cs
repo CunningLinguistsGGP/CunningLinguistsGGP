@@ -30,7 +30,7 @@ public class Level_Gen : MonoBehaviour
     int random;
 
     //Difficulty Setting
-    [SerializeField] private int difficultySetting;
+    private int difficultySetting = 1;
 
     private void Start()
     {
@@ -68,9 +68,7 @@ public class Level_Gen : MonoBehaviour
         // Player_SpwanPoint = Present_Level.transform.Find("PlayerSpwanPoint").gameObject;
 
         //Player.transform.position = Player_SpwanPoint.transform.position;
-
-
-
+        
          StartCoroutine(start_fade(false));
     }
 

@@ -426,6 +426,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNames: {fileID: 4955163482911581149}
   PlayersScores: {fileID: 7538996572434136349}
+  LeaderBoaed_OBJ: {fileID: 6701801739162974576}
+  PlayernameInputFeild: {fileID: 0}
   scoreText: {fileID: 26054806871121459}
   TimeText: {fileID: 26054805172431302}
   score: 0

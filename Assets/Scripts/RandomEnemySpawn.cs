@@ -5,4 +5,5 @@ using UnityEngine;
 public class RandomEnemySpawn : MonoBehaviour
 {
     public bool flyingEnemyOnly;
+    public bool shieldEnemyOnly;
 }
