@@ -63,7 +63,6 @@ public class PlayerScript : MonoBehaviour
     private bool canGrapple = false;
     private bool doubleJumpEnabled = false;
     
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -87,6 +86,7 @@ public class PlayerScript : MonoBehaviour
         }
         
         SetSliderMaxHealth(maxHealth);
+        SetSliderHealth(currentHealth);
         Dead();
         Grapple();
     }
