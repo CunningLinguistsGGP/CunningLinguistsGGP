@@ -7,7 +7,7 @@ public class level : MonoBehaviour
     //Level Progress 
     //enemyAmount = how many enemies will spawn per level, currentEnemyAmount = how many currently in the level, maxEnemies = how many can be spawned at once
     public int enemyAmount = 10;
-    private int currentEnemyAmount;
+    [SerializeField]private int currentEnemyAmount;
     private GameObject upgradeSpawner;
     public GameObject upgrade;
     private Level_Gen levelgen;
@@ -38,7 +38,7 @@ public class level : MonoBehaviour
             transitioning = true;
             Spawn();
             //levelgen.Next_level();
-           // StartCoroutine(loadnextlevel());
+            StartCoroutine(loadnextlevel());
         }
         else
         {
