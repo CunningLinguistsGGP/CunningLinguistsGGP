@@ -5800,6 +5800,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 26054805172431300, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ea0ffd182e185d4a8578f4cd6ff3057, type: 2}
+    - target: {fileID: 26054805172431300, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 26054805172431300, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 26054805172431300, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1516199498961882928, guid: 5ea0ffd182e185d4a8578f4cd6ff3057, type: 2}
     - target: {fileID: 26054806553247392, guid: 0249c728de8033b488ca78637b47302b, type: 3}
       propertyPath: m_Name
       value: Level_Gen
@@ -5848,5 +5864,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 26054806871121458, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ea0ffd182e185d4a8578f4cd6ff3057, type: 2}
+    - target: {fileID: 26054806871121458, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 26054806871121458, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 26054806871121458, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 26054806871121458, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1516199498961882928, guid: 5ea0ffd182e185d4a8578f4cd6ff3057, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0249c728de8033b488ca78637b47302b, type: 3}
