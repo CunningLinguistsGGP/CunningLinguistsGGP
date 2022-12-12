@@ -32,14 +32,22 @@ public class AimAssist : MonoBehaviour
 
         Ray ray = new Ray(aimCam.transform.position, rayDir);
         RaycastHit hit;
-
+        Quaternion desiredRot = aimCam.transform.rotation;
         int layerMask = 1 << 9;
         Vector3 targetPos = ray.GetPoint(targetRange);
         if (Physics.Raycast(ray, out hit, targetRange, layerMask))
         {
+            desiredRot = Quaternion.Lerp(desiredRot, Quaternion.LookRotation(hit.transform.position - aimCam.transform.position), aimAssistSpeed);
             aimCam.transform.rotation = Quaternion.Lerp(aimCam.transform.rotation, Quaternion.LookRotation(hit.transform.position - aimCam.transform.position), aimAssistSpeed);
+            //aimCam.transform.localRotation = Quaternion.Euler(desiredRot.eulerAngles.x, 0f, 0f);
 
+            //aimCam.transform.parent.transform.Rotate(Vector3.up *-1* desiredRot.eulerAngles.y);
         }
 
+    }
+
+    public float GetRadius()
+    {
+        return bubbleRadius;
     }
 }
