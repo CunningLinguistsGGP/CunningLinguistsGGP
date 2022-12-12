@@ -123,8 +123,8 @@ MonoBehaviour:
   audio: {fileID: 1288580305}
   hit: {fileID: 229961966}
   easyDamage: 1
-  mediumDamage: 3
-  hardDamage: 5
+  mediumDamage: 2
+  hardDamage: 3
 --- !u!195 &1470083079
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 12
+  m_Speed: 11
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -160,13 +160,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
+  isBoss: 0
+  isBossShield: 0
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
-  doubleDamage: 0
+  bossScript: {fileID: 0}
   s_s: {fileID: 0}
   enemy_type: 0
   easyHealth: 10
-  mediumHealth: 30
-  hardHealth: 50
+  mediumHealth: 20
+  hardHealth: 35
 --- !u!114 &2900215977839349113
 MonoBehaviour:
   m_ObjectHideFlags: 0
