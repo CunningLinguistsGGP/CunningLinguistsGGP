@@ -7,7 +7,7 @@ public class AimAssist : MonoBehaviour
     [SerializeField] private List<GameObject> aimBubbles;
     [SerializeField] private float bubbleRadius;
 
-    [SerializeField] private float aimAssistSpeed;
+    [SerializeField] private float aimAssistSpeed = 0.1f;
 
     [SerializeField] private Camera aimCam;
 
@@ -17,10 +17,10 @@ public class AimAssist : MonoBehaviour
     void Start()
     {
         aimBubbles.AddRange(GameObject.FindGameObjectsWithTag("AimAssist"));
-        //for (int i = 0; i < aimBubbles.Count; i++)
-        //{
-        //    aimBubbles[i].GetComponent<SphereCollider>().radius = bubbleRadius;
-        //}
+        for (int i = 0; i < aimBubbles.Count; i++)
+        {
+            aimBubbles[i].GetComponent<SphereCollider>().radius = bubbleRadius;
+        }
     }
 
     // Update is called once per frame
@@ -32,16 +32,18 @@ public class AimAssist : MonoBehaviour
 
         Ray ray = new Ray(aimCam.transform.position, rayDir);
         RaycastHit hit;
-
-        Debug.Log("here");
-
+        Quaternion desiredRot = aimCam.transform.rotation;
+        int layerMask = 1 << 9;
         Vector3 targetPos = ray.GetPoint(targetRange);
-        if (Physics.Raycast(ray, out hit, targetRange, LayerMask.NameToLayer("AimAssist"))) ;
+        if (Physics.Raycast(ray, out hit, targetRange, layerMask))
         {
-            Debug.Log("assisting");
-            //aimCam.transform.rotation = Quaternion.Slerp(aimCam.transform.rotation, Quaternion.LookRotation(hit.transform.position - aimCam.transform.position), aimAssistSpeed * Time.deltaTime);
-            aimCam.transform.rotation = Quaternion.identity;
+            desiredRot = Quaternion.Lerp(desiredRot, Quaternion.LookRotation(hit.transform.position - aimCam.transform.position), aimAssistSpeed);
+            aimCam.transform.rotation = Quaternion.Lerp(aimCam.transform.rotation, Quaternion.LookRotation(hit.transform.position - aimCam.transform.position), aimAssistSpeed);
+            //aimCam.transform.localRotation = Quaternion.Euler(desiredRot.eulerAngles.x, 0f, 0f);
+
+            //aimCam.transform.parent.transform.Rotate(Vector3.up *-1* desiredRot.eulerAngles.y);
         }
+
     }
 
     public float GetRadius()
