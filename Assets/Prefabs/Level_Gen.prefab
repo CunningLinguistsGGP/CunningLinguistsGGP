@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 26054805080599640}
   - component: {fileID: 26054805080599641}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: LGCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,6 @@ MonoBehaviour:
   level_selection: 010000000200000003000000
   Black_Fade: {fileID: 26054805155260928}
   Fade_speed: 0
-  difficultySetting: 0
 --- !u!114 &26054806553247397
 MonoBehaviour:
   m_ObjectHideFlags: 0
