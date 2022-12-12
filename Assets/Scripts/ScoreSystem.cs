@@ -4,10 +4,18 @@ using System.Data;
 using System.Diagnostics;
 using UnityEngine;
 using TMPro;
+using LootLocker.Requests;
 
 public class ScoreSystem : MonoBehaviour
 {
     ScoreSystem scoreSystem;
+
+    string PlayerID;
+    string LeaderboardID;
+    [SerializeField] TextMeshProUGUI PlayerNames;
+    [SerializeField] TextMeshProUGUI PlayersScores;
+    [SerializeField] GameObject LeaderBoaed_OBJ;
+    [SerializeField] TMP_InputField PlayernameInputFeild;
 
     [SerializeField] GameObject scoreText;
     [SerializeField] GameObject TimeText;
@@ -24,9 +32,13 @@ public class ScoreSystem : MonoBehaviour
     private void Start()
     {
         scoreSystem = GetComponent<ScoreSystem>();
+        StartCoroutine(Setup_LeaderBoard());
+        LeaderboardID = "9376";
     }
 
-    public void Set_ScoreValues(int maxTime,int minTime, int score_Multipler)
+
+
+    public void Set_ScoreValues(int maxTime, int minTime, int score_Multipler)
     {
         max_time = maxTime;
 
@@ -54,7 +66,7 @@ public class ScoreSystem : MonoBehaviour
 
             scoreText.GetComponent<TMP_Text>().text = temp;
 
-            if(max_time == 0) timeremaining = false;
+            if (max_time == 0) timeremaining = false;
         }
     }
 
@@ -66,6 +78,8 @@ public class ScoreSystem : MonoBehaviour
     public void ScoreSet(int value)
     {
         score = score + EnemmyKillValues[value];
+
+        print("Hello");
 
         Score_Save();
     }
@@ -93,10 +107,135 @@ public class ScoreSystem : MonoBehaviour
     {
         PlayerPrefs.SetInt("Score", score);
 
+        StartCoroutine(Submit_Score());
+
         if (PlayerPrefs.GetInt("Score") < score)
         {
             PlayerPrefs.SetInt("HighScore", score);
         }
     }
+
+    #region leaderboard
+
+    public void SetPlayerName()
+    {
+        LootLockerSDKManager.SetPlayerName(PlayernameInputFeild.text, (response) =>
+        {
+            if (response.success)
+            {
+                UnityEngine.Debug.Log("Name set");
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Name not set" + " --> " + response.Error);
+            }
+        });
+    }
+
+    public void LeaderboardPanel_Status(bool status)
+    {
+        LeaderBoaed_OBJ.SetActive(status);
+        PlayerNames.text = "NAME";
+        PlayersScores.text = "SCORE";
+
+        StartCoroutine(GetTopHighScores());
+    }
+
+    IEnumerator Setup_LeaderBoard()
+    {
+        yield return StartLoginRequest();
+        yield return GetTopHighScores();
+    }
+
+    IEnumerator StartLoginRequest()
+    {
+        bool Status = false;
+
+        LootLockerSDKManager.StartGuestSession((response) =>
+        {
+            if (response.success)
+            {
+                UnityEngine.Debug.Log("Server Connected");
+                PlayerID = response.player_id.ToString();
+                PlayerPrefs.SetString("PlayerID", PlayerID);
+                Status = true;
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Server Not Connected!!!");
+                Status = true;
+            }
+
+        });
+
+        yield return new WaitWhile(() => Status == false);
+
+    }
+
+    IEnumerator Submit_Score()
+    {
+        bool Status = false;
+
+        LootLockerSDKManager.SubmitScore(PlayerID, score, LeaderboardID, (response) =>
+        {
+            if (response.success)
+            {
+                UnityEngine.Debug.Log("Score Submited!!");
+                Status = true;
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Score Submission Failed!!");
+                Status = true;
+            }
+        });
+
+        yield return new WaitWhile(() => Status == false);
+
+    }
+
+    IEnumerator GetTopHighScores()
+    {
+        bool Status = false;
+
+        LootLockerSDKManager.GetScoreList(LeaderboardID, 10, 0, (response) =>
+        {
+            if (response.success)
+            {
+                string tempPlayerNames = "Names\n";
+                string tempPlayerScores = "Scores\n";
+
+                LootLockerLeaderboardMember[] members = response.items;
+
+                for (int i = 0; i < members.Length; i++)
+                {
+                    tempPlayerNames += members[i].rank + ". ";
+                    if (members[i].player.name != "")
+                    {
+                        tempPlayerNames += members[i].player.name;
+                    }
+                    else
+                    {
+                        tempPlayerNames += members[i].player.id;
+                    }
+                    tempPlayerScores += members[i].score + "\n";
+                    tempPlayerNames += "\n";
+                }
+
+                PlayerNames.text = tempPlayerNames;
+                PlayersScores.text = tempPlayerScores;
+                Status = true;
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Learderboard Failed!!");
+                Status = true;
+            }
+        });
+
+        yield return new WaitWhile(() => Status == false);
+
+    }
+    #endregion
 
 }

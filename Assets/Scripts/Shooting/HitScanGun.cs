@@ -40,7 +40,7 @@ public class HitScanGun : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(Input.GetButtonDown("Fire1") || (Input.GetAxis("Fire1") != 0))
         {
