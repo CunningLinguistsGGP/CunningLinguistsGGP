@@ -607,8 +607,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  isBoss: 0
+  isBossShield: 0
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
-  doubleDamage: 0
+  bossScript: {fileID: 0}
   s_s: {fileID: 0}
   enemy_type: 0
   easyHealth: 10
@@ -1221,8 +1223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  isBoss: 0
+  isBossShield: 0
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
-  doubleDamage: 0
+  bossScript: {fileID: 0}
   s_s: {fileID: 0}
   enemy_type: 0
   easyHealth: 10
@@ -2532,13 +2536,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
+  isBoss: 0
+  isBossShield: 0
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
-  doubleDamage: 0
+  bossScript: {fileID: 0}
   s_s: {fileID: 0}
   enemy_type: 3
   easyHealth: 10
-  mediumHealth: 30
-  hardHealth: 50
+  mediumHealth: 25
+  hardHealth: 40
 --- !u!114 &6937099849651209311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3273,8 +3279,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  isBoss: 0
+  isBossShield: 0
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
-  doubleDamage: 0
+  bossScript: {fileID: 0}
   s_s: {fileID: 0}
   enemy_type: 0
   easyHealth: 10
@@ -3918,8 +3926,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  isBoss: 0
+  isBossShield: 0
   DamageTextPrefab: {fileID: 5393233247602304829, guid: 5721ef6b4510b4d48975c92b43b9e131, type: 3}
-  doubleDamage: 0
+  bossScript: {fileID: 0}
   s_s: {fileID: 0}
   enemy_type: 0
   easyHealth: 10
