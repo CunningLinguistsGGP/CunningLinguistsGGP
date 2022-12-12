@@ -14,6 +14,8 @@ public class ScoreSystem : MonoBehaviour
     string LeaderboardID;
     [SerializeField] TextMeshProUGUI PlayerNames;
     [SerializeField] TextMeshProUGUI PlayersScores;
+    [SerializeField] GameObject LeaderBoaed_OBJ;
+    [SerializeField] TMP_InputField PlayernameInputFeild;
 
     [SerializeField] GameObject scoreText;
     [SerializeField] GameObject TimeText;
@@ -114,6 +116,30 @@ public class ScoreSystem : MonoBehaviour
     }
 
     #region leaderboard
+
+    public void SetPlayerName()
+    {
+        LootLockerSDKManager.SetPlayerName(PlayernameInputFeild.text, (response) =>
+        {
+            if (response.success)
+            {
+                UnityEngine.Debug.Log("Name set");
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Name not set" + " --> " + response.Error);
+            }
+        });
+    } 
+
+    public void LeaderboardPanel_Status(bool status)
+    {
+        LeaderBoaed_OBJ.SetActive(status);
+        PlayerNames.text = "NAME";
+        PlayersScores.text = "SCORE";
+
+        StartCoroutine(GetTopHighScores());
+    }
 
     IEnumerator Setup_LeaderBoard()
     {
