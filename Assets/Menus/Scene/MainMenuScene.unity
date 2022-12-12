@@ -5822,7 +5822,7 @@ PrefabInstance:
       objectReference: {fileID: 1923451785}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
       propertyPath: level_selection.Array.size
-      value: 12
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
       propertyPath: level_selection.Array.data[3]
