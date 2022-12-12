@@ -12,7 +12,7 @@ public class Upgrade : MonoBehaviour
     private HitScanGun shotgun;
 
     private float speed = 50f;
-    private int upgradeType;
+    private int upgradeType = 3;
 
     //Audio
     private AudioSource audioSource;
@@ -20,7 +20,7 @@ public class Upgrade : MonoBehaviour
     public AudioClip upgradeGet;
 
     private bool hasBeenRunOver = false;
-    private GameObject canvas;
+    [SerializeField] private GameObject canvas;
     [SerializeField]private GameObject upgradeText;
 
     // Start is called before the first frame update
@@ -30,7 +30,7 @@ public class Upgrade : MonoBehaviour
 
         audioSource.PlayOneShot(upgradeSpawn);
 
-        upgradeType = 1;
+        upgradeType = 3;
 
         switch (upgradeType)
         {
@@ -195,7 +195,6 @@ public class Upgrade : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if(other.tag == "Player" && !hasBeenRunOver)
         {
             hasBeenRunOver = true;

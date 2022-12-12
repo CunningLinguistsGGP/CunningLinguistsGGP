@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4376211264972975289, guid: 522d40a59d8e8d444833e65c91eeb6b5, type: 3}
       propertyPath: enemyAmount
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 522d40a59d8e8d444833e65c91eeb6b5, type: 3}
@@ -1521,6 +1521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade
       objectReference: {fileID: 0}
+    - target: {fileID: 3054444080889139359, guid: f7143ce521a83f04481048709b65857e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3383130937971631285, guid: f7143ce521a83f04481048709b65857e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2540,7 +2544,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-24992
+  m_Name: pb_Mesh-154090
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3464,6 +3468,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3054444080889139359, guid: f7143ce521a83f04481048709b65857e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3383130937971631285, guid: f7143ce521a83f04481048709b65857e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -3705,6 +3713,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3054444080889139359, guid: f7143ce521a83f04481048709b65857e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3383130937971631285, guid: f7143ce521a83f04481048709b65857e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -3769,7 +3781,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-25406
+  m_Name: pb_Mesh-154510
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4264,7 +4276,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-25386
+  m_Name: pb_Mesh-154490
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6329,6 +6341,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3054444080889139359, guid: f7143ce521a83f04481048709b65857e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3383130937971631285, guid: f7143ce521a83f04481048709b65857e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -6721,7 +6737,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-25658
+  m_Name: pb_Mesh-154938
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6976,7 +6992,6 @@ MonoBehaviour:
   level_selection: 010000000200000003000000
   Black_Fade: {fileID: 674500815}
   Fade_speed: 0
-  difficultySetting: 1
 --- !u!4 &2007555140
 Transform:
   m_ObjectHideFlags: 0
