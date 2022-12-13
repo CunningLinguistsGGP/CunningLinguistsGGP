@@ -21,9 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 2 Arenas/Level2Arena2.unity
     guid: 902978d448c418543be96fa318d8309c
   - enabled: 1
-    path: Assets/Scenes/Level 3/Level 3 R2.unity
-    guid: 64671ae9daa7883499644a94b5dea842
-  - enabled: 1
     path: Assets/Scenes/Level 3/Level 3 Challenge.unity
     guid: 0c9b51144aa555745b3fa876f017080b
   - enabled: 1
@@ -56,4 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/3x2Arena_Pink.unity
     guid: e1d809964aefaba449c5c47c29e677ec
+  - enabled: 1
+    path: Assets/Scenes/Level 3/Level 3 R3.unity
+    guid: d55c39f84b78a70468ed1a0b7d927a2e
   m_configObjects: {}
