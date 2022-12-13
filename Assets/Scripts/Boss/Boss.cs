@@ -114,6 +114,7 @@ public class Boss : MonoBehaviour
         for (int i = 0; i < shields.Length; i++)
         {
             shields[i].SetActive(true);
+            shields[i].GetComponent<Target>().ResetHealth();
         }
     }
     bool ShieldCheck()
