@@ -2455,7 +2455,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27746
+  m_Name: pb_Mesh345858
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3997,7 +3997,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-10412
+  m_Name: pb_Mesh-84850
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6055,7 +6055,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2050
+  m_Name: pb_Mesh-84838
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6618,15 +6618,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8842907464175187906, guid: 46edf659eb259164d89ff03c089daa8f, type: 3}
       propertyPath: easyHealth
-      value: 75
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8842907464175187906, guid: 46edf659eb259164d89ff03c089daa8f, type: 3}
       propertyPath: hardHealth
-      value: 300
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8842907464175187906, guid: 46edf659eb259164d89ff03c089daa8f, type: 3}
       propertyPath: mediumHealth
-      value: 150
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46edf659eb259164d89ff03c089daa8f, type: 3}
@@ -6637,6 +6637,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 583566048461816066, guid: 3e52a010cd467f54681a212a0ad5a8ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18524944c9def774f9cbee1508af4f25, type: 2}
     - target: {fileID: 4323298579180456365, guid: 3e52a010cd467f54681a212a0ad5a8ba, type: 3}
       propertyPath: m_Name
       value: Room
