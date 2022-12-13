@@ -40,8 +40,8 @@ public class Target : MonoBehaviour
 
         levelGen = GameObject.Find("Level_Gen").GetComponent<Level_Gen>();
 
-        revolver = Camera.main.gameObject.transform.Find("Revolver").GetComponent<HitScanGun>();
-        shotgun = Camera.main.gameObject.transform.Find("Shotgun").GetComponent<HitScanGun>();
+        revolver = GameObject.Find("Revolver").GetComponent<HitScanGun>();
+        shotgun = GameObject.Find("Player").transform.Find("Camera").transform.Find("Shotgun").GetComponent<HitScanGun>();
 
         if (levelGen.GetDifficulty() == 1)
         {
