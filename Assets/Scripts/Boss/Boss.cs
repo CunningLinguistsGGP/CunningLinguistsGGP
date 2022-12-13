@@ -12,11 +12,13 @@ public class Boss : MonoBehaviour
     private PlayerScript playerHealth;
     private Vector3 lastPlayerPos = Vector3.zero;
     private Vector3 playerPredVel = Vector3.zero;
+    private Vector3 playerPredPos = Vector3.zero;
+
+    private bool isVulnerable = false;
 
     public float healthRatio = 1.0f;
-
-    private new Transform camera;
-
+    private float bossStartupTimer = 5.0f;
+    private bool activeShooter = false;
 
     [SerializeField] private GameObject[] shields;
 
@@ -27,8 +29,8 @@ public class Boss : MonoBehaviour
 
     private int difficulty = 1;//1 = easy,2=mid,3=hard
     private int phase = 0;
-    private int numPhases = 1;
 
+    int shotSwitch = 0;
 
     private Level_Gen levelGen;
 
@@ -43,21 +45,17 @@ public class Boss : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerScript>();
 
-
-        if (Camera.main is not null)
-        {
-            camera = Camera.main.transform;
-        }
-
     }
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
+        if (timer > bossStartupTimer)
+        { 
+            activeShooter = true; 
+        }
 
-        playerPredVel = (player.transform.position - lastPlayerPos) / Time.deltaTime;
-
-
+        isVulnerable = !ShieldCheck();
 
         switch (difficulty)
         {
@@ -67,19 +65,29 @@ public class Boss : MonoBehaviour
             //mid
             case 2:
                 if (healthRatio < 0.5f)
+                {
+                    ShieldsUp();
                     phase++;
+                }
+
                 break;
             //hard
             case 3:
                 if(phase==0)
                 {
                     if (healthRatio < 0.667f)
+                    {
                         phase = 1;
+                        ShieldsUp();
+                    }
                 }
                 if(phase == 1)
                 {
                     if (healthRatio < 0.334f)
-                        phase = 1;
+                    {
+                        phase = 2;
+                        ShieldsUp();
+                    }
                 }
                 break;
             //default to easy
@@ -87,65 +95,115 @@ public class Boss : MonoBehaviour
                 break;
         }
 
-        if (timer >= shotCooldown)
+        if (timer >= shotCooldown&& playerHealth.currentHealth>0&&activeShooter)
         {
             timer = 0.0f;
             Shoot();
         }
 
-        projectileDirector.transform.LookAt(player.transform);
         lastPlayerPos = player.transform.position;
     }
 
+    public bool GetIsVulnerable()
+    {
+        return isVulnerable;
+    }
+
+    void ShieldsUp()
+    {
+        for (int i = 0; i < shields.Length; i++)
+        {
+            shields[i].SetActive(true);
+            shields[i].GetComponent<Target>().ResetHealth();
+        }
+    }
+    bool ShieldCheck()
+    {
+        bool res = false;
+        for (int i = 0; i < shields.Length; i++)
+        {
+            if (shields[i].activeSelf)
+                res = true;
+        }
+        return res;
+    }
 
     void Shoot()
     {
+        shotSwitch++;
+        shotSwitch %= 2;
         switch (phase)
         {
             case 0:
                 ShootDumb();
                 break;
             case 1:
+                ShootPredict();
                 break;
             case 2:
+                if(shotSwitch==0)
+                {
+                    ShootDumb();
+                }
+                else
+                {
+                    ShootPredict();
+                }
                 break;
-            default: ShootDumb();
+            default: 
+                ShootDumb();
                 break;
         }
     }
 
     void ShootPredict()
     {
+        Vector3 dispPlayer = this.transform.position - player.transform.position;
+        playerPredVel = (player.transform.position - lastPlayerPos) / Time.deltaTime;
 
-
-        if (playerHealth.currentHealth > 0)
+        float a = playerPredVel.sqrMagnitude - shotSpeed * shotSpeed;
+        float b = Vector3.Dot(dispPlayer, playerPredVel);
+        float c = dispPlayer.sqrMagnitude;
+        float det = b * b - c * a;
+        float t1 = (b + Mathf.Sqrt(det)) / a;
+        float t2 = (b - Mathf.Sqrt(det)) / a;
+        if (t1 > 0 && t2 > 0)
         {
-            if (mzzlFlash != null)
+            if (1000 * timer % 2 == 0)
             {
-                mzzlFlash.Play();
+                playerPredPos = t1 * playerPredVel + player.transform.position;
             }
-
-            GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
-            newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
-            Destroy(newProjectile, 2.0f);
+            else
+            {
+                playerPredPos = t2 * playerPredVel + player.transform.position;
+            }
         }
+        else if (t1 > 0)
+        {
+            playerPredPos = t1 * playerPredVel + player.transform.position;
+        }
+        else if (t2 > 0)
+        {
+            playerPredPos = t2 * playerPredVel + player.transform.position;
+        }
+        else
+        {
+            playerPredPos = player.transform.position;
+        }
+
+        projectileDirector.transform.LookAt(playerPredPos);
+        GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+        newProjectile.GetComponent<Rigidbody>().velocity = (playerPredPos - projectileSpawn.position).normalized * shotSpeed;
+        Destroy(newProjectile, 2.0f);
 
     }
 
     void ShootDumb()
     {
-
-        if (playerHealth.currentHealth > 0)
-        {
-            if (mzzlFlash != null)
-            {
-                mzzlFlash.Play();
-            }
-
-            GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
-            newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
-            Destroy(newProjectile, 2.0f);
-        }
+        projectileDirector.transform.LookAt(player.transform.position);
+        GameObject newProjectile = Instantiate(projectile, projectileSpawn.position, projectileSpawn.rotation);
+        newProjectile.GetComponent<Rigidbody>().velocity = (player.transform.position - projectileSpawn.position).normalized * shotSpeed;
+        Destroy(newProjectile, 2.0f);
     }
 
 }

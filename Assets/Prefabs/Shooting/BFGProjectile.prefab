@@ -8538,7 +8538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   lifetime: 100
-  explosionSize: 20
+  explosionSize: 40
   explosionDamage: 500
   explodes: 1
   gravity: 0

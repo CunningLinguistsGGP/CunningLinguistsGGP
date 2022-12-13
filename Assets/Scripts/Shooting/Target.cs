@@ -60,6 +60,9 @@ public class Target : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isBoss && !bossScript.GetIsVulnerable())
+            return;
+
         if (doubleDamage || revolver.GetCrit() == true || shotgun.GetCrit())
         {
             damage = damage * revolver.GetCritDamageMultiplier();
@@ -121,6 +124,11 @@ public class Target : MonoBehaviour
         return doubleDamage = value;
     }
 
+    public void ResetHealth()
+    {
+        if (isBossShield)
+            health = startHealth;
+    }
     void Die()
     {
         if(isBossShield)
