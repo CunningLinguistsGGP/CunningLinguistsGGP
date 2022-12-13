@@ -298,8 +298,13 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator DeathDelay()
     {
+        Destroy(GameObject.Find("Level_Gen"));
+        //Destroy(GameObject.Find("ServerManager"));
         yield return new WaitForSeconds(deathTimer);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(0);
+        Camera.main.enabled = true;
+        Cursor.lockState = CursorLockMode.None;
+        Destroy(GameObject.Find("Player"));
     }
 
     public void SetSliderMaxHealth(float health)
