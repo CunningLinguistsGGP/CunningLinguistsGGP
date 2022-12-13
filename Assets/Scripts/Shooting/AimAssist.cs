@@ -13,12 +13,12 @@ public class AimAssist : MonoBehaviour
 
     private float targetRange = 60.0f;
     Toggle toggleUI;
-    private bool toggle = true;
+    private bool toggle = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        toggleUI = GameObject.Find("Settings Frame").transform.Find("AimAssist").Find("Toggle").GetComponent<Toggle>();
+        //toggleUI = GameObject.Find("Settings Frame").transform.Find("AimAssist").Find("Toggle").GetComponent<Toggle>();
     }
 
     // Update is called once per frame
