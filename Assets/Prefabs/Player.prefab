@@ -112,6 +112,7 @@ MonoBehaviour:
   imageHealth: {fileID: 0}
   gameOver: {fileID: 0}
   crossHair: {fileID: 0}
+  mouseSensSlider: {fileID: 0}
   jumpSound: {fileID: 8300000, guid: 936f33130523b3847b020d1919b3e830, type: 3}
   dJumpSound: {fileID: 8300000, guid: a75d9f2f29da7ce49b5f081b2dfce8d4, type: 3}
   dashSound: {fileID: 8300000, guid: 4cb0ef870d4b9e940bda75bb9b363e3e, type: 3}
@@ -164,7 +165,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -530,7 +531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c556a7ea151986746800e5ff28c51501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimBubbles: []
   bubbleRadius: 2.5
   aimAssistSpeed: 1
   aimCam: {fileID: 4659130536968899690}
@@ -637,6 +637,10 @@ PrefabInstance:
       propertyPath: aimCam
       value: 
       objectReference: {fileID: 4659130536968899690}
+    - target: {fileID: 5141666710581265182, guid: 110233bcf85b78644b0cfb0fd216fc99, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5141666710581265182, guid: 110233bcf85b78644b0cfb0fd216fc99, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
@@ -919,6 +923,10 @@ PrefabInstance:
     - target: {fileID: 7522918645276240364, guid: ba412349df3511b468f9eb13cb880a38, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624559608510756174, guid: ba412349df3511b468f9eb13cb880a38, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7782718068519844410, guid: ba412349df3511b468f9eb13cb880a38, type: 3}
       propertyPath: m_VersionIndex

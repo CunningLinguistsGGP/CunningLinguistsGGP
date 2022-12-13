@@ -20,17 +20,22 @@ public class Upgrade : MonoBehaviour
     public AudioClip upgradeGet;
 
     private bool hasBeenRunOver = false;
-    [SerializeField] private GameObject canvas;
-    [SerializeField]private GameObject upgradeText;
+    private GameObject canvas;
+    private GameObject upgradeText;
+
+    private Level_Gen levelGen;
 
     // Start is called before the first frame update
     void Start()
     {
         GetComponentsInGameObject();
 
-        audioSource.PlayOneShot(upgradeSpawn);
+        if(levelGen.GetUpgradeType() != 0)
+        {
+            upgradeType = levelGen.GetUpgradeType();
+        }
 
-        upgradeType = 3;
+        audioSource.PlayOneShot(upgradeSpawn);
 
         switch (upgradeType)
         {
@@ -65,7 +70,7 @@ public class Upgrade : MonoBehaviour
         switch (upgradeType)
         {
             case 1:
-                random = Random.Range(1, 3);
+                random = Random.Range(1, 4);
 
                 upgradeText.GetComponent<TextMeshProUGUI>().color = Color.red;
 
@@ -95,7 +100,7 @@ public class Upgrade : MonoBehaviour
                 break;
             case 2:
                 upgradeText.GetComponent<TextMeshProUGUI>().color = Color.blue;
-                player.SetSpeed(speed + 5f);
+                player.SetSpeed(0.5f);
                 upgradeText.GetComponent<TextMeshProUGUI>().text = "Move Faster!";
                 StartCoroutine(UpgradeText());
                 break;
@@ -104,7 +109,7 @@ public class Upgrade : MonoBehaviour
 
                 if (player.GetDoubleJump() != true && player.GetGrapple() != true)
                 {
-                    random = Random.Range(1, 3);
+                    random = Random.Range(1, 4);
 
                     switch (random)
                     {
@@ -127,7 +132,7 @@ public class Upgrade : MonoBehaviour
                 }
                 else if(player.GetGrapple() == true)
                 {
-                    random = Random.Range(1, 2);
+                    random = Random.Range(1, 3);
 
                     switch (random)
                     {
@@ -145,7 +150,7 @@ public class Upgrade : MonoBehaviour
                 }
                 else if(player.GetDoubleJump() == true)
                 {
-                    random = Random.Range(1, 2);
+                    random = Random.Range(1, 3);
 
                     switch (random)
                     {
@@ -191,6 +196,7 @@ public class Upgrade : MonoBehaviour
         upgradeText = canvas.transform.Find("Upgrade Text").gameObject;
         revolver = Camera.main.gameObject.transform.Find("Revolver").GetComponent<HitScanGun>();
         shotgun = Camera.main.gameObject.transform.Find("Shotgun").GetComponent<HitScanGun>();
+        levelGen = GameObject.Find("Level_Gen").gameObject.GetComponent<Level_Gen>();
     }
 
     private void OnTriggerEnter(Collider other)

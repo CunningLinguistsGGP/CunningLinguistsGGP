@@ -7,7 +7,7 @@ public class level : MonoBehaviour
     //Level Progress 
     //enemyAmount = how many enemies will spawn per level, currentEnemyAmount = how many currently in the level, maxEnemies = how many can be spawned at once
     public int enemyAmount = 10;
-    [SerializeField]private int currentEnemyAmount;
+    private int currentEnemyAmount;
     private GameObject upgradeSpawner;
     public GameObject upgrade;
     private Level_Gen levelgen;
@@ -23,6 +23,9 @@ public class level : MonoBehaviour
     public GameObject shield;
     private bool enemySpawned = false;
 
+    //Upgrade Type Holding and Next Level Loading
+    [SerializeField] private List<GameObject> doorSpawnPoints = new List<GameObject>();
+
     private void Start()
     {
         GetComponentsOfGameObject();
@@ -36,9 +39,15 @@ public class level : MonoBehaviour
         if (enemyAmount <= 0 && currentEnemyAmount <= 0 && !spawned && !transitioning)
         {
             transitioning = true;
+
+            for (int i = 0; i < doorSpawnPoints.Count; i++)
+            {
+                int rand = Random.Range(1, 5);
+
+                doorSpawnPoints[i].transform.Find("Cube").gameObject.SetActive(true);
+                doorSpawnPoints[i].transform.Find("Cube").gameObject.GetComponent<DoorScript>().SetDoorType(rand);
+            }
             Spawn();
-            //levelgen.Next_level();
-            StartCoroutine(loadnextlevel());
         }
         else
         {
@@ -133,11 +142,10 @@ public class level : MonoBehaviour
         {
             spawnPoints.Add(spawn);
         }
-    }
 
-    IEnumerator loadnextlevel()
-    {
-        yield return new WaitForSeconds(10);
-        levelgen.Next_level();
+        foreach (GameObject spawn in GameObject.FindGameObjectsWithTag("DoorSpawnPoint"))
+        {
+            doorSpawnPoints.Add(spawn);
+        }
     }
 }

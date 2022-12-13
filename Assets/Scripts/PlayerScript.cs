@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     private bool canDoubleJump = false;
 
     //Mouse Look Variables
-    private float mouseSens = 1000f;
+    private static float mouseSens = 1000f;
     private float xRotation = 0f;
 
     //Dashing Variables
@@ -43,6 +43,7 @@ public class PlayerScript : MonoBehaviour
     public Image imageHealth;
     public TextMeshProUGUI gameOver;
     public Image crossHair;
+    public Slider mouseSensSlider;
 
     //Sound Stuff
     private AudioSource audioSource;
@@ -72,6 +73,8 @@ public class PlayerScript : MonoBehaviour
 
         currentHealth = maxHealth;
         dashAmount = maxDashAmount;
+
+        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
@@ -264,6 +267,7 @@ public class PlayerScript : MonoBehaviour
     public void SetMouseSens(float value)
     {
         mouseSens = value;
+        PlayerPrefs.SetFloat("MouseSensitivity", mouseSens);
     }
 
     private void Dead()

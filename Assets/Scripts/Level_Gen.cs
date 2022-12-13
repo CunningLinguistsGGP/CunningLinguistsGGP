@@ -32,6 +32,13 @@ public class Level_Gen : MonoBehaviour
     //Difficulty Setting
     private int difficultySetting = 1;
 
+    //Upgrade Settings
+    [SerializeField]private int upgradeType = 3;
+
+    //Hold PLayer
+    private GameObject player;
+    private GameObject tempPlayer;
+
     private void Start()
     {
         instance = this;
@@ -40,11 +47,10 @@ public class Level_Gen : MonoBehaviour
 
         //level_selection = new List<int>();
 
-       /* for(int i=0; i< Levels.Length; i++)
-        {
-            level_selection.Add(i);
-        }*/
-
+        /* for(int i=0; i< Levels.Length; i++)
+         {
+             level_selection.Add(i);
+         }*/
         DontDestroyOnLoad(this);
     }
 
@@ -58,6 +64,22 @@ public class Level_Gen : MonoBehaviour
         random = Random.Range(0, level_selection.Count);
 
         SceneManager.LoadScene(level_selection[random]);
+
+        if(player == null)
+        {
+            player = GameObject.Find("Player");
+        }
+
+        else
+        {
+            tempPlayer = GameObject.Find("Player");
+
+            if (player != tempPlayer)
+            {
+                player.transform.position = tempPlayer.transform.position;
+                Destroy(tempPlayer);
+            }
+        }
 
         level_selection.RemoveAt(random);
 
@@ -111,5 +133,15 @@ public class Level_Gen : MonoBehaviour
     public int SetDifficulty(int diffculty)
     {
         return difficultySetting = diffculty;
+    }
+
+    public int GetUpgradeType()
+    {
+        return upgradeType;
+    }
+
+    public int SetUpgradeType(int type)
+    {
+        return upgradeType = type;
     }
 }
