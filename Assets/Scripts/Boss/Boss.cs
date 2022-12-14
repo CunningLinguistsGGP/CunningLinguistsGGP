@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour
     private bool activeShooter = false;
 
     [SerializeField] private GameObject[] shields;
-
+    [SerializeField] private GameObject bossShield;
     [SerializeField] private GameObject projectile;
     [SerializeField] private float shotSpeed = 10.0f;
     [SerializeField] private Transform projectileSpawn;
@@ -125,6 +125,7 @@ public class Boss : MonoBehaviour
             if (shields[i].activeSelf)
                 res = true;
         }
+        bossShield.SetActive(res);
         return res;
     }
 
