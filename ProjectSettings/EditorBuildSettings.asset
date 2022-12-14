@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Menus/Scene/MainMenuScene.unity
     guid: fc62753ac21bb744f84695b4c25f75af
   - enabled: 1
+    path: Assets/Scenes/Boss/BossMk2.unity
+    guid: 252efffc5baf2bf41847aa88d173fc73
+  - enabled: 1
     path: Assets/Scenes/Level 2 Arenas/Level2Arena4.unity
     guid: d346458657545b2439ad064e9822b8b6
   - enabled: 1
