@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour
 
     //Upgrade Values
     private float healthPercent = 0;
-    private float damagePercent = 0;
+    [SerializeField]private float damagePercent = 0;
     private bool canGrapple = false;
     private bool doubleJumpEnabled = false;
     
@@ -240,15 +240,16 @@ public class PlayerScript : MonoBehaviour
                                 transform.position = Vector3.Lerp(transform.position, hit.transform.position, grappleSpeed * Time.deltaTime);
                             }
                         }
+
+                        else
+                        {
+                            grappling = false;
+                            grapple.enabled = false;
+                        }
                     }
                 }
             }
         }        
-        else
-        {
-            grappling = false;
-            grapple.enabled = false;
-        } 
     }
 
     private void GetComponentsInGameObject()

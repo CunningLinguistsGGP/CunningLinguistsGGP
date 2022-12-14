@@ -5826,39 +5826,39 @@ PrefabInstance:
       objectReference: {fileID: 1923451785}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
       propertyPath: level_selection.Array.size
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
       propertyPath: level_selection.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
-      propertyPath: level_selection.Array.data[1]
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
-      propertyPath: level_selection.Array.data[2]
+      propertyPath: level_selection.Array.data[1]
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
-      propertyPath: level_selection.Array.data[3]
+      propertyPath: level_selection.Array.data[2]
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
-      propertyPath: level_selection.Array.data[4]
+      propertyPath: level_selection.Array.data[3]
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
-      propertyPath: level_selection.Array.data[5]
+      propertyPath: level_selection.Array.data[4]
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
-      propertyPath: level_selection.Array.data[6]
+      propertyPath: level_selection.Array.data[5]
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
-      propertyPath: level_selection.Array.data[7]
+      propertyPath: level_selection.Array.data[6]
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
+      propertyPath: level_selection.Array.data[7]
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 26054806553247399, guid: 0249c728de8033b488ca78637b47302b, type: 3}
       propertyPath: level_selection.Array.data[8]

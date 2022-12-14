@@ -35,6 +35,8 @@ public class Level_Gen : MonoBehaviour
     //Upgrade Settings
     private int upgradeType = 3;
 
+    private int levelCount;
+
     private void Start()
     {
         instance = this;
@@ -52,15 +54,31 @@ public class Level_Gen : MonoBehaviour
 
     public void Next_level()
     {
+        levelCount += 1;
+
+        if (levelCount == 6)
+        {
+            Debug.Log("Sup");
+            GameObject.Find("Player").GetComponent<PlayerScript>().currentHealth -= 5000;
+            return;
+        }
+
         StartCoroutine(start_fade(true));
 
         //if (Present_Level != null) { Previous_Level = Present_Level; Previous_Level.gameObject.SetActive(false); }
 
-        random = Random.Range(0, level_selection.Count);
+        random = Random.Range(2, level_selection.Count);
 
-        SceneManager.LoadScene(level_selection[random]);
+        if (levelCount % 5 == 0)
+        {
+            SceneManager.LoadScene("BossMK2");
+        }
+        else
+        {
+            SceneManager.LoadScene(level_selection[random]);
 
-        level_selection.RemoveAt(random);
+            level_selection.RemoveAt(random);
+        }
 
         scoreSystem.Set_ScoreValues(150, 40, 2);
 
@@ -91,7 +109,6 @@ public class Level_Gen : MonoBehaviour
                 case true:
                     tempColor.a = Mathf.Lerp(0f, 1f, t);
                     Black_Fade.GetComponent<Image>().color = tempColor;
-                    Debug.Log(tempColor.a);
                     break;
                 case false:
                     tempColor.a = Mathf.Lerp(1f, 0f, t);
