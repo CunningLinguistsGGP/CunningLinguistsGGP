@@ -12,11 +12,11 @@ public class PlayerScript : MonoBehaviour
     private PlayerScript playerScript;
     private new Camera camera;
     private Vector3 velocity;
-    [SerializeField] private float speed = 10f;
+    private float speed = 10f;
 
     //Jump Variables
-    [SerializeField] private float jumpHeight = 5f;
-    [SerializeField] private float gravity = -9.81f;
+    private float jumpHeight = 2.5f;
+    private float gravity = -9.81f;
     private bool canDoubleJump = false;
 
     //Mouse Look Variables
@@ -24,12 +24,12 @@ public class PlayerScript : MonoBehaviour
     private float xRotation = 0f;
 
     //Dashing Variables
-    [SerializeField] private int dashAmount;
-    [SerializeField] private int maxDashAmount = 2;
-    [SerializeField] private float currentDashCD = 1f;
-    [SerializeField] private float maxDashCD = 1f;
-    [SerializeField] private float dashTime = 0.25f;
-    [SerializeField] private float dashSpeed = 20f;
+    private int dashAmount;
+    private int maxDashAmount = 2;
+    private float currentDashCD = 4f;
+    private float maxDashCD = 4f;
+    private float dashTime = 0.25f;
+    private float dashSpeed = 20f;
     private Vector3 destination;
 
     // Player health + death
@@ -54,13 +54,13 @@ public class PlayerScript : MonoBehaviour
     //Grapple
     private bool grappling = false;
     private LineRenderer grapple;
-    [SerializeField] private float currentGrappleCD = 0.0f;
-    [SerializeField] private float maxGrappleCD = 6.0f;
-    [SerializeField] private float grappleTime = 1f;
+    private float currentGrappleCD = 0.0f;
+    private float maxGrappleCD = 6.0f;
+    private float grappleTime = 1f;
 
     //Upgrade Values
-    private float healthPercent;
-    private float damagePercent;
+    private float healthPercent = 0;
+    private float damagePercent = 0;
     private bool canGrapple = false;
     private bool doubleJumpEnabled = false;
     
@@ -74,7 +74,7 @@ public class PlayerScript : MonoBehaviour
         currentHealth = maxHealth;
         dashAmount = maxDashAmount;
 
-        DontDestroyOnLoad(this);
+        UpdateData();
     }
 
     // Update is called once per frame
@@ -262,6 +262,16 @@ public class PlayerScript : MonoBehaviour
         imageHealth = slider.GetComponentInChildren<Image>();
         crossHair = GameObject.Find("CrossHair").GetComponent<Image>();
         gameOver = GameObject.Find("GameOver").GetComponent<TextMeshProUGUI>();
+    }
+
+    private void UpdateData()
+    {
+        damagePercent = GameData.GetDamagePercent();
+        speed = GameData.GetSpeed();
+        doubleJumpEnabled = GameData.GetDoubleJump();
+        canGrapple = GameData.GetGrapple();
+        maxDashAmount = GameData.GetDashAmount();
+        healthPercent = GameData.GetHealthPercent();
     }
 
     public void SetMouseSens(float value)

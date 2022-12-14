@@ -33,11 +33,7 @@ public class Level_Gen : MonoBehaviour
     private int difficultySetting = 1;
 
     //Upgrade Settings
-    [SerializeField]private int upgradeType = 3;
-
-    //Hold PLayer
-    private GameObject player;
-    private GameObject tempPlayer;
+    private int upgradeType = 3;
 
     private void Start()
     {
@@ -54,7 +50,6 @@ public class Level_Gen : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-
     public void Next_level()
     {
         StartCoroutine(start_fade(true));
@@ -64,22 +59,6 @@ public class Level_Gen : MonoBehaviour
         random = Random.Range(0, level_selection.Count);
 
         SceneManager.LoadScene(level_selection[random]);
-
-        if(player == null)
-        {
-            player = GameObject.Find("Player");
-        }
-
-        else
-        {
-            tempPlayer = GameObject.Find("Player");
-
-            if (player != tempPlayer)
-            {
-                player.transform.position = tempPlayer.transform.position;
-                Destroy(tempPlayer);
-            }
-        }
 
         level_selection.RemoveAt(random);
 
@@ -93,6 +72,11 @@ public class Level_Gen : MonoBehaviour
         
          StartCoroutine(start_fade(false));
     }
+
+    //IEnumerator literalTimeWaste()
+    //{
+
+    //}
 
     public IEnumerator start_fade(bool status)
     {
@@ -143,5 +127,93 @@ public class Level_Gen : MonoBehaviour
     public int SetUpgradeType(int type)
     {
         return upgradeType = type;
+    }
+}
+
+public static class GameData
+{
+    private static float damagePercent = 0;
+    private static float critChance = 10f;
+    private static float critDamageMultiplier = 2f;
+    private static float speed = 10f;
+    private static bool doubleJumpEnabled = false;
+    private static bool canGrapple = false;
+    private static int maxDashAmount = 2;
+    private static float healthPercent = 0;
+
+    public static float GetDamagePercent()
+    {
+        return damagePercent;
+    }
+
+    public static float SetDamagePercent(float increase)
+    {
+        return damagePercent += increase;
+    }
+
+    public static float GetCritChance()
+    {
+        return critChance;
+    }
+    public static float SetCritChance(float increase)
+    {
+        return critChance += increase;
+    }
+
+    public static float GetCritDamageMultiplier()
+    {
+        return critDamageMultiplier;
+    }
+
+    public static float SetCritMultiplier(float increase)
+    {
+        return critDamageMultiplier += increase;
+    }
+    public static float GetSpeed()
+    {
+        return speed;
+    }
+
+    public static float SetSpeed(float increase)
+    {
+        return speed += increase;
+    }
+
+    public static bool GetDoubleJump()
+    {
+        return doubleJumpEnabled;
+    }
+    public static bool SetDoubleJump(bool value)
+    {
+        return doubleJumpEnabled = value;
+    }
+
+    public static bool GetGrapple()
+    {
+        return canGrapple;
+    }
+
+    public static bool SetGrapple(bool value)
+    {
+        return canGrapple = value;
+    }
+
+    public static int GetDashAmount()
+    {
+        return maxDashAmount;
+    }
+    public static int SetDashAmount(int increase)
+    {
+        return maxDashAmount += increase;
+    }
+
+    public static float GetHealthPercent()
+    {
+        return healthPercent;
+    }
+
+    public static float SetHealthPercent(float increase)
+    {
+        return healthPercent += increase;
     }
 }

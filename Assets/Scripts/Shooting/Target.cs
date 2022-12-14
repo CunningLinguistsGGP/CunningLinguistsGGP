@@ -73,8 +73,8 @@ public class Target : MonoBehaviour
             if (health <= 0)
             {
                 dead = true;
-                //StartCoroutine(Dies());
-                Die();
+                StartCoroutine(Dies());
+                //Die();
             }
             else if(isBoss)
             {
@@ -92,8 +92,8 @@ public class Target : MonoBehaviour
             if (health <= 0)
             {
                 dead = true;
-                //StartCoroutine(Dies());
-                Die();
+                StartCoroutine(Dies());
+                //Die();
             }
             else if (isBoss)
             {
@@ -150,8 +150,8 @@ public class Target : MonoBehaviour
 
     IEnumerator Dies()
     {
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(0.1f);
+        Die();
     }
 
     public TextMeshPro GetDamageText()

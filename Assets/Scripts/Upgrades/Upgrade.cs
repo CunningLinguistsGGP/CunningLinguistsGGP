@@ -78,21 +78,23 @@ public class Upgrade : MonoBehaviour
                 {
                     case 1:
                         player.SetDamagePercent(10);
+                        GameData.SetDamagePercent(10);
                         upgradeText.GetComponent<TextMeshProUGUI>().text = "10% damage increase";
-                        float damageValue = revolver.GetBaseDamage() / 100 * player.GetDamagePercent();
-                        revolver.UpdateGunDamage(damageValue);
-                        shotgun.UpdateGunDamage(damageValue);
+                        revolver.UpdateGunDamage();
+                        shotgun.UpdateGunDamage();
                         StartCoroutine(UpgradeText());
                         break;
                     case 2:
                         revolver.SetCritChance(1);
                         shotgun.SetCritChance(1);
+                        GameData.SetCritChance(1);
                         upgradeText.GetComponent<TextMeshProUGUI>().text = "1% crit chance increase";
                         StartCoroutine(UpgradeText());
                         break;
                     case 3:
                         revolver.SetCritMultiplier(0.05f);
                         shotgun.SetCritMultiplier(0.05f);
+                        GameData.SetCritMultiplier(0.05f);
                         upgradeText.GetComponent<TextMeshProUGUI>().text = "5% crit damage increase";
                         StartCoroutine(UpgradeText());
                         break;
@@ -101,6 +103,7 @@ public class Upgrade : MonoBehaviour
             case 2:
                 upgradeText.GetComponent<TextMeshProUGUI>().color = Color.blue;
                 player.SetSpeed(0.5f);
+                GameData.SetSpeed(0.5f);
                 upgradeText.GetComponent<TextMeshProUGUI>().text = "Move Faster!";
                 StartCoroutine(UpgradeText());
                 break;
@@ -115,16 +118,19 @@ public class Upgrade : MonoBehaviour
                     {
                         case 1:
                             player.SetDoubleJump(true);
+                            GameData.SetDoubleJump(true);
                             upgradeText.GetComponent<TextMeshProUGUI>().text = "Double Jump Enabled!";
                             StartCoroutine(UpgradeText());
                             break;
                         case 2:
                             player.SetGrapple(true);
+                            GameData.SetGrapple(true);
                             upgradeText.GetComponent<TextMeshProUGUI>().text = "Grapple Enabled!";
                             StartCoroutine(UpgradeText());
                             break;
                         case 3:
                             player.SetDashAmount(1);
+                            GameData.SetDashAmount(1);
                             upgradeText.GetComponent<TextMeshProUGUI>().text = "1 Extra Dash!";
                             StartCoroutine(UpgradeText());
                             break;
@@ -138,11 +144,13 @@ public class Upgrade : MonoBehaviour
                     {
                         case 1:
                             player.SetDoubleJump(true);
+                            GameData.SetDoubleJump(true);
                             upgradeText.GetComponent<TextMeshProUGUI>().text = "Double Jump Enabled!";
                             StartCoroutine(UpgradeText());
                             break;
                         case 2:
                             player.SetDashAmount(1);
+                            GameData.SetDashAmount(1);
                             upgradeText.GetComponent<TextMeshProUGUI>().text = "Extra Dash!";
                             StartCoroutine(UpgradeText());
                             break;
@@ -156,11 +164,13 @@ public class Upgrade : MonoBehaviour
                     {
                         case 1:
                             player.SetGrapple(true);
+                            GameData.SetGrapple(true);
                             upgradeText.GetComponent<TextMeshProUGUI>().text = "Double Jump Enabled!";
                             StartCoroutine(UpgradeText());
                             break;
                         case 2:
                             player.SetDashAmount(1);
+                            GameData.SetDashAmount(1);
                             upgradeText.GetComponent<TextMeshProUGUI>().text = "Extra Dash!";
                             StartCoroutine(UpgradeText());
                             break;
@@ -169,6 +179,7 @@ public class Upgrade : MonoBehaviour
                 else
                 {
                     player.SetDashAmount(1);
+                    GameData.SetDashAmount(1);
                     upgradeText.GetComponent<TextMeshProUGUI>().text = "Extra Dash!";
                     StartCoroutine(UpgradeText());
                 }
@@ -176,6 +187,7 @@ public class Upgrade : MonoBehaviour
             case 4:
                 upgradeText.GetComponent<TextMeshProUGUI>().color = Color.green;
                 player.SetHealthPercent(10);
+                GameData.SetHealthPercent(10);
                 float healthValue = player.GetBaseMaxHP() / 100 * player.GetHealthPercent();
                 player.SetHealth(healthValue);
                 upgradeText.GetComponent<TextMeshProUGUI>().text = "More Health!";

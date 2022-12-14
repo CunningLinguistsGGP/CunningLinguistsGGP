@@ -37,6 +37,8 @@ public class HitScanGun : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         audioShot = GetComponent<AudioSource>();
         shotDeviation = Mathf.Tan(coneAngle);
+
+        UpdateData();
     }
 
     // Update is called once per frame
@@ -134,7 +136,7 @@ public class HitScanGun : MonoBehaviour
         return critDamageMultiplier += increase;
     }
 
-    public float UpdateGunDamage(float increase)
+    public float UpdateGunDamage()
     {
         return damage = baseDamageValue + baseDamageValue / 100 * player.GetDamagePercent();
     }
@@ -147,5 +149,12 @@ public class HitScanGun : MonoBehaviour
     public float GetCritDamageMultiplier()
     {
         return critDamageMultiplier;
+    }
+
+    private void UpdateData()
+    {
+        critChance = GameData.GetCritChance();
+        critDamageMultiplier = GameData.GetCritDamageMultiplier();
+        damage = UpdateGunDamage();
     }
 }
